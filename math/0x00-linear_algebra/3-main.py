@@ -21,3 +21,6 @@ print(matrix_transpose(mat5))
 mat6 = [1]
 print(mat6)
 print(matrix_transpose(mat6))
+mat7 = [[]]
+print(mat7)
+print(matrix_transpose(mat7))

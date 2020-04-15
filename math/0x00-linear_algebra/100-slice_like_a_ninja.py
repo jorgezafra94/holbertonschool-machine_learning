@@ -4,9 +4,6 @@ slice like a ninja
 """
 
 
-import numpy as np
-
-
 def np_slice(matrix, axes={}):
     """
     slice is a python function that works as [:3] or this filters

@@ -5,6 +5,8 @@ function to get the matrix dimensions
 
 
 def matrix_shape(matrix):
+    """ return the shape of a Matrix
+    """
     result = []
     try:
         if(len(matrix)):

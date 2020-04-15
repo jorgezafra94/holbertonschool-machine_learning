@@ -1,4 +1,4 @@
-#!/usr/bine/env python3
+#!/usr/bin/env python3
 """
 slice like a ninja
 """

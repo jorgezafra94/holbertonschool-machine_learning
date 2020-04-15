@@ -5,6 +5,9 @@ add two matrices if they have the same shape otherwise return None
 
 
 def matrix_shape(matrix):
+    """
+    return the shape of matrix
+    """
     result = []
     try:
         if(len(matrix)):
@@ -19,6 +22,9 @@ def matrix_shape(matrix):
 
 
 def mat_add(m1, m2):
+    """
+    function that realizes the addition recursively of two matrices
+    """
     if type(m1[0]) is not list:
         new = [m1[i] + m2[i]for i in range(len(m1))]
         return new
@@ -31,6 +37,13 @@ def mat_add(m1, m2):
 
 
 def add_matrices(mat1, mat2):
+    """
+    function that realize the addition between two matrices
+    @mat1: first matrix
+    @mat2: second matrix
+    Return: - new matrix: the addition of these two
+            - None: if the matrix cant be added
+    """
     first = matrix_shape(mat1)
     second = matrix_shape(mat2)
     if (first == second):

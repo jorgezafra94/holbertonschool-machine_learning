@@ -5,6 +5,9 @@ concatenate two matrices with recursion
 
 
 def matrix_shape(matrix):
+    """
+    return the shape of a matrix
+    """
     result = []
     try:
         if(len(matrix)):
@@ -19,6 +22,11 @@ def matrix_shape(matrix):
 
 
 def rec_conc(m1, m2, axis):
+    """
+    realize the concatenation of two matrix
+    depending of the axis specified in a
+    recursiely way
+    """
     new = []
     if axis == 0:
         new += [elem for elem in m1]
@@ -32,6 +40,14 @@ def rec_conc(m1, m2, axis):
 
 
 def cat_matrices(mat1, mat2, axis=0):
+    """
+    concatenation on nxn matrix
+    @mat1: first matrix
+    @mat2: second matrix
+    @axis: where the concatenation is going to be realized
+    Return: - new matrix: result of concatenation
+            - None: if these two matrices cant be concatenated
+    """
     first = matrix_shape(mat1)
     second = matrix_shape(mat2)
     if (len(first) < axis or len(second) < axis):

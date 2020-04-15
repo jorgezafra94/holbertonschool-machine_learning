@@ -5,6 +5,9 @@ transpose of a matrix
 
 
 def matrix_transpose(matrix):
+    """
+    return the transpose of a matrix
+    """
     new_matrix = []
 
     try:

@@ -8,6 +8,10 @@ import numpy as np
 
 
 def np_elementwise(mat1, mat2):
+    """
+    using Numpy wise-element operators
+    Methods of Numpy arrays or matrices
+    """
     suma = np.add(mat1, mat2)
     resta = np.subtract(mat1, mat2)
     multi = np.multiply(mat1, mat2)

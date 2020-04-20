@@ -1,0 +1,1 @@
+all graphics of this project tasks

@@ -46,3 +46,22 @@ somo colors for graphics
 - `'y'` yellow
 - `'k'` black
 - `'w'` white
+
+### 0-PLOT
+In this task we are goint to use:
+- `plt.plot()` to graphic
+- `plt.xlim()` to limit the x axis
+- `plt.show()` to print the graphic
+we have to use this
+
+```
+#!/usr/bin/env python3
+import numpy as np
+import matplotlib.pyplot as plt
+
+y = np.arange(0, 11) ** 3
+
+# your code here
+```
+In order to get this graphic
+![](https://github.com/jorgezafra94/holbertonschool-machine_learning/blob/master/math/0x01-plotting/graphics/picture0.png)

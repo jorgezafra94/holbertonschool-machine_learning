@@ -8,3 +8,4 @@ see its bevahiour
 if you want to configure your windows 10, with Vagrant and VirtualBox
 please check this blog
 https://medium.com/@jcook0017/how-to-enable-x11-forwarding-in-windows-10-on-a-vagrant-virtual-box-running-ubuntu-d5a7b34363f
+bla

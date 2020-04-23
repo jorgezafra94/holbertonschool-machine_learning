@@ -6,7 +6,7 @@ So here in this module we are going to learn Pee and Seegma Notation, Derivative
 ### SEEGMA
 Seegma is used to represent consecutive additions, from one number to another, putting these values through a function.
 
-![](https://latex.codecogs.com/gif.latex?\sum_{i=2}^{5}&space;i)
+![](http://latex.codecogs.com/gif.latex?\sum_{i=2}^{5}&space;i)
 
 in the case of the above picture we have a function `f(i) = i` a initial value `i=2` and a top value where the addition is going to stop, here `5`. So the result of the seegma notation in this case will be:
 `2 + 3 + 4 + 5`
@@ -14,7 +14,7 @@ in the case of the above picture we have a function `f(i) = i` a initial value `
 ### PEE
 Pee notation is used to represent consecutive products, it works the same like Seegma notation
 
-![](https://latex.codecogs.com/gif.latex?\prod_{i&space;=&space;1}^{m}&space;i)
+![](http://latex.codecogs.com/gif.latex?\prod_{i&space;=&space;1}^{m}&space;i)
 
 in the case of the above picture we have a function `f(i) = i` a initial value `i=1` and a top value where the addition is going to stop, here `m`. So the result of the seegma notation in this case will be:
 `1 * 2 * 3 * 4 * 5 ..... * m`
@@ -22,7 +22,7 @@ in the case of the above picture we have a function `f(i) = i` a initial value `
 ### DERIVATIVE
 The derivative of a function of a single variable at a chosen input value, when it exists, is the slope of the tangent line to the graph of the function at that point. The tangent line is the best linear approximation of the function near that input value.
 
-![](https://latex.codecogs.com/gif.latex?\frac{dy}{dx}) ![](https://latex.codecogs.com/gif.latex?y&space;=&space;x^4&space;+&space;3x^3&space;-&space;5x&space;+&space;1)
+![](http://latex.codecogs.com/gif.latex?\frac{dy}{dx}) ![](http://latex.codecogs.com/gif.latex?y&space;=&space;x^4&space;+&space;3x^3&space;-&space;5x&space;+&space;1)
 
 the derivate of `x^4 = 4 * x ^(4 - 1) = 4(x^3)`
 
@@ -49,12 +49,12 @@ It is used when we want to derivate a function that has more than one variable, 
 can be interpreted informally as the signed area of the region in the xy-plane that is bounded by the graph of f, the x-axis and the vertical lines x = a and x = b. The area above the x-axis adds to the total and that below the x-axis subtracts from the total.
 also know as the Anti-derivative
 
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2019/6/ada047ad4cbee23dfed8.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200423%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200423T125623Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=f7ccdf9a2a9dce058f76cb80d2c48091969d599ebba126ec946da17eb45eed7d)
+![](http://holbertonintranet.s3.amazonaws.com/uploads/medias/2019/6/ada047ad4cbee23dfed8.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200423%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200423T125623Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=f7ccdf9a2a9dce058f76cb80d2c48091969d599ebba126ec946da17eb45eed7d)
 
 the integral is `((x ^ (3 + 1)) * (1/(3 + 1))) = (x^4 / 4)`
 
 #### Definite Integral
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2019/6/b94ec3cf3ae61acd0275.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200423%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200423T125624Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=6e74f14dc15b7ad9e4f0a4af6a70b72c6ebae288f255e32a90f7230fe2892d67)
+![](http://holbertonintranet.s3.amazonaws.com/uploads/medias/2019/6/b94ec3cf3ae61acd0275.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200423%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200423T125624Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=6e74f14dc15b7ad9e4f0a4af6a70b72c6ebae288f255e32a90f7230fe2892d67)
 
 it is `integral evaluated in 3 - integral evaluated in 0` in this case
 

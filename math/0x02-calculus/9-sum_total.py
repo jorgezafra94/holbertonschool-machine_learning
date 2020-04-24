@@ -27,7 +27,9 @@ def summation_i_squared(n):
     @n: will be the top of seegma function
     Return: result of function seegma
     """
-    if (type(n) is not int):
+    if not n:
+        return None
+    if (type(n) is not):
         return None
     result = recursion(n, 1, 0)
     return result

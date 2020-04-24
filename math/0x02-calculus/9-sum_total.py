@@ -4,9 +4,6 @@ using seegma logic in order to add each result
 """
 
 
-import numpy as np
-
-
 def summation_i_squared(n):
     """
     summation_i_squared: is a function that uses i^2 function in seegma logic
@@ -15,5 +12,5 @@ def summation_i_squared(n):
     Return: result of function seegma
     """
     result = list(map(lambda x: x**2, list(range(1, n+1))))
-    result = np.array(result)
-    return result.sum()
+    result = sum(result)
+    return result

@@ -13,7 +13,7 @@ def poly_integral(poly, C=0):
     if (type(poly) is not list or len(poly) == 0):
         return None
 
-    if(type(C) is not float and type(C) is not int):
+    if(type(C) is not int):
         return None
 
     for elem in poly:

@@ -16,9 +16,6 @@ def poly_integral(poly, C=0):
     if(type(C) is not float and type(C) is not int):
         return None
 
-    if(len(poly) == 1):
-        return [C, poly[0]]
-
     for elem in poly:
         if(type(elem) is not float and type(elem) is not int):
             return None

@@ -22,7 +22,7 @@ def poly_integral(poly, C=0):
 
     if (len(poly) == 1):
         return [C]
-    
+
     integral = [C]
 
     for i in range(0, len(poly)):

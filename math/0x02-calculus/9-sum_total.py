@@ -11,7 +11,7 @@ def summation_i_squared(n):
     @n: will be the top of seegma function
     Return: result of function seegma
     """
-    if n is None or n < 0:
+    if n is None or n < 1:
         return None
     result = list(map(lambda x: x**2, list(range(1, n+1))))
     result = sum(result)

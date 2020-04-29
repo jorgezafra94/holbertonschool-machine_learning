@@ -48,7 +48,11 @@ class Poisson():
         """
         Cumulative Distribution Function CDF
         """
-        CDF = 0
-        for i in range(0, k+1):
-            CDF += self.pmf(i)
-        return CDF
+        if type(k) is int or type(k) is float:
+            k = int(k)
+            if k < 0:
+                return 0
+            CDF = 0
+            for i in range(0, k+1):
+                CDF += self.pmf(i)
+            return CDF

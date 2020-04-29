@@ -70,6 +70,9 @@ class Binomial():
         """
         Cumulative Distribution Function CDF
         """
+        k = int(k)
+        if k < 0 or k > self.n:
+            return 0
         CDF = 0
         for i in range(0, k+1):
             CDF += self.pmf(i)

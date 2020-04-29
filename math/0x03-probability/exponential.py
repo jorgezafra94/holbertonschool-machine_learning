@@ -45,5 +45,7 @@ class Exponential():
         Cumulative Distribution Function CDF
         CDF = integral of pdf function
         """
+        if x < 0:
+            return 0
         CDF = 1 - (Exponential.e ** (-self.lambtha * x))
         return CDF

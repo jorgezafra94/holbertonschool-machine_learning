@@ -23,7 +23,7 @@ In this module we learned:
 - `PDF = evaluate point in function of distribution`
 
 ### Mean Mode and Median
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/150px-Visualisation_mode_median_mean.svg.png)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/150px-Visualisation_mode_median_mean.svg.png)<br>
 mean -- balance point
 median -- divide the graph in two areas each one of 50%
 mode -- peaks

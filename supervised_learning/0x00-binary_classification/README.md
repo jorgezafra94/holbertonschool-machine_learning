@@ -38,7 +38,7 @@ To achieve the classification were coded three ways to perform it:
 * Two-Layers Neural Network.
 * Deep Neural Network.
 
-## Sigmoid Neuron ---- task 0 - 7
+## Sigmoid Neuron ---- Tasks 0 - 7
 
 you can find all the Neuron in File: `7-neuron.py`
 
@@ -302,7 +302,7 @@ Dev accuracy: 99.81087470449172%
 
 ![](https://raw.githubusercontent.com/jorgezafra94/holbertonschool-machine_learning/master/supervised_learning/0x00-binary_classification/pics/classification.png)
 
-## Two-Layers Neural Network
+## Two-Layers (Neural Network) ------ Tasks 8 - 15 
 
 * File: `15-neural_network.py`
 
@@ -504,7 +504,7 @@ Dev accuracy: 99.57446808510639%
 
 ![](https://raw.githubusercontent.com/jorgezafra94/holbertonschool-machine_learning/master/supervised_learning/0x00-binary_classification/pics/classification.png)
 
-## Deep Neural Network
+## Deep Neural Network (DNN) ------ Tasks 16 -23
 
 * File: `23-deep_neural_network.py`
 

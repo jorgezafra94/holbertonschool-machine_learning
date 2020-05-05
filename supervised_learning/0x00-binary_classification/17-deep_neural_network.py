@@ -33,7 +33,7 @@ class DeepNeuralNetwork():
         # initializing based on He et al method
         for i in range(len(layers)):
 
-            if (type(layers[i]) is not int or layer[i] < 1):
+            if (type(layers[i]) is not int or layers[i] < 1):
                 raise TypeError("layers must be a list of positive integers")
 
             keyW = "W{}".format(i + 1)

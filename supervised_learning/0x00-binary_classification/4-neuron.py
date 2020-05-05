@@ -97,6 +97,6 @@ class Neuron():
         """
         Act_res = self.forward_prop(X)
         final_res = [1 if i >= 0.5 else 0 for i in Act_res[0]]
-        final_res = np.array([final_res])
+        final_res = np.ndarray([final_res])
         Error = self.cost(Y, Act_res)
         return (final_res, Error)

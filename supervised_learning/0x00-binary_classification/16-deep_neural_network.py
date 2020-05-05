@@ -23,9 +23,6 @@ class DeepNeuralNetwork():
             raise ValueError("nx must be a positive integer")
         if type(layers) is not list:
             raise TypeError("layers must be a list of positive integers")
-        for elem in layers:
-            if(type(elem) is not int):
-                raise TypeError("layers must be a list of positive integers")
 
         self.L = len(layers)
         self.cache = {}
@@ -33,8 +30,13 @@ class DeepNeuralNetwork():
 
         # initializing based on He et al method
         for i in range(len(layers)):
+
+            if (type(layers[i]) is not int):
+                raise TypeError("layers must be a list of positive integers")
+
             keyW = "W{}".format(i + 1)
             keyb = "b{}".format(i + 1)
+
             if i == 0:
                 w = np.random.randn(layers[i], nx) * np.sqrt(2 / nx)
                 self.weights[keyW] = w

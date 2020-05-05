@@ -96,10 +96,9 @@ class Neuron():
         we are going to call the previous methods
         """
         Act_res = self.forward_prop(X)
-        final_res = [1 if i >= 0.5 else 0 for i in Act_res[0]]
-        final_res = np.array([final_res])
+        Final = np.where(self.__A >= 0.5, 1, 0)
         Error = self.cost(Y, Act_res)
-        return (final_res, Error)
+        return (Final, Error)
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
         """

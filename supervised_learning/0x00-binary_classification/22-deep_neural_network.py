@@ -110,8 +110,8 @@ class DeepNeuralNetwork():
         Evaluates the neural networks predictions
         """
         A, _ = self.forward_prop(X)
-        final = np.where(A >= 0.5, 1, 0)
-        return (final, self.cost(Y, A))
+        Final = np.where(A >= 0.5, 1, 0)
+        return (Final, self.cost(Y, A))
 
     def gradient_descent(self, Y, cache, alpha=0.05):
         """

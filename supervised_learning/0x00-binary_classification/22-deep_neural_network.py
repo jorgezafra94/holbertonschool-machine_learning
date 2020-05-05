@@ -160,7 +160,7 @@ class DeepNeuralNetwork():
         if type(alpha) is not float:
             raise TypeError("alpha must be a float")
         if alpha <= 0:
-            raise VlueError("alpha must be positive")
+            raise ValueError("alpha must be positive")
 
         i = 0
         while(i < iterations):

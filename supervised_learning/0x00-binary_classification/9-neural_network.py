@@ -40,7 +40,7 @@ class NeuralNetwork():
         self.__b1 = b1.reshape(nodes, 1)
         self.__A1 = 0
         # hidden layer parameters
-        W2 = np.random.rand(nodes, 1)
+        W2 = np.random.randn(nodes, 1)
         self.__W2 = W2.reshape(1, nodes)
         self.__b2 = 0
         self.__A2 = 0

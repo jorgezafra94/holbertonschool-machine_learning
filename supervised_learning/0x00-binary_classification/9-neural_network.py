@@ -34,14 +34,14 @@ class NeuralNetwork():
             raise ValueError("nodes must be a positive integer")
 
         # input layer parameters
-        W1 = [np.random.randn(nx).tolist() for i in range(nodes)]
-        self.__W1 = np.array(W1)
-        b1 = [np.zeros(1).tolist() for i in range(nodes)]
-        self.__b1 = np.array(b1)
+        W1 = np.random.randn(nx, nodes)
+        self.__W1 = W1.reshape(nodes, nx)
+        b1 = np.zeros(nodes)
+        self.__b1 = b1.reshape(nodes, 1)
         self.__A1 = 0
         # hidden layer parameters
-        W2 = [np.random.randn(nodes).tolist() for i in range(1)]
-        self.__W2 = np.array(W2)
+        W2 = np.random.rand(nodes, 1)
+        self.__W2 = W2.reshape(1, nodes)
         self.__b2 = 0
         self.__A2 = 0
 

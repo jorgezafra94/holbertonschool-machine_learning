@@ -23,6 +23,8 @@ class DeepNeuralNetwork():
             raise ValueError("nx must be a positive integer")
         if type(layers) is not list:
             raise TypeError("layers must be a list of positive integers")
+        if len(layers) == 0:
+            raise TypeError("layers must be a list of positive integers")
 
         self.__L = len(layers)
         self.__cache = {}
@@ -31,7 +33,7 @@ class DeepNeuralNetwork():
         # initializing based on He et al method
         for i in range(len(layers)):
 
-            if (type(layers[i]) is not int):
+            if (type(layers[i]) is not int or layers[i] < 1):
                 raise TypeError("layers must be a list of positive integers")
 
             keyW = "W{}".format(i + 1)
@@ -108,6 +110,5 @@ class DeepNeuralNetwork():
         Evaluates the neural networks predictions
         """
         A, _ = self.forward_prop(X)
-        final = [1 if i >= 0.5 else 0 for i in A[0]]
-        final = np.array([final])
-        return (final, self.cost(Y, A))
+        Final = np.where(A >= 0.5, 1, 0)
+        return (Final, self.cost(Y, A))

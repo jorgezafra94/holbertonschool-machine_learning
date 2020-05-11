@@ -10,3 +10,8 @@ Here we are going to learn concepts as:
 * Neural Network
 * Deep Neural Network
 ## Multiclass Classification
+here we are going to use sigmoid and tanh activation functions <br>
+also we are going to learn:
+* One-Hot-Encode
+* pickle Module in Python in order to store objects
+* Multiple classification using DNN

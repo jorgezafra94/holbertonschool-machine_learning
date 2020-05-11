@@ -1,1 +1,12 @@
-All that we have to know about Machine Learning
+# Supervised Learning
+Here are most important Methods of Supervised Training in Machine Learning Nowadays
+## Binary Classification
+This algorithm is able to Say if a picture is or not a specific class, I mean for example if a picture is a dog or it isnt.
+Here we are going to learn concepts as:
+* Perceptron
+* Sigmoid Activation Function
+* Lost Function (logarithmic logistic)
+* Cost
+* Neural Network
+* Deep Neural Network
+## Multiclass Classification

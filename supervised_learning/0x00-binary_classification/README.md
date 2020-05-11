@@ -1,30 +1,5 @@
 # Binary Classification.
-In this project we are going to create different Neural Networks in order to train them and identify if a picture is 1 or 0
-
-## Topics
-In order to complete this project i had to learned these topics: 
-* Models.
-* Supervised Learning.
-* Prediction.
-* Node.
-* Weight.
-* Bias.
-* Activation Functions.
-    * Sigmoid.
-    * Tanh.
-    * Relu.
-    * Softmax.
-* Neuron.
-* Neural Network Layers.
-* Logistic Regression.
-* Loss Function.
-* Cost Function.
-* Forward Propagation.
-* Gradient Descent.
-* Back Propagation.
-* Computation Graph.
-* Weights/Biases initialization.
-* Numpy to perform linear algebra operations.
+In this project we are going to create different Neural Networks in order to train them and identify if a picture is a 1 or 0
 
 ## Goal
 The goal of this project is to perform image classification, where the algoritm has to choose if the pic corresponds to number 1 or number 0.

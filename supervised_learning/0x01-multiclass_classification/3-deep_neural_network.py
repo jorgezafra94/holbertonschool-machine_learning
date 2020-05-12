@@ -116,14 +116,7 @@ class DeepNeuralNetwork():
         """
         A, _ = self.forward_prop(X)
         maxValues = np.amax(A, axis=0)
-        aux = A.transpose()
-        for row in range(len(aux)):
-            for column in range(len(aux[row])):
-                if aux[row][column] == maxValues[row]:
-                    aux[row][column] = 1
-                else:
-                    aux[row][column] = 0
-        Final = aux.transpose()
+        Final = np.where(A == maxValues, 1, 0)
         return (Final, self.cost(Y, A))
 
     def gradient_descent(self, Y, cache, alpha=0.05):

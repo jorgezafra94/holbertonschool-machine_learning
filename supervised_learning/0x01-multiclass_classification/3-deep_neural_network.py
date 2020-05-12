@@ -123,7 +123,7 @@ class DeepNeuralNetwork():
                     aux[row][column] = 1
                 else:
                     aux[row][column] = 0
-        Final = aux
+        Final = aux.transpose()
         return (Final, self.cost(Y, A))
 
     def gradient_descent(self, Y, cache, alpha=0.05):

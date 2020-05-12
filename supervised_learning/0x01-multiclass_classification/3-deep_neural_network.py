@@ -117,8 +117,8 @@ class DeepNeuralNetwork():
         A, _ = self.forward_prop(X)
         maxValues = np.amax(A, axis=0)
         aux = A.transpose()
-        for row in aux:
-            for column in row:
+        for row in range(len(aux)):
+            for column in range(len(aux[row])):
                 if aux[row][column] == maxValues[row]:
                     aux[row][column] = 1
                 else:

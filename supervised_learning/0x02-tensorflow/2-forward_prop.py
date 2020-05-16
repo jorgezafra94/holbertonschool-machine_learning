@@ -3,7 +3,6 @@
 forward propagation tensorflow
 """
 
-import tensorflow as tf
 create_layer = __import__('1-create_layer').create_layer
 
 

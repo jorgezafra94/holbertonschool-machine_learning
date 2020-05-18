@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Normalization (Standard)
+Normalization (Standard) constants
 """
 
 import numpy as np

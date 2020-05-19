@@ -17,8 +17,8 @@ def shuffle_data(X, Y):
     ny is the number of features in Y
     Returns: the shuffled X and Y matrices
     """
-    aux = list(zip(X, Y))
-    shuffle = np.random.permutation(aux)
-    shu_x = shuffle[::, 0]
-    shu_y = shuffle[::, 1]
-    return (shu_x, shu_y)
+    vector = np.random.permutation(np.arange(X.shape[0]))
+    X_shu, Y_shu = X, Y
+    X_shu[np.arange(X.shape[0])] = X[vector]
+    Y_shu[np.arange(Y.shape[0])] = Y[vector]
+    return X_shu, Y_shu

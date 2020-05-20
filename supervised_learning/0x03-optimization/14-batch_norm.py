@@ -20,25 +20,20 @@ def create_batch_norm_layer(prev, n, activation):
     you should use an epsilon of 1e-8
     Returns: a tensor of the activated output for the layer
     """
+    # layers initialization
+    w_init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layers = tf.layers.Dense(units=n, kernel_initializer=w_init)
+    Z = layers(prev)
+
     # trainable variables gamma and beta
     gamma = tf.Variable(tf.constant(1, dtype=tf.float32, shape=[n]),
                         name='gamma', trainable=True)
-
     beta = tf.Variable(tf.constant(0, dtype=tf.float32, shape=[n]),
                        name='beta', trainable=True)
-
     epsilon = tf.constant(1e-8)
-
-    # layers initialization
-    w_init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-
-    layers = tf.layers.Dense(units=n, kernel_initializer=w_init)
-
-    Z = layers(prev)
 
     # Normalization Process
     mean, variance = tf.nn.moments(Z, axes=[0])
-
     Z_norm = tf.nn.batch_normalization(x=Z, mean=mean, variance=variance,
                                        offset=beta, scale=gamma,
                                        variance_epsilon=epsilon)

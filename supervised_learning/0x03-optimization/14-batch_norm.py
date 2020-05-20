@@ -40,7 +40,7 @@ def create_batch_norm_layer(prev, n, activation):
 
     # activation of Z obtained None if it is the output layer
     if not activation:
-        return Z-norm
+        return Z_norm
     else:
         A = activation(Z_norm)
         return A

@@ -59,17 +59,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             if i < epochs:
                 X_shu, Y_shu = shuffle_data(X_train, Y_train)
 
-                for j in range(1, mini_iter + 1):
-                    ini = (j - 1) * batch_size
-                    fin = j * batch_size
+                for j in range(mini_iter):
+                    ini = j * batch_size
+                    fin = (j + 1) * batch_size
                     if fin > X_train.shape[0]:
                         fin = X_train.shape[0]
                     new = {x: X_shu[ini:fin], y: Y_shu[ini:fin]}
                     ses.run(train_op, feed_dict=new)
-                    if j % 100 == 0:
+                    if j != 0 and (j + 1) % 100 == 0:
                         Min_cost = ses.run(loss, feed_dict=new)
                         Min_acc = ses.run(accuracy, feed_dict=new)
-                        print("\tStep {}:".format(j))
+                        print("\tStep {}:".format(j + 1))
                         print("\t\tCost: {}".format(Min_cost))
                         print("\t\tAccuracy: {}".format(Min_acc))
 

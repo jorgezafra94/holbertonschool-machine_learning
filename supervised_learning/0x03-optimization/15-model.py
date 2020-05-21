@@ -9,18 +9,12 @@ shuffle_data = __import__('2-shuffle_data').shuffle_data
 create_batch_norm_layer = __import__('14-batch_norm').create_batch_norm_layer
 create_Adam_op = __import__('10-Adam').create_Adam_op
 
-
 def forward_prop(x, layers, activations):
     """
     forward propagation
     """
-    # input
-    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layer = tf.layers.Dense(units=layers[0], name='layer',
-                            activation=activations[0],
-                            kernel_initializer=init)
-
-    A = layer(x)
+    #input
+    A = create_batch_norm_layer(x, layers[0], activations[0])
     # hidden layers
     for i in range(1, len(activations)):
         A = create_batch_norm_layer(A, layers[i], activations[i])
@@ -82,6 +76,13 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     Returns: the path where the model was saved
 
     """
+    # getting data_batch
+    mini_iter = Data_train[0].shape[0] / batch_size
+    if (mini_iter).is_integer() is True:
+        mini_iter = int(mini_iter)
+    else:
+        mini_iter = int(mini_iter) + 1
+
     # building model
     x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
                        name='x')
@@ -96,18 +97,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     loss = calculate_loss(y, y_pred)
     tf.add_to_collection('loss', loss)
 
-    # getting data_batch
-    mini_iter = Data_train[0].shape[0] / batch_size
-    if (mini_iter).is_integer() is True:
-        mini_iter = int(mini_iter)
-    else:
-        mini_iter = int(mini_iter) + 1
-    # global initialization
-    train_feed = {x: Data_train[0], y: Data_train[1]}
-    valid_feed = {x: Data_valid[0], y: Data_valid[1]}
-
     # Adam training & learning decay
     mystep = tf.Variable(0, trainable=False, name='mystep')
+    tf.add_to_collection('mystep', mystep)
     alpha = learning_rate_decay(alpha, decay_rate, mystep, 1)
     tf.add_to_collection('alpha', alpha)
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
@@ -118,6 +110,10 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     saver = tf.train.Saver()
     with tf.Session() as ses:
         ses.run(init)
+        # global initialization
+        train_feed = {x: Data_train[0], y: Data_train[1]}
+        valid_feed = {x: Data_valid[0], y: Data_valid[1]}
+
         for i in range(epochs + 1):
             T_cost = ses.run(loss, train_feed)
             T_acc = ses.run(accuracy, train_feed)

@@ -14,7 +14,14 @@ def forward_prop(x, layers, activations):
     """
     forward propagation
     """
-    A = create_batch_norm_layer(x, layers[0], activations[0])
+    # input
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layer = tf.layers.Dense(units=layers[0], name='layer',
+                            activation=activations[0],
+                            kernel_initializer=init)
+
+    A = layer(x)
+    # hidden layers
     for i in range(1, len(activations)):
         A = create_batch_norm_layer(A, layers[i], activations[i])
     return A
@@ -91,7 +98,7 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
 
     # getting data_batch
     mini_iter = Data_train[0].shape[0] / batch_size
-    if (mini_iter).is_integer():
+    if (mini_iter).is_integer() is True:
         mini_iter = int(mini_iter)
     else:
         mini_iter = int(mini_iter) + 1

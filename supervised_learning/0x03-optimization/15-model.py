@@ -5,40 +5,9 @@ Complete Model Optimization
 
 import tensorflow as tf
 import numpy as np
-
-
-def shuffle_data(X, Y):
-    """
-    the shuffled X and Y matrices
-    """
-    vector = np.random.permutation(np.arange(X.shape[0]))
-    X_shu, Y_shu = X, Y
-    X_shu = X[vector]
-    Y_shu = Y[vector]
-    return X_shu, Y_shu
-
-
-def create_batch_norm_layer(prev, n, activation):
-    """
-    batch_nomalization
-    """
-    w_init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layers = tf.layers.Dense(units=n, kernel_initializer=w_init)
-    Z = layers(prev)
-    gamma = tf.Variable(tf.constant(1, dtype=tf.float32, shape=[n]),
-                        name='gamma', trainable=True)
-    beta = tf.Variable(tf.constant(0, dtype=tf.float32, shape=[n]),
-                       name='beta', trainable=True)
-    epsilon = tf.constant(1e-8)
-    mean, variance = tf.nn.moments(Z, axes=[0])
-    Z_norm = tf.nn.batch_normalization(x=Z, mean=mean, variance=variance,
-                                       offset=beta, scale=gamma,
-                                       variance_epsilon=epsilon)
-    if not activation:
-        return Z_norm
-    else:
-        A = activation(Z_norm)
-        return A
+shuffle_data = __import__('2-shuffle_data').shuffle_data
+create_batch_norm_layer = __import__('14-batch_norm').create_batch_norm_layer
+create_Adam_op = __import__('10-Adam').create_Adam_op
 
 
 def forward_prop(x, layers, activations):
@@ -70,19 +39,9 @@ def calculate_loss(y, y_pred):
     return tf.losses.softmax_cross_entropy(y, y_pred)
 
 
-def create_Adam_op(loss, alpha, beta1, beta2, epsilon, global_step):
-    """
-    Adam optimization
-    """
-    a = tf.train.AdamOptimizer(learning_rate=alpha, beta1=beta1,
-                               beta2=beta2, epsilon=epsilon)
-    optimize = a.minimize(loss, global_step=global_step)
-    return optimize
-
-
 def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     """
-    learning rate decay
+    Returns: the learning rate decay operation
     """
     return tf.train.inverse_time_decay(learning_rate=alpha,
                                        global_step=global_step,
@@ -136,16 +95,17 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
         mini_iter = int(mini_iter)
     else:
         mini_iter = int(mini_iter) + 1
-
-    # Adam training & learning decay
-    global_step = tf.Variable(0, trainable=False)
-    alpha = learning_rate_decay(alpha, decay_rate, global_step, mini_iter)
-    train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon, global_step)
-    tf.add_to_collection('train_op', train_op)
-
     # global initialization
     train_feed = {x: Data_train[0], y: Data_train[1]}
     valid_feed = {x: Data_valid[0], y: Data_valid[1]}
+
+    # Adam training & learning decay
+    mystep = tf.Variable(0, trainable=False, name='mystep')
+    alpha = learning_rate_decay(alpha, decay_rate, mystep, 1)
+    tf.add_to_collection('alpha', alpha)
+    train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
+    tf.add_to_collection('train_op', train_op)
+
     init = tf.global_variables_initializer()
 
     saver = tf.train.Saver()
@@ -164,6 +124,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
 
             if i < epochs:
                 X_shu, Y_shu = shuffle_data(Data_train[0], Data_train[1])
+                ses.run(mystep.assign(i))
+                ses.run(alpha)
+
                 for j in range(mini_iter):
                     ini = j * batch_size
                     fin = (j + 1) * batch_size
@@ -171,13 +134,12 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
                         fin = Data_train[0].shape[0]
                     mini_feed = {x: X_shu[ini:fin], y: Y_shu[ini:fin]}
 
-                    ses.run(train_op, mini_feed)
+                    ses.run(train_op, feed_dict=mini_feed)
                     if j != 0 and (j + 1) % 100 == 0:
                         Min_cost = ses.run(loss, mini_feed)
                         Min_acc = ses.run(accuracy, mini_feed)
                         print("\tStep {}:".format(j + 1))
                         print("\t\tCost: {}".format(Min_cost))
                         print("\t\tAccuracy: {}".format(Min_acc))
-                ses.run(alpha)
         save_path = saver.save(ses, save_path)
     return save_path

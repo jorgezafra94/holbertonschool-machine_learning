@@ -5,15 +5,77 @@ Complete Model Optimization
 
 import tensorflow as tf
 import numpy as np
-shuffle_data = __import__('2-shuffle_data').shuffle_data
-create_batch_norm_layer = __import__('14-batch_norm').create_batch_norm_layer
-create_Adam_op = __import__('10-Adam').create_Adam_op
+
+
+def shuffle_data(X, Y):
+    """
+    Returns: the shuffled X and Y matrices
+    """
+    vector = np.random.permutation(np.arange(X.shape[0]))
+    X_shu = X[vector]
+    Y_shu = Y[vector]
+    return X_shu, Y_shu
+
+
+def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
+    """
+    Returns: the Adam optimization operation
+    """
+    a = tf.train.AdamOptimizer(learning_rate=alpha, beta1=beta1,
+                               beta2=beta2, epsilon=epsilon)
+    optimize = a.minimize(loss)
+    return optimize
+
+
+def create_layer(prev, n, activation):
+    """
+    We have to use this function only in the last layer
+    because we dont have to normalize the output
+    Returns: the tensor output of the layer
+    """
+
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    A = tf.layers.Dense(units=n, name='layer', activation=activation,
+                        kernel_initializer=init)
+    Y_pred = A(prev)
+    return (Y_pred)
+
+
+def create_batch_norm_layer(prev, n, activation):
+    """
+    Returns: a tensor of the activated output for the layer
+    """
+    if not activation:
+        A = create_layer(prev, n, activation)
+        return A
+
+    # layers initialization
+    w_init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layers = tf.layers.Dense(units=n, kernel_initializer=w_init)
+    Z = layers(prev)
+
+    # trainable variables gamma and beta
+    gamma = tf.Variable(tf.constant(1, dtype=tf.float32, shape=[n]),
+                        name='gamma', trainable=True)
+    beta = tf.Variable(tf.constant(0, dtype=tf.float32, shape=[n]),
+                       name='beta', trainable=True)
+    epsilon = tf.constant(1e-8)
+
+    # Normalization Process
+    mean, variance = tf.nn.moments(Z, axes=[0])
+    Z_norm = tf.nn.batch_normalization(x=Z, mean=mean, variance=variance,
+                                       offset=beta, scale=gamma,
+                                       variance_epsilon=epsilon)
+
+    # activation of Z obtained
+    A = activation(Z_norm)
+    return A
+
 
 def forward_prop(x, layers, activations):
     """
     forward propagation
     """
-    #input
     A = create_batch_norm_layer(x, layers[0], activations[0])
     # hidden layers
     for i in range(1, len(activations)):

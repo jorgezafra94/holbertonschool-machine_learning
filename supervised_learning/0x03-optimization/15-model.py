@@ -45,7 +45,7 @@ def create_batch_norm_layer(prev, n, activation):
     """
     Returns: a tensor of the activated output for the layer
     """
-    if not activation:
+    if activation is None:
         A = create_layer(prev, n, activation)
         return A
 

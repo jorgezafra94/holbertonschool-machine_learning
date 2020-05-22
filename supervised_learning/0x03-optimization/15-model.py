@@ -161,9 +161,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
 
     # Adam training & learning decay
     mystep = tf.Variable(0, trainable=False, name='mystep')
-    tf.add_to_collection('mystep', mystep)
+
     alpha = learning_rate_decay(alpha, decay_rate, mystep, 1)
-    tf.add_to_collection('alpha', alpha)
+
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
     tf.add_to_collection('train_op', train_op)
 

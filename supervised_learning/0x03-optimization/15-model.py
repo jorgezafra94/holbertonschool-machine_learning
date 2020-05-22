@@ -160,9 +160,9 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
     tf.add_to_collection('loss', loss)
 
     # Adam training & learning decay
-    mystep = tf.Variable(0, trainable=False, name='mystep')
+    global_step = tf.Variable(0, trainable=False, name='global_step')
 
-    alpha = learning_rate_decay(alpha, decay_rate, mystep, 1)
+    alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
 
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
     tf.add_to_collection('train_op', train_op)
@@ -189,8 +189,8 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9,
 
             if i < epochs:
                 X_shu, Y_shu = shuffle_data(Data_train[0], Data_train[1])
-                ses.run(mystep.assign(i))
-                ses.run(alpha)
+                ses.run(global_step.assign(i))
+                a = ses.run(alpha)
 
                 for j in range(mini_iter):
                     ini = j * batch_size

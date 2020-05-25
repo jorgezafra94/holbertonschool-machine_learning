@@ -7,3 +7,10 @@ here are the bases of ML, things like
 - plotting of graphs
 - Calculus
 - Probability
+
+## Supervised-Training
+- Neurons, Neural Networks, Deep Neural Networks
+- Binary Classification
+- Multiclass Classification
+- Optimization of algorithms of ML
+- Error Analisys (bias-variance trade off), confusion Matrix, TP, TN, FP, FN

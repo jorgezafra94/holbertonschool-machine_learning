@@ -17,3 +17,9 @@ also we are going to learn:
 * Multiple classification using DNN
 ## Tensorflow
 here we are going to reply de Multiclass Classifier using tensorflow<br>
+## Optimization
+here we are going to use optimizations for training like:
+* mini_batch training
+* learning_rate_decay (alpha hyperparameter)
+* Adam, gradient descent with momentum and RMSprop
+* batch_normalization

@@ -28,6 +28,5 @@ def create_confusion_matrix(labels, logits):
     confusion = np.array(np.zeros(classes ** 2))
     confusion = confusion.reshape(classes, classes)
     # fulling the matrix initialization
-    for i in range(actual.size):
-        confusion[actual[i], pred[i]] += 1
+    np.add.at(confusion, (actual, pred), 1)
     return confusion

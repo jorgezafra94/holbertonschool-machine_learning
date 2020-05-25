@@ -4,9 +4,6 @@ Sensitivity of Confusion matrix
 """
 
 
-import numpy as np
-
-
 def sensitivity(confusion):
     """
     * confusion is a confusion numpy.ndarray of shape (classes, classes) where
@@ -16,8 +13,7 @@ def sensitivity(confusion):
     * Returns: a numpy.ndarray of shape (classes,) containing the sensitivity
              of each class
     """
-    sensitivity = np.zeros(confusion.shape[0])
+    sensitivity = confusion.diagonal()
     totalPerClass = confusion.sum(axis=1)
-    for i in range(confusion.shape[0]):
-        sensitivity[i] = confusion[i][i] / totalPerClass[i]
+    sensitivity = sensitivity / totalPerClass
     return sensitivity

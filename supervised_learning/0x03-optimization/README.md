@@ -1,10 +1,20 @@
 # Optimization
+Here we are going to learn diffent types of optimization in the training of a NN <br>
+Also we will learn what is a hyperparameter
 
-#### 0\. Normalization Constants mandatory
+## Normalization of Data (feature scaling)
+Usually the normalization of data is used in the input of the NN or DNN, It is used because sometimes the data can<br>
+have some independent data, and this data can be a problem in the moment of gradient descent. <br>
+this data can affect the gradient descent calculation, because as the data is independent can create stronger characteristics<br>
+so the gradient descent will no get an optimal point for all the data, that is the reason we have to Normalize all the data<br>
 
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/5c591a0eeba163a12f69f937adbae5886d6273db)
+### Task 0 - Normalization Constants 
 Write the function `def normalization_constants(X):` that calculates the normalization (standardization) constants of a matrix:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 0-main.py 
+we will use
+```
+    ubuntu@ml:~/0x03-optimization$ cat 0-main.py 
     #!/usr/bin/env python3
     
     import numpy as np
@@ -19,16 +29,20 @@ Write the function `def normalization_constants(X):` that calculates the normali
         m, s = normalization_constants(X)
         print(m)
         print(s)
-    ubuntu@alexa-ml:~/0x03-optimization$ ./0-main.py 
+ ```
+ the answer should be
+ ```
+    ubuntu@ml:~/0x03-optimization$ ./0-main.py 
     [ 0.11961603  2.08201297 -3.59232261]
     [2.01576449 1.034667   9.52002619]
-    ubuntu@alexa-ml:~/0x03-optimization$
+```    
     
-#### 1\. Normalize mandatory
+## Task1 - Normalize 
 
 Write the function `def normalize(X, m, s):` that normalizes (standardizes) a matrix:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 1-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 1-main.py 
     #!/usr/bin/env python3
     
     import numpy as np
@@ -48,6 +62,10 @@ Write the function `def normalize(X, m, s):` that normalizes (standardizes) a ma
         m, s = normalization_constants(X)
         print(m)
         print(s)
+```
+you should get
+
+```
     ubuntu@alexa-ml:~/0x03-optimization$ ./1-main.py 
     [[  3.52810469   3.8831507   -6.69181838]
      [  0.80031442   0.65224094  -5.39379178]
@@ -72,12 +90,17 @@ Write the function `def normalize(X, m, s):` that normalizes (standardizes) a ma
     [ 2.44249065e-17 -4.99600361e-16  1.46549439e-16]
     [1. 1. 1.]
     ubuntu@alexa-ml:~/0x03-optimization$
- 
-#### 2\. Shuffle Data mandatory
+ ```
+## Shuffle the data
+When we are going to optimize the algorithm we have to Shuffle de data in order to avoid the over-fitting of the NN<br>
+therefore we will use <b>Numpy.random.permutation</b> to fulfill this objective
 
+### Task2 - Shuffle Data 
 Write the function `def shuffle_data(X, Y):` that shuffles the data points in two matrices the same way:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 2-main.py 
+we will use
+```
+    ubuntu@ml:~/0x03-optimization$ cat 2-main.py 
     #!/usr/bin/env python3
     
     import numpy as np
@@ -100,7 +123,11 @@ Write the function `def shuffle_data(X, Y):` that shuffles the data points in tw
     
         print(X_shuffled)
         print(Y_shuffled)
-    ubuntu@alexa-ml:~/0x03-optimization$ ./2-main.py 
+  ```
+  you should get
+  
+  ```
+    ubuntu@ml:~/0x03-optimization$ ./2-main.py 
     [[ 5  6]
      [ 1  2]
      [ 3  4]
@@ -111,14 +138,26 @@ Write the function `def shuffle_data(X, Y):` that shuffles the data points in tw
      [13 14]
      [17 18]
      [19 20]]
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
-#### 3\. Mini-Batch mandatory
+    ubuntu@ml:~/0x03-optimization$
+```
+
+## Mini_batch
+Mini-batch gradient descent is a variation of the gradient descent algorithm that splits the training dataset into small batches that
+are used to calculate model error and update model coefficients.<br>
+
+Implementations may choose to sum the gradient over the mini-batch which further reduces the variance of the gradient.<br>
+
+Mini-batch gradient descent seeks to find a balance between the robustness of stochastic gradient descent and the efficiency of batch gradient descent. It is the most common implementation of gradient descent used in the field of deep learning.<br>
+
+some used batch_size are 32, 64, 128, 254, ...<br>
+So the batch_size is the number of data that is going be grouped, i mean that the total data are going to be divided in small groups of data with size of batch_size
+
+### Task3 - Mini-Batch
 
 Write the function `def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32, epochs=5, load_path="/tmp/model.ckpt", save_path="/tmp/model.ckpt"):` that trains a loaded neural network model using mini-batch gradient descent:
 
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 3-main.py
+```
+    ubuntu@ml:~/0x03-optimization$ cat 3-main.py
     #!/usr/bin/env python3
     
     import numpy as np
@@ -152,8 +191,11 @@ Write the function `def train_mini_batch(X_train, Y_train, X_valid, Y_valid, bat
                                      epochs=10, load_path='./graph.ckpt',
                                      save_path='./model.ckpt')
         print('Model saved in path: {}'.format(save_path))
-    ubuntu@alexa-ml:~/0x03-optimization$ ./3-main.py 
-    2018-11-10 02:10:48.277854: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+   ```
+   you should get
+   
+   ```
+    ubuntu@ml:~/0x03-optimization$ ./3-main.py 
     After 0 epochs:
         Training Cost: 2.8232288360595703
         Training Accuracy: 0.08726000040769577
@@ -202,15 +244,15 @@ Write the function `def train_mini_batch(X_train, Y_train, X_valid, Y_valid, bat
         Validation Cost: 0.13320672512054443
         Validation Accuracy: 0.9635999798774719
     Model saved in path: ./model.ckpt
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
+    ubuntu@ml:~/0x03-optimization$
+```    
 
-#### 4\. Moving Average mandatory
+### Task4 - Moving Average
 
 Write the function `def moving_average(data, beta):` that calculates the weighted moving average of a data set:
 
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 4-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 4-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -229,17 +271,22 @@ Write the function `def moving_average(data, beta):` that calculates the weighte
             plt.title('SF Maximum Temperatures in October 2018')
             plt.legend(['actual', 'moving_average'])
             plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./4-main.py 
+   ```
+   you should get
+   
+   ```
+    ubuntu@ml:~/0x03-optimization$ ./4-main.py 
     [72.0, 75.15789473684211, 73.62361623616238, 71.98836871183484, 70.52604332006544, 70.20035470453027, 71.88706986789997, 73.13597603396988, 71.80782582850702, 70.60905915023126, 69.93737009120935, 71.0609712312634, 70.11422355031073, 69.32143707981284, 70.79208718739721, 70.81760741911772, 70.59946700377961, 69.9406328280786, 70.17873340222755, 69.47534437750306, 68.41139351151023, 67.58929643210207, 66.97601174673004, 66.86995043877324, 67.42263231561797, 67.91198666959514, 67.8151574064495, 67.72913996327617, 67.65262186609462, 67.68889744321645, 68.44900744806469]
-    
+```
+## Momentum
+Momentum is used in the gradient descent in order to help to get the minimun in a faster way, this method uses the <b>Mean</b> or first moment in order to achieve the minimun, this method reduce the oscilations in the GDS(gradient descent)<br>
+![](https://miro.medium.com/max/820/1*JHYIDkzf1ImuZK487q_kiw.gif) ![](https://miro.medium.com/max/820/1*uTiP1uRl2CaHaA-dFu3NKw.gif)
 
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/82d974243e52253ea693.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=64de2545e07248d61046ee0bc113378a9eabec8b77cb85dd8af878e0cb29a6d7)
-
-#### 5\. Momentum mandatory
+### Task5 - Momentum
 
 Write the function `def update_variables_momentum(alpha, beta1, var, grad, v):` that updates a variable using the gradient descent with momentum optimization algorithm:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 5-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 5-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -297,7 +344,11 @@ Write the function `def update_variables_momentum(alpha, beta1, var, grad, v):` 
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./5-main.py 
+  ```
+  you should get
+  
+  ```
+    ubuntu@ml:~/0x03-optimization$ ./5-main.py 
     Cost after 0 iterations: 4.365105010037203
     Cost after 100 iterations: 0.5729736703124042
     Cost after 200 iterations: 0.2449357405113111
@@ -310,14 +361,14 @@ Write the function `def update_variables_momentum(alpha, beta1, var, grad, v):` 
     Cost after 900 iterations: 0.07562924162824029
     Cost after 1000 iterations: 0.0695782354732263
     
+```
 
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/07c0e3e29a0e76935300.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=3b5d915d1e39c594e69169588639d91ad8af2d2d0448d163506a52d64939eab4)
-
-#### 6\. Momentum Upgraded mandatory
+### Task6 - Momentum Upgraded
 
 Write the function `def create_momentum_op(loss, alpha, beta1):` that creates the training operation for a neural network in `tensorflow` using the gradient descent with momentum optimization algorithm:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 6-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 6-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -366,8 +417,11 @@ Write the function `def create_momentum_op(loss, alpha, beta1):` that creates th
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./6-main.py 
-    2018-11-10 00:15:42.968586: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+  ```
+  you should get
+  
+  ```
+    ubuntu@ml:~/0x03-optimization$ ./6-main.py 
     Cost after 0 iterations: 2.8232274055480957
     Cost after 100 iterations: 0.356641948223114
     Cost after 200 iterations: 0.29699304699897766
@@ -380,14 +434,18 @@ Write the function `def create_momentum_op(loss, alpha, beta1):` that creates th
     Cost after 900 iterations: 0.16998952627182007
     Cost after 1000 iterations: 0.1602744460105896
     
+```
+## RMSProp
+This method is also used in the Gradient descent part, this methodology helps to the GDS to achieve the optimal minimun in a faster way, but the RMSprop dont use the mean, it uses the <b>Variance</b> or second moment. it helps us to get faster the minimun changing the magnitud of the bias and the weights of the neurons, where<br>
 
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/262ddacb92253c316643.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=362f85a665025cc2090614af67293dd3c42324625ab93c0d1bbf1b6a99b309d2)
+bias turn low the gradient descent
+weights turn faster the gradient descent
 
-#### 7\. RMSProp mandatory
+### Task7 - RMSProp
 
 Write the function `def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):` that updates a variable using the RMSProp optimization algorithm:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 7-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 7-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -445,7 +503,11 @@ Write the function `def update_variables_RMSProp(alpha, beta2, epsilon, var, gra
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./7-main.py 
+ ```
+ you should get
+ 
+ ```
+    ubuntu@ml:~/0x03-optimization$ ./7-main.py 
     Cost after 0 iterations: 4.365105010037203
     Cost after 100 iterations: 1.3708321848806053
     Cost after 200 iterations: 0.22693392990308764
@@ -458,14 +520,12 @@ Write the function `def update_variables_RMSProp(alpha, beta2, epsilon, var, gra
     Cost after 900 iterations: 0.0005599361043400206
     Cost after 1000 iterations: 0.0002655839831275339
     
-
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/503e69f106d7df8c995f.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=c0a47a79755a75e66dd1d5ca284d3420c5a36cd1de1e78393ef7562826ea94b6)
-
-#### 8\. RMSProp Upgraded mandatory
+```
+### Task8 - RMSProp Upgraded 
 
 Write the function `def create_RMSProp_op(loss, alpha, beta2, epsilon):` that creates the training operation for a neural network in `tensorflow` using the RMSProp optimization algorithm:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 8-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 8-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -514,8 +574,12 @@ Write the function `def create_RMSProp_op(loss, alpha, beta2, epsilon):` that cr
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./8-main.py 
-    2018-11-10 00:28:48.894342: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+```
+
+you should get
+
+```
+    ubuntu@ml:~/0x03-optimization$ ./8-main.py 
     Cost after 0 iterations: 2.8232274055480957
     Cost after 100 iterations: 0.48531609773635864
     Cost after 200 iterations: 0.21557031571865082
@@ -528,14 +592,14 @@ Write the function `def create_RMSProp_op(loss, alpha, beta2, epsilon):` that cr
     Cost after 900 iterations: 0.005407326854765415
     Cost after 1000 iterations: 0.003452717326581478
     
-
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/b9e9c5d4fd0a583dacac.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=61f2e133bcb9234306e385573afe773c68e8c7ec094913db16d16564679e0da6)
-
-#### 9\. Adam mandatory
+```
+## Adam optimizer algorithm
+Adam is like the union of Momentum and RMSprop, so we are going to use the Mean and the Variance to help the the GDS to get the optimal minimun more faster
+### Task9 - Adam 
 
 Write the function `def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):` that updates a variable in place using the Adam optimization algorithm:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 9-main.py
+```
+    ubuntu@aml:~/0x03-optimization$ cat 9-main.py
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -595,7 +659,11 @@ Write the function `def update_variables_Adam(alpha, beta1, beta2, epsilon, var,
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./9-main.py
+```
+you should get
+
+```
+    ubuntu@ml:~/0x03-optimization$ ./9-main.py
     Cost after 0 iterations: 4.365105010037203
     Cost after 100 iterations: 1.5950468370180395
     Cost after 200 iterations: 0.390276184856453
@@ -608,14 +676,12 @@ Write the function `def update_variables_Adam(alpha, beta1, beta2, epsilon, var,
     Cost after 900 iterations: 0.011813533123333355
     Cost after 1000 iterations: 0.008996494409788116
     
-
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/87976dd1bad0f56c89fe.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=582a178333026842556ef1b9b016ce5572b803feb441df4ac76012ddc334fa60)
-
-#### 10\. Adam Upgraded mandatory
+```
+### Task10 - Adam Upgraded
 
 Write the function `def create_Adam_op(loss, alpha, beta1, beta2, epsilon):` that creates the training operation for a neural network in `tensorflow` using the Adam optimization algorithm:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 10-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 10-main.py 
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -664,8 +730,11 @@ Write the function `def create_Adam_op(loss, alpha, beta1, beta2, epsilon):` tha
             plt.axis('off')
         plt.tight_layout()
         plt.show()
-    ubuntu@alexa-ml:~/0x03-optimization$ ./10-main.py 
-    2018-11-09 23:37:09.188702: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
+ ```
+ you should get
+ 
+ ```
+    ubuntu@ml:~/0x03-optimization$ ./10-main.py 
     Cost after 0 iterations: 2.8232274055480957
     Cost after 100 iterations: 0.17724855244159698
     Cost after 200 iterations: 0.0870152935385704
@@ -677,15 +746,23 @@ Write the function `def create_Adam_op(loss, alpha, beta1, beta2, epsilon):` tha
     Cost after 800 iterations: 0.00038969298475421965
     Cost after 900 iterations: 0.00019614089978858829
     Cost after 1000 iterations: 0.00010206626757280901
-    
+```
 
-![](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/11/7f9ac6aadf18f8276ded.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200523%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200523T011554Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=1d8808d947b25824932dc5db574aef97abc3f866f32a4a0fcfe6d85c153f2547)
+## Learning Rate Decay
+Learning rate schedules seek to adjust the learning rate during training by reducing the learning rate according to a pre-defined schedule. Common learning rate schedules include time-based decay, step decay and exponential decay.<br>
 
-#### 11\. Learning Rate Decay mandatory
+what it tries to do is to realize smaller steps when the gradient descent is getting closer to the minimun, because in that way the GDS will achieve the optimal minimun in a better way<br>
+
+![](https://miro.medium.com/max/1408/1*I2hcnv0kgtAuuYLtcsTdbQ.png)<br>
+the blue is the training without learning rate decay so the steps are the same because the alpha is the same so we are going to oscillate the minimun in base on a constant alpha so we can jump in a magnitud of alpha<br>
+the green one is the training with the learning rate decay so as we can see the steps are smaller when the training is getting closer to the minimun so in that way we are going to the minimun without losing the direction
+
+### Task11 - Learning Rate Decay
 
 Write the function `def learning_rate_decay(alpha, decay_rate, global_step, decay_step):` that updates the learning rate using inverse time decay in `numpy`:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 11-main.py
+```
+    ubuntu@ml:~/0x03-optimization$ cat 11-main.py
     #!/usr/bin/env python3
     
     import matplotlib.pyplot as plt
@@ -697,115 +774,119 @@ Write the function `def learning_rate_decay(alpha, decay_rate, global_step, deca
         for i in range(100):
             alpha = learning_rate_decay(alpha_init, 1, i, 10)
             print(alpha)
-    ubuntu@alexa-ml:~/0x03-optimization$ ./11-main.py
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.03333333333333333
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.016666666666666666
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.014285714285714287
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.011111111111111112
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
+```
+you should get
 
-#### 12\. Learning Rate Decay Upgraded mandatory
+```
+    ubuntu@ml:~/0x03-optimization$ ./11-main.py
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.03333333333333333
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.016666666666666666
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.014285714285714287
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.011111111111111112
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+   ```
+
+### Task12 - Learning Rate Decay Upgraded 
 
 Write the function `def learning_rate_decay(alpha, decay_rate, global_step, decay_step):` that creates a learning rate decay operation in `tensorflow` using inverse time decay:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 12-main.py
+```
+    ubuntu@ml:~/0x03-optimization$ cat 12-main.py
     #!/usr/bin/env python3
     
     import numpy as np
@@ -841,116 +922,121 @@ Write the function `def learning_rate_decay(alpha, decay_rate, global_step, deca
                 a = sess.run(alpha)
                 print(a)
                 sess.run(train_op, feed_dict={x:X, y:Y_oh})
-    ubuntu@alexa-ml:~/0x03-optimization$ ./12-main.py
-    2018-11-10 00:54:20.318892: I tensorflow/core/common_runtime/process_util.cc:69] Creating new thread pool with default inter op setting: 2. Tune using inter_op_parallelism_threads for best performance.
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.1
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.05
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.033333335
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.025
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.02
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.016666668
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.014285714
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.0125
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.011111111
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    0.01
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
+```
+you should get
 
-#### 13\. Batch Normalization mandatory
+```
+    ubuntu@ml:~/0x03-optimization$ ./12-main.py
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.1
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.05
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.033333335
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.025
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.02
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.016666668
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.014285714
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.0125
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.011111111
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+    0.01
+```        
+## Batch Normalization
+It is used to normalize the outputs of each layer in order to get faster the GDS<br>
+normally Z is the pareameter to normalize, once it is normalized we apply the activation function, and this answer is going to be the input of the next layer.<br>
 
+<b>WE USE THIS METHOD ONLY FOR THE HIDDEN LAYERS, WE DONT USE IT IN THE OUTPUT OR IN THE INPUT</b>
+### Task13 - Batch Normalization 
 Write the function `def batch_norm(Z, gamma, beta, epsilon):` that normalizes an unactivated output of a neural network using batch normalization:
-
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 13-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 13-main.py 
     #!/usr/bin/env python3
     
     import numpy as np
@@ -967,7 +1053,11 @@ Write the function `def batch_norm(Z, gamma, beta, epsilon):` that normalizes an
         print(Z[:10])
         Z_norm = batch_norm(Z, gamma, beta, 1e-8)
         print(Z_norm[:10])
-    ubuntu@alexa-ml:~/0x03-optimization$ ./13-main.py 
+ ```
+ you should get
+ 
+ ```
+    ubuntu@ml:~/0x03-optimization$ ./13-main.py 
     [[  3.52810469   3.8831507   -6.69181838]
      [  0.80031442   0.65224094  -5.39379178]
      [  1.95747597   0.729515     7.99659596]
@@ -988,14 +1078,13 @@ Write the function `def batch_norm(Z, gamma, beta, epsilon):` that normalizes an
      [ 0.29226936 -0.06073115  0.8043226 ]
      [ 0.32230674  0.96759737  0.87138019]
      [ 0.64291853  0.79722549  0.84647459]]
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
-
-#### 14\. Batch Normalization Upgraded mandatory
+```       
+### Task14 - Batch Normalization Upgraded 
 
 Write the function `def create_batch_norm_layer(prev, n, activation):` that creates a batch normalization layer for a neural network in `tensorflow`:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 14-main.py 
+```
+    ubuntu@ml:~/0x03-optimization$ cat 14-main.py 
     #!/usr/bin/env python3
     
     import numpy as np
@@ -1014,7 +1103,11 @@ Write the function `def create_batch_norm_layer(prev, n, activation):` that crea
         with tf.Session() as sess:
             sess.run(init)
             print(sess.run(a, feed_dict={x:X[:5]}))
-    ubuntu@alexa-ml:~/0x03-optimization$ ./14-main.py 
+ ```
+ you should get
+ 
+ ```
+    ubuntu@ml:~/0x03-optimization$ ./14-main.py 
     [[-0.6847082  -0.8220385  -0.35229233 ...  0.464784   -0.8326035
       -0.96122414]
      [-0.77318543 -0.66306996  0.7523017  ...  0.811305    0.79587764
@@ -1025,13 +1118,14 @@ Write the function `def create_batch_norm_layer(prev, n, activation):` that crea
        0.683548  ]
      [ 0.9421419   0.37344548 -0.8536682  ... -0.06270568  0.85227346
        0.3293217 ]]
-    ubuntu@alexa-ml:~/0x03-optimization$
-    
-#### 15\. Put it all together and what do you get? mandatory
+```
+
+#### Task15 - NN Optimized
 
 Write the function `def model(Data_train, Data_valid, layers, activations, alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1, batch_size=32, epochs=5, save_path='/tmp/model.ckpt'):` that builds, trains, and saves a neural network model in `tensorflow` using Adam optimization, mini-batch gradient descent, learning rate decay, and batch normalization:
 
-    ubuntu@alexa-ml:~/0x03-optimization$ cat 15-main.py
+```
+    ubuntu@ml:~/0x03-optimization$ cat 15-main.py
     #!/usr/bin/env python3
     
     import numpy as np
@@ -1063,7 +1157,11 @@ Write the function `def model(Data_train, Data_valid, layers, activations, alpha
         save_path = model((X_train, Y_train_oh), (X_valid, Y_valid_oh), layer_sizes,
                                      activations, save_path='./model.ckpt')
         print('Model saved in path: {}'.format(save_path))
-    ubuntu@alexa-ml:~/0x03-optimization$ ./15-main.py 
+```
+you should get
+
+```
+    ubuntu@ml:~/0x03-optimization$ ./15-main.py 
     After 0 epochs:
         Training Cost: 2.5810317993164062
         Training Accuracy: 0.16808000206947327
@@ -1112,5 +1210,6 @@ Write the function `def model(Data_train, Data_valid, layers, activations, alpha
         Validation Cost: 0.08191727101802826
         Validation Accuracy: 0.9750999808311462
     Model saved in path: ./model.ckpt
-    ubuntu@alexa-ml:~/0x03-optimization$
+    ubuntu@ml:~/0x03-optimization$
+ ```
  

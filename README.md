@@ -8,7 +8,7 @@ here are the bases of ML, things like
 - Calculus
 - Probability
 
-## Supervised-Training
+## Supervised-Learning
 - Neurons, Neural Networks, Deep Neural Networks
 - Binary Classification
 - Multiclass Classification

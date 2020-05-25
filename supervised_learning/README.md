@@ -23,3 +23,9 @@ here we are going to use optimizations for training like:
 * learning_rate_decay (alpha hyperparameter)
 * Adam, gradient descent with momentum and RMSprop
 * batch_normalization
+## Error Analisys
+here we are going to learn:
+* what to do with high bias problem 
+* what to do with high variance problem
+* confusion matrix
+* sensitivity, specificity, f1-score, TN, TP, FP, FN

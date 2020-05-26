@@ -3,6 +3,8 @@
 Specificity confusion matrix
 """
 
+import numpy as np
+
 
 def specificity(confusion):
     """

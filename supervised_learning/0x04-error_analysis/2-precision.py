@@ -3,6 +3,8 @@
 Precision confusion matrix
 """
 
+import numpy as np
+
 
 def precision(confusion):
     """

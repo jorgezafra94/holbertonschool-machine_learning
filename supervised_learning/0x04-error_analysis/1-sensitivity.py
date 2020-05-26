@@ -3,6 +3,8 @@
 Sensitivity of Confusion matrix
 """
 
+import numpy as np
+
 
 def sensitivity(confusion):
     """

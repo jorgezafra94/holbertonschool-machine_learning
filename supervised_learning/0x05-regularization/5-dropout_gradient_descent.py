@@ -37,12 +37,13 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
             db = (dZ.sum(axis=1, keepdims=True)) / m
 
         else:
-            deriv = 1 - (cache[key_in]) ** 2
+            deriv = 1 - ((cache[key_in]) ** 2)
             weight = aux["W{}".format(i + 1)]
 
-            dropout = (cache["D{}".format(i)] / keep_prob) * deriv
+            dropout = (cache["D{}".format(i)])
+            dZL = (np.matmul(weight.transpose(), dZ) * dropout) / keep_prob
+            dZL = dZL * deriv
 
-            dZL = np.matmul(weight.transpose(), dZ) * dropout
             dW = (np.matmul(dZL, cache[X].transpose())) / m
             db = (dZL.sum(axis=1, keepdims=True)) / m
             dZ = dZL

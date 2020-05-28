@@ -24,4 +24,4 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
         frobenius += w
 
     cost_L2 = cost + (lambtha / (2 * m)) * frobenius
-    print(cost_L2)
+    return cost_L2

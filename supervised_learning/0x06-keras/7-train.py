@@ -42,6 +42,7 @@ def train_model(network, data, labels, batch_size, epochs,
     def learning_decay(epoch):
         """
         funcion in the learningRateSchedule
+        the alpha doesnt change
         """
         return alpha / (1 + decay_rate * (epoch / 1))
 
@@ -58,6 +59,7 @@ def train_model(network, data, labels, batch_size, epochs,
 
     if len(my_list) == 0:
         my_list = None
+
     history = network.fit(x=data, y=labels, batch_size=batch_size,
                           epochs=epochs, verbose=verbose, shuffle=shuffle,
                           validation_data=validation_data, callbacks=my_list)

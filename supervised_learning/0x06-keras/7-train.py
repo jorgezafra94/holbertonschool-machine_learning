@@ -46,15 +46,14 @@ def train_model(network, data, labels, batch_size, epochs,
         """
         return alpha / (1 + decay_rate * (epoch / 1))
 
-
-
     my_list = []
     if early_stopping is True and validation_data:
         early = K.callbacks.EarlyStopping(patience=patience)
         my_list.append(early)
 
     if learning_rate_decay is True and validation_data:
-        learn_dec = K.callbacks.LearningRateScheduler(learning_decay, verbose=1)
+        learn_dec = K.callbacks.LearningRateScheduler(learning_decay,
+                                                      verbose=1)
         my_list.append(learn_dec)
 
     if len(my_list) == 0:

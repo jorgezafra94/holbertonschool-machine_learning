@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# filters
 import matplotlib.pyplot as plt
 import numpy as np
 convolve_grayscale_valid = __import__('0-convolve_grayscale_valid').convolve_grayscale_valid

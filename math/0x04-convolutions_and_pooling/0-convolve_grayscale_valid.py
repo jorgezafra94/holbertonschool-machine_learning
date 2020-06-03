@@ -7,13 +7,11 @@ import numpy as np
 
 def convolve_grayscale_valid(images, kernel):
     """
-
     Args:
         images:
         kernel:
 
     Returns:
-
     """
     m, HI, WI = images.shape
     HK, WK = kernel.shape

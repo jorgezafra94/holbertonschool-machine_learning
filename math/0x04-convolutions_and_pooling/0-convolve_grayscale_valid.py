@@ -5,6 +5,7 @@ applying filter to image
 
 import numpy as np
 
+
 def convolve_grayscale_valid(images, kernel):
     """
 

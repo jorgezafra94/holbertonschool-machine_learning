@@ -29,13 +29,14 @@ def train_model(network, data, labels, batch_size, epochs,
     * patience is the patience used for early stopping
     Returns: the History object generated after training the model
     """
-    early = None
+    my_list = []
 
     if early_stopping is True and validation_data:
-        early = [K.callbacks.EarlyStopping(patience=patience)]
+        early = K.callbacks.EarlyStopping(patience=patience)
+        my_list.append(early)
 
     history = network.fit(x=data, y=labels, batch_size=batch_size,
                           epochs=epochs, verbose=verbose, shuffle=shuffle,
-                          validation_data=validation_data, callbacks=early)
+                          validation_data=validation_data, callbacks=my_list)
 
     return history

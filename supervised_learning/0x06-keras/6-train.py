@@ -37,13 +37,13 @@ def train_model(network, data, labels, batch_size, epochs,
                                           patience=patience)
         my_list.append(early)
 
-        history = network.fit(x=data, y=labels, batch_size=batch_size,
-                              epochs=epochs, verbose=verbose, shuffle=shuffle,
-                              validation_data=validation_data,
-                              callbacks=my_list)
-
-    if validation_data is None:
-        history = network.fit(x=data, y=labels, batch_size=batch_size,
-                              epochs=epochs, verbose=verbose, shuffle=shuffle)
+    history = network.fit(x=data,
+                          y=labels,
+                          batch_size=batch_size,
+                          epochs=epochs,
+                          verbose=verbose,
+                          shuffle=shuffle,
+                          validation_data=validation_data,
+                          callbacks=my_list)
 
     return history

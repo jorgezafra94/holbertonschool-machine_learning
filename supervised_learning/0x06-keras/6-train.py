@@ -3,12 +3,13 @@
 Train a model with keras and Early Stopping
 """
 
+
 import tensorflow.keras as K
 
 
 def train_model(network, data, labels, batch_size, epochs,
-                validation_data=None, early_stopping=False, patience=0,
-                verbose=True, shuffle=False):
+                validation_data=None, early_stopping=False,
+                patience=0, verbose=True, shuffle=False):
     """
     * network is the model to train
     * data is a numpy.ndarray of shape (m, nx) containing the input data
@@ -31,8 +32,9 @@ def train_model(network, data, labels, batch_size, epochs,
     """
     my_list = []
 
-    if early_stopping is True and validation_data:
-        early = K.callbacks.EarlyStopping(patience=patience)
+    if validation_data and early_stopping:
+        early = K.callbacks.EarlyStopping(monitor="val_loss",
+                                          patience=patience)
         my_list.append(early)
 
         history = network.fit(x=data, y=labels, batch_size=batch_size,

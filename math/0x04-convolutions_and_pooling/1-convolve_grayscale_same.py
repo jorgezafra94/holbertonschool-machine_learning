@@ -5,6 +5,7 @@ gray_filter using padding
 
 import numpy as np
 
+
 def convolve_grayscale_same(images, kernel):
     """
 
@@ -26,7 +27,7 @@ def convolve_grayscale_same(images, kernel):
         pad_W = (WK - 1) // 2
 
     new_images = np.pad(images,
-                        ((0,0),(pad_H, pad_H),(pad_W, pad_W)),
+                        ((0, 0), (pad_H, pad_H), (pad_W, pad_W)),
                         'constant')
     m, HI, WI = new_images.shape
     new_H = (HI - HK + 1)

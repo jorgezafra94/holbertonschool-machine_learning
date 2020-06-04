@@ -31,8 +31,8 @@ def pool(images, kernel_shape, stride, mode='max'):
     sh, sw = stride
 
     # getting shape of convolutional matrix
-    new_h = ((ih - kh) // sh) + 1
-    new_w = ((iw - kw) // sw) + 1
+    new_h = int(((ih - kh) / sh) + 1)
+    new_w = int(((iw - kw) / sw) + 1)
     conv = np.zeros((m, new_h, new_w, ic))
 
     for i in range(new_h):

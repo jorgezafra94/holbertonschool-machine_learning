@@ -30,38 +30,44 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     Returns: a numpy.ndarray containing the convolved images
 
     """
-    HK, WK = kernel.shape
+    kh, kw = kernel.shape
     sh, sw = stride
+    m, ih, iw = images.shape
+
+    # padding part
     if type(padding) is tuple and len(padding) == 2:
-        pad_H, pad_W = padding
+        ph, pw = padding
 
     elif padding == 'same':
-        if HK % 2 == 0:
-            pad_H = HK // 2
+        if kh % 2 == 0:
+            ph = kh // 2
         else:
-            pad_H = (HK - 1) // 2
+            ph = (kh - 1) // 2
 
-        if WK % 2 == 0:
-            pad_W = WK // 2
+        if kw % 2 == 0:
+            pw = kw // 2
         else:
-            pad_W = (WK - 1) / 2
+            pw = (kw - 1) / 2
 
     else:
-        pad_H, pad_W = 0, 0
+        ph, pw = 0, 0
 
+    # applying padding in input images
     new_images = np.pad(images,
-                        ((0, 0), (pad_H, pad_H), (pad_W, pad_W)),
+                        ((0, 0), (ph, ph), (pw, pw)),
                         'constant')
 
-    m, HI, WI = images.shape
-    new_H = (((HI + (2 * pad_H) - HK) // stride[0]) + 1)
-    new_W = (((WI + (2 * pad_W) - WK) // stride[1]) + 1)
+    # when we apply stride the ecuations change
+    new_H = (((ih + (2 * ph) - kh) // sh) + 1)
+    new_W = (((iw + (2 * pw) - kw) // sw) + 1)
 
     conv = np.zeros((m, new_H, new_W))
 
     for i in range(0, new_H):
         for j in range(0, new_W):
-            image_part = new_images[:, i * sh:sh * i + HK, j * sw:sw * j + WK]
+            # we have to change the pace because the stride
+            image_part = new_images[:, (i * sh):(sh * i) + kh,
+                                    (j * sw):(sw * j) + kw]
             result = image_part * kernel
             result = result.sum(axis=1)
             result = result.sum(axis=1)

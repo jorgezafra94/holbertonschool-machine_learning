@@ -47,5 +47,4 @@ def pool(images, kernel_shape, stride, mode='max'):
                 result = np.mean(part, axis=1)
                 result = np.mean(result, axis=1)
             conv[:, i, j] = result
-            print(result.shape)
     return conv

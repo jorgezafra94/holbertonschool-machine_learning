@@ -18,16 +18,8 @@ def convolve_grayscale_same(images, kernel):
     """
     kh, kw = kernel.shape
     # when we have to give a padding we have to calculate it like this
-    # if it is even just divide it bt 2 if it is odd subs 1 and divide by 2
-    if (kh % 2 == 0):
-        ph = int(kh / 2)
-    else:
-        ph = int((kh - 1) / 2)
-    if (kw % 2 == 0):
-        pw = int(kw / 2)
-    else:
-        pw = int((kw - 1) / 2)
-
+    ph = kh // 2
+    pw = kw // 2
     # We have to apply the padding to the input images
     new_images = np.pad(images,
                         ((0, 0), (ph, ph), (pw, pw)),

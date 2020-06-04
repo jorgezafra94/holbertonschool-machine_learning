@@ -34,20 +34,12 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     m, ih, iw, ic = images.shape
     kh, kw, _, kc = kernels.shape
     sh, sw = stride
+    ph, pw = (0, 0)
 
     # getting padding
     if padding == 'same':
-        if kh % 2 == 0:
-            ph = kh // 2
-        else:
-            ph = (kh - 1) // 2
-        if kw % 2 == 0:
-            pw = kw // 2
-        else:
-            pw = (kw - 1) // 2
-
-    if padding == 'valid':
-        ph, pw = (0, 0)
+        ph = int((((ih - 1) * sh + kh - ih) / 2) + 1)
+        pw = int((((iw - 1) * sw + kw - iw) / 2) + 1)
 
     if type(padding) is tuple and len(padding) == 2:
         ph, pw = padding

@@ -41,8 +41,8 @@ def pool(images, kernel_shape, stride, mode='max'):
                           (j * sw): (j * sw) + kw]
             # here we get the new matrix of matrices
             if mode == 'max':
-                result = np.amax(part, axis=1)
-                result = np.amax(result, axis=1)
+                result = np.max(part, axis=1)
+                result = np.max(result, axis=1)
             if mode == 'avg':
                 result = np.mean(part, axis=1)
                 result = np.mean(result, axis=1)

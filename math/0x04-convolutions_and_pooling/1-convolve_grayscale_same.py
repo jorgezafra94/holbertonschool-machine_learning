@@ -33,10 +33,10 @@ def convolve_grayscale_same(images, kernel):
     m, ih, iw = images.shape
 
     # we get the new shape of the conv matrix using these equations
-    new_H = int(ih + (2 * ph) - kh + 1)
-    new_W = int(iw + (2 * pw) - kw + 1)
+    new_H = (ih + (2 * ph) - kh + 1)
+    new_W = (iw + (2 * pw) - kw + 1)
 
-    conv = np.zeros((m, new_H, new_W))
+    conv = np.zeros((m, new_H, new_W), dtype=np.int32)
     for i in range(new_H):
         for j in range(new_W):
             image_part = new_images[:, i:i + kh, j:j + kw]

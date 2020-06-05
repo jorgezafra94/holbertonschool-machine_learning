@@ -29,3 +29,16 @@ here we are going to learn:
 * what to do with high variance problem
 * confusion matrix
 * sensitivity, specificity, f1-score, TN, TP, FP, FN
+## Regularization
+methods that you can apply in your NN to prevent overfitting
+* L2 & L1
+* Dropout
+* Data Augmentation
+* Early Stopping
+## Keras
+Start to learn Keras and how to use it
+* create model using Sequential method and Input methos
+* config model using compile
+* train model
+* evaluate or test the model
+* predict with the model created

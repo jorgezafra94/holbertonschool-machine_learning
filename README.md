@@ -7,6 +7,7 @@ here are the bases of ML, things like
 - plotting of graphs
 - Calculus
 - Probability
+- Convolution and pooling
 
 ## Supervised-Learning
 - Neurons, Neural Networks, Deep Neural Networks
@@ -14,3 +15,4 @@ here are the bases of ML, things like
 - Multiclass Classification
 - Optimization of algorithms of ML
 - Error Analisys (bias-variance trade off), confusion Matrix, TP, TN, FP, FN
+- keras basics

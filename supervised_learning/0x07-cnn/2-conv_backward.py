@@ -67,14 +67,15 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     stw = j * sw
                     endw = (j * sw) + kw
                     X = im[sth:endh, stw:endw]
-                    # to get the back part of the image --> dim = W * dZ
+                    # to get the back part of the image --> dim += W * dZ
+                    # it is important to use the + simbol careful with this
                     aux = W[:, :, :, f] * dZ[elem, i, j, f]
                     dIm[sth:endh, stw:endw] += aux
 
-                    # to get the backprop of the W --> dw = dz * x
+                    # to get the backprop of the W --> dw += dz * x
                     dW[:, :, :, f] += X * dZ[elem, i, j, f]
 
-                    # to get the backprop of b ----> db = dz
+                    # to get the backprop of b ----> db += dz
                     db[:, :, :, f] += dZ[elem, i, j, f]
         if (padding == 'valid'):
             dA[elem] = dIm

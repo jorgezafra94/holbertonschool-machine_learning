@@ -26,7 +26,7 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     Returns: the output of the pooling layer
     """
     m, h_prev, w_prev, c_prev = A_prev.shape
-    kh, kw= kernel_shape
+    kh, kw = kernel_shape
     sh, sw = stride
 
     # dims conv matrix
@@ -36,14 +36,14 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
 
     for i in range(pool_h):
         for j in range(pool_w):
-                sth = i * sh
-                endh = (i * sh) + kh
-                stw = j * sw
-                endw = (j * sw) + kw
-                X = A_prev[:, sth:endh, stw:endw]
-                if mode == "max":
-                    WX = np.max(X, axis=(1, 2))
-                if mode == "avg":
-                    WX = np.mean(X, axis=(1, 2))
-                pool[:, i, j] = WX
+            sth = i * sh
+            endh = (i * sh) + kh
+            stw = j * sw
+            endw = (j * sw) + kw
+            X = A_prev[:, sth:endh, stw:endw]
+            if mode == "max":
+                WX = np.max(X, axis=(1, 2))
+            if mode == "avg":
+                WX = np.mean(X, axis=(1, 2))
+            pool[:, i, j] = WX
     return pool

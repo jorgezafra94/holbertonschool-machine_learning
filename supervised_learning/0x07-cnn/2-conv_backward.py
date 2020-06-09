@@ -34,3 +34,51 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     Returns: the partial derivatives with respect to the previous
     layer (dA_prev), the kernels (dW), and the biases (db), respectively
     """
+    _, h_prev, w_prev, _ = A_prev.shape
+    m, h_new, w_new, c_new = dZ.shape
+    kh, kw, c_prev, _ = W.shape
+    ph, pw = (0, 0)
+    sh, sw = stride
+
+    if padding == "same":
+        ph = int((((h_prev - 1) * sh + kh - h_prev) / 2) + 1)
+        pw = int((((w_prev - 1) * sw + kw - w_prev) / 2) + 1)
+
+    # initialize the derivatives
+    dA = np.zeros((m, h_prev, w_prev, c_prev))
+    dW = np.zeros((kh, kw, c_prev, c_new))
+    db = np.zeros((1, 1, 1, c_new))
+
+    A_pad = np.pad(A_prev,
+                   ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                   'constant')
+
+    dA_pad = np.pad(dA,
+                    ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                    'constant')
+    for elem in range(m):
+        im = A_pad[elem]
+        dIm = dA_pad[elem]
+        for i in range(h_new):
+            for j in range(w_new):
+                for f in range(c_new):
+                    sth = i * sh
+                    endh = (i * sh) + kh
+                    stw = j * sw
+                    endw = (j * sw) + kw
+                    X = im[sth:endh, stw:endw]
+                    # to get the back part of the image --> dim = W * dZ
+                    aux = W[:, :, :, f] * dZ[elem, i, j, f]
+                    dIm[sth:endh, stw:endw] += aux
+
+                    # to get the backprop of the W --> dw = dz * x
+                    dW[:, :, :, f] += X * dZ[elem, i, j, f]
+
+                    # to get the backprop of b ----> db = dz
+                    db[:, :, :, f] += dZ[elem, i, j, f]
+        if (padding == 'valid'):
+            dA[elem] = dIm
+        if (padding == 'same'):
+            dA[elem] = dIm[ph: -ph, pw: -pw]
+
+    return (dA, dW, db)

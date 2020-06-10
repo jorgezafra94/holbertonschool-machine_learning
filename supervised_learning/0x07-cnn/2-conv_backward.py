@@ -37,12 +37,13 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     _, h_prev, w_prev, _ = A_prev.shape
     m, h_new, w_new, c_new = dZ.shape
     kh, kw, c_prev, _ = W.shape
-    ph, pw = (0, 0)
     sh, sw = stride
 
     if padding == "same":
         ph = int(np.ceil((((h_prev - 1) * sh + kh - h_prev) / 2)))
         pw = int(np.ceil((((w_prev - 1) * sw + kw - w_prev) / 2)))
+    else:
+        ph, pw = (0, 0)
 
     # initialize the derivatives
     dA = np.zeros(A_prev.shape)
@@ -67,7 +68,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     endh = (i * sh) + kh
                     stw = j * sw
                     endw = (j * sw) + kw
-                    X = im[sth:endh, stw:endw]
+                    X = im[sth:endh, stw:endw, :]
                     # to get the back part of the image --> dim += W * dZ
                     # it is important to use the + simbol careful with this
                     aux = W[:, :, :, f] * dZ[elem, i, j, f]
@@ -82,6 +83,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         if (padding == 'valid'):
             dA[elem] += dIm
         if (padding == 'same'):
-            dA[elem] += dIm[ph: -ph, pw: -pw]
+            dA[elem, :, :, :] += dIm[ph: -ph, pw: -pw]
 
     return (dA, dW, db)

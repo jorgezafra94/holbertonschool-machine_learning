@@ -35,6 +35,9 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     ph, pw = (0, 0)
     sh, sw = stride
 
+    if type(padding) == tuple:
+        ph, pw = padding
+
     if padding == "same":
         ph = int((((h_prev - 1) * sh + kh - h_prev) / 2) + 1)
         pw = int((((w_prev - 1) * sw + kw - w_prev) / 2) + 1)

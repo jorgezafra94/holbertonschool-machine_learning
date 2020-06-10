@@ -78,9 +78,10 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
                     # to get the backprop of b ----> db += dz
                     db[:, :, :, f] += dZ[elem, i, j, f]
+        # careful with the +
         if (padding == 'valid'):
-            dA[elem, :, :, :] = dIm
+            dA[elem] += dIm
         if (padding == 'same'):
-            dA[elem, :, :, :] = dIm[ph: -ph, pw: -pw]
+            dA[elem] += dIm[ph: -ph, pw: -pw]
 
     return (dA, dW, db)

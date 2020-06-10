@@ -42,23 +42,22 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     if padding == "same":
         ph = int(np.ceil((((h_prev - 1) * sh + kh - h_prev) / 2)))
         pw = int(np.ceil((((w_prev - 1) * sw + kw - w_prev) / 2)))
-    else:
+    if padding == "valid":
         ph, pw = (0, 0)
 
     # initialize the derivatives
     dA = np.zeros(A_prev.shape)
     dW = np.zeros(W.shape)
-    db = np.zeros(b.shape)
+    # getting db
+    db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
 
     A_pad = np.pad(A_prev,
-                   pad_width=((0, 0), (ph, ph),
-                              (pw, pw), (0, 0)),
-                   mode='constant')
+                   ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                   'constant')
 
     dA_pad = np.pad(dA,
-                    pad_width=((0, 0), (ph, ph),
-                               (pw, pw), (0, 0)),
-                    mode='constant')
+                    ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                    'constant')
 
     for elem in range(m):
         im = A_pad[elem]
@@ -79,8 +78,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     # to get the backprop of the W --> dw += dz * x
                     dW[:, :, :, f] += X * dZ[elem, i, j, f]
 
-                    # to get the backprop of b ----> db += dz
-                    db[:, :, :, f] += dZ[elem, i, j, f]
         # careful with the +
         if (padding == 'valid'):
             dA[elem] += dIm

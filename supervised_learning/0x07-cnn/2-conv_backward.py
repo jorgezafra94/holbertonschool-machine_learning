@@ -34,9 +34,9 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     Returns: the partial derivatives with respect to the previous
     layer (dA_prev), the kernels (dW), and the biases (db), respectively
     """
-    _, h_prev, w_prev, _ = A_prev.shape
+    m, h_prev, w_prev, c_prev = A_prev.shape
     m, h_new, w_new, c_new = dZ.shape
-    kh, kw, c_prev, _ = W.shape
+    kh, kw, c_prev, c_new = W.shape
     sh, sw = stride
 
     if padding == "same":
@@ -68,7 +68,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     endh = (i * sh) + kh
                     stw = j * sw
                     endw = (j * sw) + kw
-                    X = im[sth:endh, stw:endw, :]
+                    X = im[sth:endh, stw:endw]
                     # to get the back part of the image --> dim += W * dZ
                     # it is important to use the + simbol careful with this
                     aux = W[:, :, :, f] * dZ[elem, i, j, f]
@@ -83,6 +83,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         if (padding == 'valid'):
             dA[elem] += dIm
         if (padding == 'same'):
-            dA[elem, :, :, :] += dIm[ph: -ph, pw: -pw]
+            dA[elem] += dIm[ph: -ph, pw: -pw]
 
-    return (dA, dW, db)
+    return dA, dW, db

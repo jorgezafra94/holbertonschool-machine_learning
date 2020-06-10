@@ -58,8 +58,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                 X = new_prev[:, sth:endh, stw:endw]
                 WX = (W[:, :, :, f] * X)
                 WX = WX.sum(axis=(1, 2, 3))
-                Z = WX + b[:, :, :, f]
-                conv[:, i, j, f] = Z
+                conv[:, i, j, f] = WX
 
-    A = activation(conv)
-    return A
+    Z = conv + b
+    return activation(Z)

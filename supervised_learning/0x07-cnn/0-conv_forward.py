@@ -32,12 +32,14 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     """
     m, h_prev, w_prev, c_prev = A_prev.shape
     kh, kw, c_prev, c_new = W.shape
-    ph, pw = (0, 0)
     sh, sw = stride
 
     if padding == "same":
         ph = int((((h_prev - 1) * sh + kh - h_prev) / 2) + 1)
         pw = int((((w_prev - 1) * sw + kw - w_prev) / 2) + 1)
+
+    else:
+        ph, pw = (0, 0)
 
     # applying padding
     new_prev = np.pad(A_prev,

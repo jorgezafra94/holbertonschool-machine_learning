@@ -41,13 +41,13 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     sh, sw = stride
 
     if padding == "same":
-        ph = int((((h_prev - 1) * sh + kh - h_prev) / 2) + 1)
-        pw = int((((w_prev - 1) * sw + kw - w_prev) / 2) + 1)
+        ph = int(np.ceil((((h_prev - 1) * sh + kh - h_prev) / 2)))
+        pw = int(np.ceil((((w_prev - 1) * sw + kw - w_prev) / 2)))
 
     # initialize the derivatives
-    dA = np.zeros((m, h_prev, w_prev, c_prev))
-    dW = np.zeros((kh, kw, c_prev, c_new))
-    db = np.zeros((1, 1, 1, c_new))
+    dA = np.zeros(A_prev.shape)
+    dW = np.zeros(W.shape)
+    db = np.zeros(b.shape)
 
     A_pad = np.pad(A_prev,
                    ((0, 0), (ph, ph), (pw, pw), (0, 0)),
@@ -56,6 +56,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     dA_pad = np.pad(dA,
                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant')
+
     for elem in range(m):
         im = A_pad[elem]
         dIm = dA_pad[elem]

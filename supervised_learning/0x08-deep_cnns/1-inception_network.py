@@ -12,7 +12,7 @@ def inception_network():
     You can assume the input data will have shape (224, 224, 3)
     All convolutions inside and outside the inception block
         should use a rectified linear activation (ReLU)
-    Returns: the keras model
+    Returns: the keras  model
     """
     X = K.Input(shape=(224, 224, 3))
     lay_init = K.initializers.he_normal()

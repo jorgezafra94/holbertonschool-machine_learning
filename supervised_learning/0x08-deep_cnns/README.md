@@ -444,7 +444,7 @@ ubuntu@ml:~/supervised_learning/0x08-deep_cnns$
 ```
 
 ### Task4 - ResNet-50
-1[](https://github.com/jorgezafra94/holbertonschool-machine_learning/blob/master/supervised_learning/0x08-deep_cnns/pictures/Table%20Resnet.png)<br>
+![](https://github.com/jorgezafra94/holbertonschool-machine_learning/blob/master/supervised_learning/0x08-deep_cnns/pictures/Table%20Resnet.png)<br>
 Write a function `def resnet50():` that builds the ResNet-50 architecture as described in [Deep Residual Learning for Image Recognition (2015)](https://arxiv.org/pdf/1512.03385.pdf):<br>
 <br>
 * You can assume the input data will have shape (224, 224, 3)

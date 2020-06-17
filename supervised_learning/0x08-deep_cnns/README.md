@@ -316,8 +316,11 @@ Write a function `def identity_block(A_prev, filters):` that builds an identity 
 * All convolutions inside the block should be followed by batch normalization along the channels axis and a rectified linear activation (ReLU), respectively.
 * All weights should use he normal initialization
 * Returns: the activated output of the identity block
-<br>
-main file:
+<br> 
+
+main file
+
+
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 2-main.py 
 #!/usr/bin/env python3
@@ -382,7 +385,8 @@ Write a function `def projection_block(A_prev, filters, s=2):` that builds a pro
 * All weights should use he normal initialization
 * Returns: the activated output of the projection block
 <br>
-main to use:
+main to use
+
 
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 3-main.py 
@@ -452,6 +456,7 @@ Write a function `def resnet50():` that builds the ResNet-50 architecture as des
 * Returns: the keras model
 <br>
 main file to use
+
 
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 4-main.py 
@@ -862,6 +867,8 @@ Write a function `def dense_block(X, nb_filters, growth_rate, layers):` that bui
 * Returns: The concatenated output of each layer within the Dense Block and the number of filters within the concatenated outputs, respectively
 <br>
 main to use
+
+
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 5-main.py
 #!/usr/bin/env python3
@@ -997,6 +1004,7 @@ Write a function `def transition_layer(X, nb_filters, compression):` that builds
 <br>
 main to use
 
+
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 6-main.py
 #!/usr/bin/env python3
@@ -1052,6 +1060,7 @@ Write a function `def densenet121(growth_rate=32, compression=1.0):` that builds
 * Returns: the keras model
 <br>
 main file to use
+
 
 ```
 ubuntu@ml:~/supervised_learning/0x08-deep_cnns$ cat 7-main.py 

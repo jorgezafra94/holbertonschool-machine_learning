@@ -40,13 +40,13 @@ if __name__ == "__main__":
     (x_test, y_test) = Test
 
     # preprocessing
-    x_p, y_p = preprocess_data(x_train, y_train)
-    X_p, Y_p = preprocess_data(x_test, y_test)
+    xp_train, yp_train = preprocess_data(x_train, y_train)
+    xp_test, yp_test = preprocess_data(x_test, y_test)
 
     lay_init = K.initializers.he_normal()
 
     # our model
-    new_input = K.Input(shape=x_p.shape[1:])
+    new_input = K.Input(shape=xp_train.shape[1:])
     vector = K.layers.Flatten()(new_input)
 
     drop1 = K.layers.Dropout(0.3)(vector)
@@ -71,6 +71,6 @@ if __name__ == "__main__":
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
-    model.fit(x=x_p, y=y_p, batch_size=32, epochs=15,
-              verbose=1, validation_data=(X_p, Y_p),
+    model.fit(x=xp_train, y=yp_train, batch_size=32, epochs=15,
+              verbose=1, validation_data=(xp_test, yp_test),
               callbacks=[save, early, learn_dec])

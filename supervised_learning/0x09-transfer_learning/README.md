@@ -12,7 +12,7 @@ Write a python script that trains a convolutional neural network to classify the
 * Your script should not run when the file is imported
 * Hint: The training may take a while, start early!
 <br>
-In the same file, write a function `def preprocess_data(X, Y):` that pre-processes the data for your model:<br>
+In the same file, write a function def preprocess_data(X, Y) that pre-processes the data for your model:<br>
 <br>
 
 *  X is a numpy.ndarray of shape (m, 32, 32, 3) containing the CIFAR 10 data, where m is the number of data points

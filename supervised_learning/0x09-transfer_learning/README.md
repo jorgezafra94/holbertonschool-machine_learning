@@ -14,11 +14,12 @@ Write a python script that trains a convolutional neural network to classify the
 <br>
 In the same file, write a function `def preprocess_data(X, Y):` that pre-processes the data for your model:<br>
 <br>
-* X is a numpy.ndarray of shape (m, 32, 32, 3) containing the CIFAR 10 data, where m is the number of data points
-* Y is a numpy.ndarray of shape (m,) containing the CIFAR 10 labels for X
-* Returns: X_p, Y_p
-* X_p is a numpy.ndarray containing the preprocessed X
-* Y_p is a numpy.ndarray containing the preprocessed Y
+
+*  X is a numpy.ndarray of shape (m, 32, 32, 3) containing the CIFAR 10 data, where m is the number of data points
+*  Y is a numpy.ndarray of shape (m,) containing the CIFAR 10 labels for X
+*  Returns: X_p, Y_p
+*  X_p is a numpy.ndarray containing the preprocessed X
+*  Y_p is a numpy.ndarray containing the preprocessed Y
 
 ```
 ubuntu-xenial:0x09-transfer_learning$ cat 0-main.py

@@ -13,4 +13,4 @@ if __name__ == '__main__':
     print('Class names:', yolo.class_names)
     print('Class threshold:', yolo.class_t)
     print('NMS threshold:', yolo.nms_t)
-    print('Anchor boxes:', yolo.anchors)ls
+    print('Anchor boxes:', yolo.anchors)

@@ -177,7 +177,7 @@ class Yolo:
             class_position = np.argmax(multi, -1)
             class_scores = np.max(multi, -1)
 
-            mask = np.where(class_scores[:, :, :] > self.class_t, 1, 0)
+            mask = np.where(class_scores[:, :, :] >= self.class_t, 1, 0)
 
             box_scores = mask * class_scores
             box_classes = mask * class_position
@@ -199,4 +199,5 @@ class Yolo:
         score_fin = np.array(box_scores_fin)
         class_fin = np.array(box_class_fin)
         filter_fin = np.array(box_fil_fin)
+
         return (filter_fin, class_fin, score_fin)

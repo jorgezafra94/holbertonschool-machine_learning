@@ -97,9 +97,9 @@ class Yolo:
             pw_actual = pw[index].reshape(1, 1, len(pw[index]))
             ph_actual = ph[index].reshape(1, 1, len(ph[index]))
 
-            cx = np.tile(np.arange(0, grid_w), grid_w)
+            cx = np.tile(np.arange(0, grid_w), grid_h)
             cx = cx.reshape(grid_w, grid_w, 1)
-            cy = np.tile(np.arange(0, grid_h), grid_h)
+            cy = np.tile(np.arange(0, grid_w), grid_h)
             cy = (cy.reshape(grid_h, grid_h).T).reshape(grid_h, grid_h, 1)
 
             # predictions

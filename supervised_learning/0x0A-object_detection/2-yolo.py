@@ -163,41 +163,31 @@ class Yolo:
         * box_scores: a numpy.ndarray of shape (?) containing the box scores
             for each box in filtered_boxes, respectively
         """
-        box_scores_fin = []
-        box_class_fin = []
-        box_fil_fin = []
-        for i in range(len(boxes)):
-            conf = box_confidences[i]
-            props = box_class_probs[i]
-            filter = boxes[i]
+        multi = []
+        for confidence, clase in zip(box_confidences, box_class_probs):
+            multi.append(confidence * clase)
 
-            grid_h, grid_w, anchor, _ = filter.shape
+        index_class = [np.argmax(elem, axis=-1) for elem in multi]
+        index_class = [elem.reshape(-1) for elem in index_class]
+        index_class = np.concatenate(index_class)
 
-            multi = conf[:, :, :] * props[:, :, :]
-            class_position = np.argmax(multi, -1)
-            class_scores = np.max(multi, -1)
+        score_class = [np.max(elem, axis=-1) for elem in multi]
+        score_class = [elem.reshape(-1) for elem in score_class]
+        score_class = np.concatenate(score_class)
 
-            mask = np.where(class_scores[:, :, :] >= self.class_t, 1, 0)
+        mask = np.where(score_class >= self.class_t, 1, 0)
 
-            box_scores = mask * class_scores
-            box_classes = mask * class_position
+        box_class = mask * index_class
+        box_score = mask * score_class
 
-            new_mask = np.repeat(mask, 4, axis=-1)
-            new_mask = new_mask.reshape(grid_h, grid_w, anchor, 4)
-            filtered_boxes = new_mask * filter
+        box_class = box_class[box_class != 0]
+        box_score = box_score[box_score != 0]
 
-            for h in range(boxes[i].shape[0]):
-                for w in range(boxes[i].shape[1]):
-                    for a in range(boxes[i].shape[2]):
-                        if(box_scores[h, w, a] != 0):
-                            box_scores_fin.append(box_scores[h, w, a])
-                        if (box_classes[h, w, a] != 0):
-                            box_class_fin.append(box_classes[h, w, a])
-                        if (filtered_boxes[h, w, a].sum() != 0):
-                            box_fil_fin.append(filtered_boxes[h, w, a])
+        filter_box = [elem.reshape(-1, 4) for elem in boxes]
+        filter_box = np.concatenate(filter_box)
+        filter_box = filter_box * mask.reshape(-1, 1)
+        filter_box = [elem[elem != 0] for elem in filter_box]
+        filter_box = [elem for elem in filter_box if len(elem) > 0 ]
+        filter_box = np.concatenate(filter_box).reshape(-1, 4)
 
-        score_fin = np.array(box_scores_fin)
-        class_fin = np.array(box_class_fin)
-        filter_fin = np.array(box_fil_fin)
-
-        return (filter_fin, class_fin, score_fin)
+        return (filter_box, box_class, box_score)

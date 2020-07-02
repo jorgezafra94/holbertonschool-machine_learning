@@ -175,19 +175,13 @@ class Yolo:
         score_class = [elem.reshape(-1) for elem in score_class]
         score_class = np.concatenate(score_class)
 
-        mask = np.where(score_class >= self.class_t, 1, 0)
+        mask = np.where(score_class >= self.class_t)
 
-        box_class = mask * index_class
-        box_score = mask * score_class
-
-        box_class = box_class[box_class != 0]
-        box_score = box_score[box_score != 0]
+        box_class = index_class[mask]
+        box_score = score_class[mask]
 
         filter_box = [elem.reshape(-1, 4) for elem in boxes]
         filter_box = np.concatenate(filter_box)
-        filter_box = filter_box * mask.reshape(-1, 1)
-        filter_box = [elem[elem != 0] for elem in filter_box]
-        filter_box = [elem for elem in filter_box if len(elem) > 0]
-        filter_box = np.concatenate(filter_box).reshape(-1, 4)
+        filter_box = filter_box[mask]
 
         return (filter_box, box_class, box_score)

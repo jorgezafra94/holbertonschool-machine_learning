@@ -167,19 +167,25 @@ class Yolo:
         for confidence, clase in zip(box_confidences, box_class_probs):
             multi.append(confidence * clase)
 
+        # processing index_classes and turn them into a vector
+        # awesome trick of reshape(-1)
         index_class = [np.argmax(elem, axis=-1) for elem in multi]
         index_class = [elem.reshape(-1) for elem in index_class]
         index_class = np.concatenate(index_class)
 
+        # processing score_class and turn them into vector
         score_class = [np.max(elem, axis=-1) for elem in multi]
         score_class = [elem.reshape(-1) for elem in score_class]
         score_class = np.concatenate(score_class)
 
+        # mask is going to return a list with the positions
+        # that fulfill the condition
         mask = np.where(score_class >= self.class_t)
 
         box_class = index_class[mask]
         box_score = score_class[mask]
 
+        # processing the boxes, turn them into matrix of (?, 4)
         filter_box = [elem.reshape(-1, 4) for elem in boxes]
         filter_box = np.concatenate(filter_box)
         filter_box = filter_box[mask]

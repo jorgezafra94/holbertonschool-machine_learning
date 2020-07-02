@@ -199,13 +199,16 @@ class Yolo:
             number for the class that filtered_boxes predicts, respectively
         * box_scores: a numpy.ndarray of shape (?) containing the box scores
             for each box in filtered_boxes, respectively
-        Returns a tuple of (box_predictions, predicted_box_classes, predicted_box_scores):
-        * box_predictions: a numpy.ndarray of shape (?, 4) containing all of the
-            predicted bounding boxes ordered by class and box score
+        Returns a tuple of
+            (box_predictions, predicted_box_classes, predicted_box_scores):
+        * box_predictions: a numpy.ndarray of shape (?, 4) containing all
+            of the predicted bounding boxes ordered by class and box score
         * predicted_box_classes: a numpy.ndarray of shape (?,) containing the
-            class number for box_predictions ordered by class and box score, respectively
+            class number for box_predictions ordered by class and box score,
+            respectively
         * predicted_box_scores: a numpy.ndarray of shape (?) containing the box
-            scores for box_predictions ordered by class and box score, respectively
+            scores for box_predictions ordered by class and box score,
+            respectively
         """
         #  nms_t: the IOU threshold for non - max suppression
 
@@ -268,5 +271,3 @@ class Yolo:
             inds = np.where(ovr <= thresh)[0]
             order = order[inds + 1]
         return keep
-        
-

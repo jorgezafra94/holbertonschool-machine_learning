@@ -187,7 +187,7 @@ class Yolo:
         filter_box = np.concatenate(filter_box)
         filter_box = filter_box * mask.reshape(-1, 1)
         filter_box = [elem[elem != 0] for elem in filter_box]
-        filter_box = [elem for elem in filter_box if len(elem) > 0 ]
+        filter_box = [elem for elem in filter_box if len(elem) > 0]
         filter_box = np.concatenate(filter_box).reshape(-1, 4)
 
         return (filter_box, box_class, box_score)

@@ -328,7 +328,7 @@ class Yolo:
             img = img / 255
             process_img.append(img)
 
-        pimages = [elem.reshape(1, inp_w, inp_h, 3) for elem in process_img]
+        pimages = [elem.reshape(1, inp_h, inp_w, 3) for elem in process_img]
         pimages = np.concatenate(pimages)
 
         image_shapes = [elem.reshape(-1, 2) for elem in original_dims]

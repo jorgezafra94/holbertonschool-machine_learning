@@ -430,19 +430,19 @@ class Yolo:
                                                               image_shapes[i])
 
             # filtering using the  treshold
-            boxes, box_classes, box_scores = self.filter_boxes(boxes, box_conf,
-                                                               box_cl_pr)
+            boxes, bx_class, bx_sco = self.filter_boxes(boxes, box_conf,
+                                                        box_cl_pr)
 
             # realizing the non_max_suppression to get the most accurate boxes
             boxes, box_classes, box_scores = self.non_max_suppression(boxes,
-                                                                      box_classes,
-                                                                      box_scores)
+                                                                      bx_class,
+                                                                      bx_sco)
             # saving predictions
             predictions.append((boxes, box_classes, box_scores))
 
             name = image_paths[i].split('/')
             # linux
-            #name = name[-1]
+            # name = name[-1]
             # windows
             name = name[-1].split('\\')[-1]
             print(name)

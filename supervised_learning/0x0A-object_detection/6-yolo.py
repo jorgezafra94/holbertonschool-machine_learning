@@ -393,9 +393,7 @@ class Yolo:
         if (key == 115):
             if not os.path.exists('detections'):
                 os.mkdir('detections')
-            os.chdir('detections')
-            cv2.imwrite(file_name, image)
-            os.chdir('../')
+            cv2.imwrite(os.path.join('detections', file_name), image)
             cv2.destroyAllWindows()
         else:
             cv2.destroyAllWindows()

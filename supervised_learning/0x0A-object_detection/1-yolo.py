@@ -76,70 +76,62 @@ class Yolo:
             the box’s class
             probabilities for each output, respectively
         """
-        final_boxes = []
-        confidence_boxes = []
-        prop_boxes = []
-        im_h, im_w = image_size
-        for index, output in enumerate(outputs):
-            grid_h, grid_w, anchor, total = output.shape
-            # *************** Boxes *********************
-            t_prediction = output[:, :, :, :4]
-            boxes = np.zeros(t_prediction.shape)
+        boxes = []
+        box_confidences = []
+        box_class_probs = []
+
+        image_height = image_size[0]
+        image_width = image_size[1]
+
+        for i, output in enumerate(outputs):
+            gh = output.shape[0]
+            gw = output.shape[1]
 
             t_x = output[:, :, :, 0]
             t_y = output[:, :, :, 1]
             t_w = output[:, :, :, 2]
             t_h = output[:, :, :, 3]
 
-            pw = self.anchors[:, :, 0]
-            ph = self.anchors[:, :, 1]
+            anchor = self.anchors[i]
 
-            # creating matrices with respective dimensions, thay have to match
-            # with the dims of t_x, t_y, t_w, t_h
-            pw_actual = pw[index].reshape(1, 1, len(pw[index]))
-            ph_actual = ph[index].reshape(1, 1, len(ph[index]))
+            pw = anchor[:, 0]
+            ph = anchor[:, 1]
+            pw = pw.reshape(1, 1, len(pw))
+            ph = ph.reshape(1, 1, len(ph))
 
-            cx = np.tile(np.arange(0, grid_w), grid_h)
-            cx = cx.reshape(grid_w, grid_w, 1)
-            cy = np.tile(np.arange(0, grid_w), grid_h)
-            cy = (cy.reshape(grid_h, grid_h).T).reshape(grid_h, grid_h, 1)
+            cx = np.tile(np.arange(gw), gh).reshape(gw, gw, 1)
+            cy = np.tile(np.arange(gw),
+                         gh).reshape(gh, gh, 1).T.reshape(gh, gh, 1)
 
-            # predictions
-            bx = (1 / (1 + np.exp(-t_x))) + cx
-            by = (1 / (1 + np.exp(-t_y))) + cy
+            bx = self.sigmoid(t_x) + cx
+            by = self.sigmoid(t_y) + cy
 
-            bw = np.exp(t_w) * pw_actual
-            bh = np.exp(t_h) * ph_actual
+            bw = pw * np.exp(t_w)
+            bh = ph * np.exp(t_h)
 
-            # Normalization
-            bx = bx / grid_w
-            by = by / grid_h
+            # normalize
+            bx = bx / gw
+            by = by / gh
+            bw = bw / self.model.input.shape[1]
+            bh = bh / self.model.input.shape[2]
 
-            bw = bw / self.model.input.shape[1].value
-            bh = bh / self.model.input.shape[2].value
+            x1 = (bx - bw / 2) * image_width
+            y1 = (by - bh / 2) * image_height
+            x2 = (bx + bw / 2) * image_width
+            y2 = (by + bh / 2) * image_height
 
-            # getting coordinates
-            x1 = (bx - (bw / 2)) * im_w
-            y1 = (by - (bh / 2)) * im_h
-            x2 = (bx + (bw / 2)) * im_w
-            y2 = (by + (bh / 2)) * im_h
+            box = np.zeros(output[:, :, :, :4].shape)
+            box[:, :, :, 0] = x1
+            box[:, :, :, 1] = y1
+            box[:, :, :, 2] = x2
+            box[:, :, :, 3] = y2
 
-            # fulling the boxes
-            boxes[:, :, :, 0] = x1
-            boxes[:, :, :, 1] = y1
-            boxes[:, :, :, 2] = x2
-            boxes[:, :, :, 3] = y2
-            final_boxes.append(boxes)
+            boxes.append(box)
 
-            # *************** confidence boxes ****************
-            t_c = output[:, :, :, 4]
-            confidence = (1 / (1 + np.exp(-t_c)))
-            confidence = confidence.reshape(grid_h, grid_w, anchor, 1)
-            confidence_boxes.append(confidence)
+            box_confidence = self.sigmoid(output[:, :, :, 4, np.newaxis])
+            box_confidences.append(box_confidence)
 
-            # ****** box class probabilities******************
-            t_cprops = output[:, :, :, 5:]
-            class_props = (1 / (1 + np.exp(-t_cprops)))
-            prop_boxes.append(class_props)
+            box_class = self.sigmoid(output[:, :, :, 5:])
+            box_class_probs.append(box_class)
 
-        return (final_boxes, confidence_boxes, prop_boxes)
+        return boxes, box_confidences, box_class_probs

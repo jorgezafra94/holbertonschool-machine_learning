@@ -374,8 +374,6 @@ class Yolo:
             x2 = int(boxes[pos][2])
             y2 = int(boxes[pos][3])
 
-            print(box_classes[pos])
-            print(self.class_names[box_classes[pos]])
             clase = self.class_names[box_classes[pos]]
             score = float(box_scores[pos])
 

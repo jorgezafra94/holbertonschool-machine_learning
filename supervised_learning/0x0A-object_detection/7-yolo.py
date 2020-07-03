@@ -445,7 +445,7 @@ class Yolo:
             # name = name[-1]
             # windows
             name = name[-1].split('\\')[-1]
-            print(name)
+            # print(name)
             # putting the predictions
             self.show_boxes(images[i], boxes, box_classes, box_scores, name)
         return (predictions, image_paths)

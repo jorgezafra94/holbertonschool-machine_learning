@@ -35,7 +35,7 @@ class Yolo:
 
         with open(classes_path, 'r') as fd:
             all_classes = fd.read()
-            all_classes = all_classes.split('\n')
+            all_classes = all_classes.split('\n')[:-1]
             self.class_names = all_classes
 
         self.class_t = class_t

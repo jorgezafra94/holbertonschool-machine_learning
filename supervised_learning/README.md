@@ -42,3 +42,29 @@ Start to learn Keras and how to use it
 * train model
 * evaluate or test the model
 * predict with the model created
+## CNN
+Here we are going to learn how to play with convolutional Neural Networks using filters and max, avg pooling
+* forward conv layer
+* forward pool layer
+* backprop conv layer
+* backprop pool layer
+* creating LeNet5 Model in Tensorflow as in Keras
+## deep_CNN
+Here we are going to create different arquitectures that were revolutionary in their time
+* Inception Network
+* ResNet Network
+* DenseNet Network
+## Transfer Learning
+Here we are going to use transfer Learning technique to create a model from one of the models in application keras that perform an val_Acc >= 0.88, methods that i used to obtain that:
+* Using prediction as input
+* freezing the whole pre_model
+* training the whole pre_model
+* freezing half and training half of pre_model
+## Object Detection
+Here we are going to create ou own Yolo3 using darknet to process the images
+* processing outputs of Darkent
+* filter by threshold
+* filter using IoU
+* Load images (database)
+* preprocess the images for the Darknet
+* detecting objects

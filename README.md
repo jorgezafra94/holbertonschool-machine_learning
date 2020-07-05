@@ -16,3 +16,7 @@ here are the bases of ML, things like
 - Optimization of algorithms of ML
 - Error Analisys (bias-variance trade off), confusion Matrix, TP, TN, FP, FN
 - keras basics
+- Convolutional layers, max and avg Pooling
+- Inception Network, ResNet, DenseNet
+- Transfer Learning
+- Object Detection (Yolo3 and DarkNet)

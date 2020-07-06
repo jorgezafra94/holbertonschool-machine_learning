@@ -34,25 +34,29 @@ class FaceAlign:
         * If no faces are detected, return a dlib.rectangle that is the same
           as the image
         """
-        # we have to change the image to gray scale
-        img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        try:
+            # we have to change the image to gray scale
+            img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        # we get the faces in the gray picture
-        faces = self.detector(img_gray)
+            # we get the faces in the gray picture
+            faces = self.detector(img_gray)
 
-        # we have to go through all the faces
-        box = [0, 0, image.shape[1], image.shape[0]]
-        large = 0
-        for face in faces:
-            x1 = face.left()
-            y1 = face.top()
-            x2 = face.right()
-            y2 = face.bottom()
+            # we have to go through all the faces
+            box = [0, 0, image.shape[1], image.shape[0]]
+            area = 0
+            for face in faces:
+                x1 = face.left()
+                y1 = face.top()
+                x2 = face.right()
+                y2 = face.bottom()
 
-            large_aux = (x2 - x1) * (y2 - y1)
-            if (large_aux >= large):
-                large = large_aux
-                box = list((x1, y1, x2, y2))
+                area_aux = (x2 - x1) * (y2 - y1)
+                if (area_aux >= area):
+                    area = area_aux
+                    box = list((x1, y1, x2, y2))
 
-        box_coordinates = tuple(box)
-        return(dlib.rectangle(*box_coordinates))
+            box_coordinates = tuple(box)
+            return(dlib.rectangle(*box_coordinates))
+
+        except Exception:
+            return None

@@ -41,14 +41,14 @@ class FaceAlign:
         faces = self.detector(img_gray)
 
         # we have to go through all the faces
-        box = [0, 0, 0, 0]
+        box = [0, 0, image.shape[1], image.shape[0]]
         large = 0
         for face in faces:
             x1 = face.left()
             y1 = face.top()
             x2 = face.right()
             y2 = face.bottom()
-            print(x1, y1, x2, y2)
+
             large_aux = (x2 - x1) * (y2 - y1)
             if (large_aux >= large):
                 large = large_aux

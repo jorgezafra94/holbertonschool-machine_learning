@@ -76,12 +76,12 @@ class FaceAlign:
         """
         try:
             img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            parts = self.shape_predictor(img_gray, detection)
-            landmarks = np.zeros((parts.num_parts, 2), dtype=np.int)
+            points = self.shape_predictor(img_gray, detection)
+            landmarks = np.zeros((points.num_parts, 2), dtype=np.int)
 
-            for i in range(len(parts.num_parts)):
-                landmarks[i, 0] = parts.num_parts(i).x
-                landmarks[i, 1] = parts.num_parts(i).y
+            for i in range(points.num_parts):
+                landmarks[i, 0] = points.part(i).x
+                landmarks[i, 1] = points.part(i).y
 
             return landmarks
 

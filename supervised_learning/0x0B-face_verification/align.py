@@ -87,3 +87,33 @@ class FaceAlign:
 
         except Exception:
             return None
+
+    def align(self, image, landmark_indices, anchor_points, size=96):
+        """
+        * image is a numpy.ndarray of rank 3 containing the image to be
+          aligned
+        * landmark_indices is a numpy.ndarray of shape (3,) containing the
+          indices of the three landmark points that should be used for the
+          affine transformation
+        * anchor_points is a numpy.ndarray of shape (3, 2) containing the
+          destination points for the affine transformation, scaled to the
+          range [0, 1]
+        * size is the desired size of the aligned image
+        Returns: a numpy.ndarray of shape (size, size, 3) containing the
+          aligned image, or None if no face is detected
+        """
+        try:
+            detection = self.detect(image)
+            landmarks = self.find_landmarks(image, detection)
+
+            srcTri = landmarks[landmark_indices]
+            srcTri = srcTri.astype('float32')
+            dstTri = anchor_points * size
+
+            warp_mat = cv2.getAffineTransform(srcTri, dstTri)
+            warp_dst = cv2.warpAffine(image, warp_mat, (size, size))
+
+            return warp_dst
+
+        except Exception:
+            return None

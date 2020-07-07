@@ -39,7 +39,10 @@ class FaceAlign:
             img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
             # we get the faces in the gray picture
-            faces = self.detector(img_gray)
+            # The 1 in the second argument indicates that we should upsample the image
+            # 1 time.  This will make everything bigger and allow us to detect more
+            # faces.
+            faces = self.detector(img_gray, 1)
 
             # we have to go through all the faces
             box = [0, 0, image.shape[1], image.shape[0]]
@@ -49,7 +52,7 @@ class FaceAlign:
                 y1 = face.top()
                 x2 = face.right()
                 y2 = face.bottom()
-
+                print(x1, y1, x2, y2)
                 area_aux = (x2 - x1) * (y2 - y1)
                 if (area_aux >= area):
                     area = area_aux

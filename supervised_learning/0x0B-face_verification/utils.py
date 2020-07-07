@@ -148,5 +148,4 @@ def generate_triplets(images, filenames, triplet_names):
     list_N = [elem.reshape(1, h, w, c) for elem in list_N]
     list_N = np.concatenate(list_N)
 
-    print(list_A.shape, list_P.shape, list_N.shape)
     return (list_A, list_P, list_N)

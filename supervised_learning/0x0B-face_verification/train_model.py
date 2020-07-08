@@ -60,7 +60,22 @@ class TrainModel:
         model_fin.compile(optimizer='adam')
         self.training_model = model_fin
 
-
+    def train(self, triplets, epochs=5, batch_size=32,
+              validation_split=0.3, verbose=True):
+        """
+        * triplets is a list of numpy.ndarrayscontaining
+            the inputs to self.training_model
+        * epochs is the number of epochs to train for
+        * batch_size is the batch size for training
+        * validation_split is the validation split for training
+        * verbose is a boolean that sets the verbosity mode
+        """
+        history = self.training_model.fit(x=triplets,
+                                          batch_size=batch_size,
+                                          epochs=epochs,
+                                          validation_split=validation_split,
+                                          verbose=verbose)
+        return history
 
 
 

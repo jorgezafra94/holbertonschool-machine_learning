@@ -30,16 +30,16 @@ class TripletLoss(Layer):
         """
         A, P, N = inputs
         # ********************** Keras ****************************
-        pos_dist = K.backend.sum(K.backend.square(A - P), axis=-1)
-        neg_dist = K.backend.sum(K.backend.square(A - N), axis=-1)
-        basic_loss = K.layers.Subtract()([pos_dist, neg_dist]) + self.alpha
-        loss = K.backend.maximum(basic_loss, 0)
+        # pos_dist = K.backend.sum(K.backend.square(A - P), axis=-1)
+        # neg_dist = K.backend.sum(K.backend.square(A - N), axis=-1)
+        # basic_loss = K.layers.Subtract()([pos_dist, neg_dist]) + self.alpha
+        # loss = K.backend.maximum(basic_loss, 0)
 
         # ********************* Tensorflow ******************************
-        # pos_dist = tf.reduce_sum((A - P) ** 2, axis=-1)
-        # neg_dist = tf.reduce_sum((A - N) ** 2, axis=-1)
-        # basic_loss = pos_dist - neg_dist + self.alpha
-        # loss = tf.maximum(basic_loss, 0)
+        pos_dist = tf.reduce_sum((A - P) ** 2, axis=-1)
+        neg_dist = tf.reduce_sum((A - N) ** 2, axis=-1)
+        basic_loss = pos_dist - neg_dist + self.alpha
+        loss = tf.maximum(basic_loss, 0)
 
         return loss
 

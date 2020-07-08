@@ -45,11 +45,17 @@ class TrainModel:
         A = tf.keras.Input(shape=(96, 96, 3))
         P = tf.keras.Input(shape=(96, 96, 3))
         N = tf.keras.Input(shape=(96, 96, 3))
+
+        # each one of the A P N have to enter in the base_model model
         predict_a = self.base_model(A)
         predict_b = self.base_model(P)
         predict_c = self.base_model(N)
+
+        # the outputs have to enter in the tl
         tl = TripletLoss(alpha)
         output = tl([predict_a, predict_b, predict_c])
+
+        # In this way we send 3 different inputs
         model_fin = tf.keras.models.Model([A, P, N], outputs=output)
         model_fin.compile(optimizer='adam')
         self.training_model = model_fin

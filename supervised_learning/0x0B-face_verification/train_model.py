@@ -61,7 +61,6 @@ class TrainModel:
         model_fin.compile(optimizer='adam')
         self.training_model = model_fin
 
-
     def train(self, triplets, epochs=5, batch_size=32,
               validation_split=0.3, verbose=True):
         """
@@ -79,7 +78,6 @@ class TrainModel:
                                           verbose=verbose)
         return history
 
-
     def save(self, save_path):
         """
         * save_path is the path to save the model
@@ -87,7 +85,6 @@ class TrainModel:
         """
         tf.keras.models.save_model(self.base_model, save_path)
         return self.base_model
-
 
     @staticmethod
     def f1_score(y_true, y_pred):
@@ -107,7 +104,6 @@ class TrainModel:
         f1 = (2 * sensitivity * precision) / (sensitivity + precision)
         return f1
 
-
     @staticmethod
     def accuracy(y_true, y_pred):
         """
@@ -124,7 +120,6 @@ class TrainModel:
         # accuracy
         acc = (TP + TN) / (TP + TN + FP + FN)
         return acc
-
 
     def best_tau(self, images, identities, thresholds):
         """
@@ -144,7 +139,8 @@ class TrainModel:
 
         distancias = []
         identicas = []
-
+        # my_face = tf.keras.models.load_model('models/trained_fv.h5')
+        # pro_img = my_face.predict(images)
         pro_img = self.base_model.predict(images)
 
         for i in range(len(identities) - 1):
@@ -161,8 +157,8 @@ class TrainModel:
         distancias = np.array(distancias)
         identicas = np.array(identicas)
 
-        f1_list=[]
-        acc_list=[]
+        f1_list = []
+        acc_list = []
 
         for t in thresholds:
             mask = np.where(distancias <= t, 1, 0)
@@ -171,12 +167,9 @@ class TrainModel:
             f1_list.append(f1)
             acc_list.append(acc)
 
-        #print(f1_list)
-        #print("")
-        #print(acc_list)
-        index_f1 = np.argmax(np.array(f1_list))
-        f1_max = f1_list[index_f1]
-        acc_max = acc_list[index_f1]
-        tau = thresholds[index_f1]
+        f1_max = max(f1_list)
+        index = f1_list.index(f1_max)
+        acc_max = acc_list[index]
+        tau = thresholds[index]
 
         return(tau, f1_max, acc_max)

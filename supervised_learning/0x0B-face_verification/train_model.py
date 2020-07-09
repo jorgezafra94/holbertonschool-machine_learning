@@ -5,6 +5,7 @@ contains the TrainModel class
 
 from triplet_loss import TripletLoss
 import tensorflow as tf
+import numpy as np
 
 
 class TrainModel:
@@ -60,6 +61,7 @@ class TrainModel:
         model_fin.compile(optimizer='adam')
         self.training_model = model_fin
 
+
     def train(self, triplets, epochs=5, batch_size=32,
               validation_split=0.3, verbose=True):
         """
@@ -78,9 +80,103 @@ class TrainModel:
         return history
 
 
+    def save(self, save_path):
+        """
+        * save_path is the path to save the model
+        * Returns: the saved model
+        """
+        tf.keras.models.save_model(self.base_model, save_path)
+        return self.base_model
 
 
+    @staticmethod
+    def f1_score(y_true, y_pred):
+        """
+        * y_true - a numpy.ndarray of shape (m,) containing the correct labels
+        * m is the number of examples
+        * y_pred- a numpy.ndarray of shape (m,) containing the predicted labels
+        Returns: The f1 score
+        """
+        TP = np.count_nonzero(y_pred * y_true)
+        TN = np.count_nonzero((y_pred - 1) * (y_true - 1))
+        FP = np.count_nonzero(y_pred * (y_true - 1))
+        FN = np.count_nonzero((y_pred - 1) * y_true)
+        sensitivity = TP / (TP + FN)
+        precision = TP / (TP + FP)
+
+        f1 = (2 * sensitivity * precision) / (sensitivity + precision)
+        return f1
 
 
+    @staticmethod
+    def accuracy(y_true, y_pred):
+        """
+        * y_true - a numpy.ndarray of shape (m,) containing the correct labels
+        * m is the number of examples
+        * y_pred- a numpy.ndarray of shape (m,) containing the predicted labels
+        Returns: the accuracy
+        """
+        TP = np.count_nonzero(y_pred * y_true)
+        TN = np.count_nonzero((y_pred - 1) * (y_true - 1))
+        FP = np.count_nonzero(y_pred * (y_true - 1))
+        FN = np.count_nonzero((y_pred - 1) * y_true)
+
+        # accuracy
+        acc = (TP + TN) / (TP + TN + FP + FN)
+        return acc
 
 
+    def best_tau(self, images, identities, thresholds):
+        """
+        * images - a numpy.ndarray of shape (m, n, n, 3) containing the
+          aligned images for testing
+        * m is the number of images
+        * n is the size of the images
+        * identities - a list containing the identities of each image
+          in images
+        * thresholds - a 1D numpy.ndarray of distance thresholds (tau)
+          to test
+        Returns: (tau, f1, acc)
+        * tau- the optimal threshold to maximize F1 score
+        * f1 - the maximal F1 score
+        * acc - the accuracy associated with the maximal F1 score
+        """
+
+        distancias = []
+        identicas = []
+
+        pro_img = self.base_model.predict(images)
+
+        for i in range(len(identities) - 1):
+            for j in range(i + 1, len(identities)):
+                dist = (np.square(pro_img[i] - pro_img[j]))
+                dist = np.sum(dist)
+                print(dist, identities[i], identities[j])
+                distancias.append(dist)
+                if identities[i] == identities[j]:
+                    identicas.append(1)
+                else:
+                    identicas.append(0)
+
+        distancias = np.array(distancias)
+        identicas = np.array(identicas)
+
+        f1_list=[]
+        acc_list=[]
+
+        for t in thresholds:
+            mask = np.where(distancias <= t, 1, 0)
+            f1 = self.f1_score(identicas, mask)
+            acc = self.accuracy(identicas, mask)
+            f1_list.append(f1)
+            acc_list.append(acc)
+
+        #print(f1_list)
+        #print("")
+        #print(acc_list)
+        index_f1 = np.argmax(np.array(f1_list))
+        f1_max = f1_list[index_f1]
+        acc_max = acc_list[index_f1]
+        tau = thresholds[index_f1]
+
+        return(tau, f1_max, acc_max)

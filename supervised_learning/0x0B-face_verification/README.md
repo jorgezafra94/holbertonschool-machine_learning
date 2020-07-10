@@ -1234,8 +1234,8 @@ test_img_negative = imread('HBTNaligned/KirenSrinivasan.jpg').astype('float32') 
 
 identities = ['HeimerRojas', 'MariaCoyUlloa', 'MiaMorton', 'RodrigoCruz', 'XimenaCarolinaAndradeVargas']
 fv = FaceVerification('models/face_verification.h5', database_embs, identities)
-print(fv.verify(test_img_positive, tau=0.44))
-print(fv.verify(test_img_negative, tau=0.44))
+print(fv.verify(test_img_positive, tau=0.46))
+print(fv.verify(test_img_negative, tau=0.46))
 ubuntu-xenial:0x0B-face_verification$./18-main
 WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.
 WARNING:tensorflow:No training configuration found in save file: the model was *not* compiled. Compile it manually.

@@ -40,7 +40,5 @@ def definiteness(matrix):
         return ('Negative definite')
     elif not pos.size and cer.size and neg.size:
         return ('Negative semi-definite')
-    elif pos.size and not cer.size and neg.size:
-        return ('Indefinite')
     else:
-        return None
+        return ('Indefinite')

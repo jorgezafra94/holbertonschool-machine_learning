@@ -1,6 +1,6 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 """
-creating our method to get the determinant
+creating our method to get the inverse matrix
 """
 
 

@@ -130,10 +130,10 @@ def inverse(matrix):
     * matrix is a list of lists whose inverse should be calculated
     * Returns: the inverse of matrix, or None if matrix is singular
     """
+    adj_mat = adjugate(matrix)
     det = determinant(matrix)
     if det == 0:
         return None
-    adj_mat = adjugate(matrix)
     inverse = []
     for elem in adj_mat:
         min_inv = [number/det for number in elem]

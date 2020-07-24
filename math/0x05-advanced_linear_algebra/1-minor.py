@@ -3,55 +3,42 @@
 creating our method to get the minors
 """
 
-
 def determinant(matrix):
     """
     * matrix is a list of lists whose determinant should be calculated
     * Returns the determinant of matrix
     """
-    # determinant matrix 0x0 or 1x1
-    if type(matrix) is list and len(matrix) == 1:
-        if type(matrix[0]) is list and len(matrix[0]) == 0:
-            return 1
-        if type(matrix[0]) is list and len(matrix[0]) == 1:
-            return matrix[0][0]
-
-    # Matrix list of list
-    if type(matrix) is not list or len(matrix) == 0:
+    if not isinstance(matrix, list) or matrix == []:
         raise TypeError('matrix must be a list of lists')
-    for elem in matrix:
-        if type(elem) is not list:
-            raise TypeError('matrix must be a list of lists')
 
-    # if Matrix is not square
+    if not isinstance(matrix[0], list):
+        raise TypeError('matrix must be a list of lists')
+
     size = len(matrix)
-    for elem in matrix:
-        if len(elem) != size:
-            raise ValueError('matrix must be a square matrix')
 
+    if size == 1 and len(matrix[0]) == 0:
+        return 1
+
+    for l in matrix:
+        if not isinstance(l, list):
+            raise TypeError('matrix must be a list of lists')
+        if len(l) != size:
+            raise ValueError('matrix must be a non-empty square matrix')
+
+    if size == 1:
+        return matrix[0][0]
     if size == 2:
-        det = (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0])
-        return det
-    else:
-        det = 0
-        count = 0
-        cof = 1
-        while (count < size):
-            multy = matrix[0][count]
-            multy = multy * cof
-            copy = []
-            for elem in matrix:
-                copy.append(list(elem))
-            copy.pop(0)
-            new_mat = []
-            for elem in copy:
-                elem.pop(count)
-                new_mat.append(elem)
-            mini_det = determinant(new_mat)
-            det = det + (multy * mini_det)
-            cof = cof * -1
-            count += 1
-        return det
+        return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
+    total = 0
+    for i in range(size):
+        sub_matrix = matrix[1:]
+
+        for j in range(len(sub_matrix)):
+            sub_matrix[j] = sub_matrix[j][0:i] + sub_matrix[j][i+1:]
+        sign = (-1) ** (i % 2)
+        sub_det = determinant(sub_matrix)
+        total += sign * matrix[0][i] * sub_det
+    return total
 
 
 def minor(matrix):
@@ -60,37 +47,37 @@ def minor(matrix):
     * Returns: the minor matrix of matrix
     here the matrix 0x0 cant be realized
     """
-    # list of lists
-    if type(matrix) is not list or len(matrix) == 0:
+    if not isinstance(matrix, list) or matrix == []:
         raise TypeError('matrix must be a list of lists')
-    for elem in matrix:
-        if type(elem) is not list:
-            raise TypeError('matrix must be a list of lists')
 
-    # if Matrix is not square and matrix 0x0
+    if not isinstance(matrix[0], list):
+        raise TypeError('matrix must be a list of lists')
+
     size = len(matrix)
-    for elem in matrix:
-        if len(elem) != size or len(elem) == 0:
+
+    if size == 1 and len(matrix[0]) == 0:
+        raise ValueError('matrix must be a non-empty square matrix')
+
+    for l in matrix:
+        if not isinstance(l, list):
+            raise TypeError('matrix must be a list of lists')
+        if len(l) != size:
             raise ValueError('matrix must be a non-empty square matrix')
 
-    if size == 1:
-        return [[1]]
+    new = []
+    for i in range(size):
+        new.append([])
+        for j in range(size):
+            sub_matrix = []
+            for z in range(size):
+                if i == z:
+                    continue
+                sub = matrix[z][0:j] + matrix[z][j+1:]
+                sub_matrix.append(sub)
 
-    else:
-        minor = []
-        for i in range(size):
-            row = []
-            count = 0
-            while (count < size):
-                copy = []
-                for elem in matrix:
-                    copy.append(list(elem))
-                copy.pop(i)
-                new_mat = []
-                for elem in copy:
-                    elem.pop(count)
-                    new_mat.append(elem)
-                row.append(determinant(new_mat))
-                count += 1
-            minor.append(row)
-        return minor
+            if sub_matrix == []:
+                    sub_matrix = [[]]
+
+            new[i].append([])
+            new[i][j] = determinant(sub_matrix)
+    return new

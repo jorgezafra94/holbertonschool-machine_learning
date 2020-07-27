@@ -20,6 +20,10 @@ class MultiNormal():
           message data must be a 2D numpy.ndarray
         * If n is less than 2, raise a ValueError with the message data
           must contain multiple data points
+        * mean - a numpy.ndarray of shape (d, 1) containing the mean
+          of data
+        * cov - a numpy.ndarray of shape (d, d) containing the covariance
+          matrix data
         """
         if not isinstance(data, np.ndarray) or len(data.shape) != 2:
             raise TypeError('data must be a 2D numpy.ndarray')
@@ -31,3 +35,29 @@ class MultiNormal():
         X_mean = data - self.mean
         # 1/(n - 1) * ((X-mean) * (X - mean)T)
         self.cov = np.dot(X_mean, X_mean.T) / (n - 1)
+
+    def pdf(self, x):
+        """
+        * x is a numpy.ndarray of shape (d, 1) containing the data point
+          whose PDF should be calculated
+          - d is the number of dimensions of the Multinomial instance
+        * If x is not a numpy.ndarray, raise a TypeError with the message
+          x must by a numpy.ndarray
+        * If x is not of shape (d, 1), raise a ValueError with the message
+          x mush have the shape ({d}, 1)
+        * Returns the value of the PDF
+        """
+        if not isinstance(x, np.ndarray):
+            raise TypeError('x must be a numpy.ndarray')
+        if len(x.shape) != 2 or x.shape[1] != 1:
+            raise ValueError('x must have the shape ({d}, 1)')
+        d, _ = x.shape
+        # first
+        det = np.linalg.det(self.cov)
+        first = 1 / (((2 * np.pi) ** (d / 2)) * (det ** (1 / 2)))
+        second = np.dot((x - self.mean).T, np.linalg.inv(self.cov))
+        third = np.dot(second, (x - self.mean))
+        four = third[0, 0]
+        pdf = first * np.exp((-1 / 2) * four)
+
+        print(pdf)

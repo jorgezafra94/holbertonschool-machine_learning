@@ -48,9 +48,9 @@ class MultiNormal():
         * Returns the value of the PDF
         """
         if not isinstance(x, np.ndarray):
-            raise TypeError('x must be a numpy.ndarray')
+            raise TypeError('x must by a numpy.ndarray')
         if len(x.shape) != 2 or x.shape[1] != 1:
-            raise ValueError('x must have the shape ({d}, 1)')
+            raise ValueError('x mush have the shape ({d}, 1)')
         d, _ = x.shape
         # first
         det = np.linalg.det(self.cov)

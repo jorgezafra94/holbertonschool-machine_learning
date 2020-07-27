@@ -18,12 +18,12 @@ def correlation(C):
       matrix
     """
     if not isinstance(C, np.ndarray):
-        raise TypeError('C must be a 2D numpy.ndarray')
+        raise TypeError('C must be a numpy.ndarray')
     if len(C.shape) != 2 or C.shape[0] != C.shape[1]:
         raise ValueError('C must be a 2D square matrix')
     d, _ = C.shape
     # getting all variance because they are in the diag of the cov matrix
-    variance = np.diag(C).reshape(1, d)
+    variance = np.diag(C).reshape(1, -1)
     # getting all std from variance
     stddev = np.sqrt(variance)
     # creating std combinations in order to get the specified denominator

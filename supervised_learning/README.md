@@ -70,7 +70,7 @@ Here we are going to create ou own Yolo3 using darknet to process the images
 * detecting objects
 * opencv
 ## Face verification
-* using yolo logic to predict
+* using siames structure logic to predict
 * triplet loss
 * creating a model including layers in keras
 * evaluate distance between pictures after embeding

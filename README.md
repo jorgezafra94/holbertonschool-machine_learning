@@ -8,6 +8,8 @@ here are the bases of ML, things like
 - Calculus
 - Probability
 - Convolution and pooling
+- advanced linear algebra
+- multivariate probability
 
 ## Supervised-Learning
 - Neurons, Neural Networks, Deep Neural Networks
@@ -20,3 +22,4 @@ here are the bases of ML, things like
 - Inception Network, ResNet, DenseNet
 - Transfer Learning
 - Object Detection (Yolo3 and DarkNet)
+- Face detection

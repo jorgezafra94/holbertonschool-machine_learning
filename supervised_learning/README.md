@@ -68,3 +68,10 @@ Here we are going to create ou own Yolo3 using darknet to process the images
 * Load images (database)
 * preprocess the images for the Darknet
 * detecting objects
+* opencv
+## Face verification
+* using yolo logic to predict
+* triplet loss
+* creating a model including layers in keras
+* evaluate distance between pictures after embeding
+* use opencv cv2

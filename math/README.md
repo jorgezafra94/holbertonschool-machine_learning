@@ -16,3 +16,20 @@
 - CDF (Cumulative Distribution Function)
 - PMF (Probability Mass Function) for discrete functions
 - PDF (Probability Density Function) for continuos functions
+## convolutionals and poolings
+- how to padding
+- how to convolve
+- how to pooling
+- using RGB images
+## advanced linear algebra
+- determinant of matrix
+- Minor matrix
+- cofactor matrix
+- adjugate matrix
+- inverse matrix (matrix ** -1)
+- eigenvalues, eigenvectors
+- definiteness
+## Multivariate probability
+- covariance matrix
+- correlation matrix
+- ecuation of multivariate gauss prop

@@ -33,5 +33,5 @@ def grads(Y, P):
         aux = np.tile(equation1[:, i].reshape(1, -1).T, 2)
         # after this process we get a shape (2500, 2) now we can
         # do the multiplication
-        dY[i]  = (aux * (Y[i] - Y)).sum(axis=0)
+        dY[i, :] = np.sum(aux * (Y[i, :] - Y), 0)
     return (dY, Q)

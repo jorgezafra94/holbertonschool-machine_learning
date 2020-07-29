@@ -30,7 +30,7 @@ def grads(Y, P):
     # *************************** step by step **************
     for i in range(n):
         # we have to reshape aux because it is (2500,) shape
-        aux = np.tile(equation1[:, i].reshape(1, -1).T, 2)
+        aux = np.tile(equation1[:, i], (ndim, 1)).T
         # after this process we get a shape (2500, 2) now we can
         # do the multiplication
         dY[i, :] = np.sum(aux * (Y[i, :] - Y), 0)

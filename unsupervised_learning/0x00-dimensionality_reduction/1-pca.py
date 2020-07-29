@@ -22,12 +22,17 @@ def pca(X, ndim):
     X_mean = X - np.mean(X, axis=0, keepdims=True)
 
     # getting the SVD
-    U, S, VT = np.linalg.svd(X_mean)
-
+    U, S, VT = np.linalg.svd(X_mean, full_matrices=False)
+    # *************************** T = X*W ********************************
     # getting W and Wr
-    W = VT.T
-    Wr = W[:, :ndim]
-
+    # W = VT.T
+    # Wr = W[:, :ndim]
     # getting Tr
-    Tr = np.dot(X_mean, Wr)
+    # Tr = np.dot(X_mean, Wr)
+    # *************************** T = U*Sigma ***************************
+    Ident = np.identity(S.shape[0])
+    S_I = Ident * S
+    S_Ir = S_I[:ndim, :ndim]
+    Ur = U[:, :ndim]
+    Tr = np.dot(Ur, S_Ir)
     return Tr

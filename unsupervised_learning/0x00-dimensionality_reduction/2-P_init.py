@@ -27,13 +27,14 @@ def P_init(X, perplexity):
     """
 
     n, d = X.shape
-    # euclidian distance (x - y)^2  = x^2 + y^2 -2xy
-    x_square = np.sum(np.square(X), axis=1)
-    y_square = np.sum(np.square(X), axis=1)
-    xy = np.dot(X, X.T)
-    # we do the Transpose in order to multiply all y^2 respectively
-    D = np.add(np.add((-2 * xy), x_square).T, y_square)
-
+    # np.newaxis cretes a new dimension of 1
+    # X1 => shape(1, n, d)
+    X1 = X[np.newaxis, :, :]
+    # X2 => shape(n, 1, d)
+    X2 = X[:, np.newaxis, :]
+    # using broadcasting this substract can be made
+    X = np.square(X1 - X2)
+    D = X.sum(axis=2)
     P = np.zeros((n, n))
 
     betas = np.ones((n, 1))

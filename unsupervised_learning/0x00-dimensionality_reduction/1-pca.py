@@ -30,7 +30,7 @@ def pca(X, ndim):
     # getting Tr
     # Tr = np.dot(X_mean, Wr)
     # *************************** T = U*Sigma ***************************
-    Ident = np.identity(S.shape[0])
+    Ident = np.identity(U.shape[1])
     S_I = Ident * S
     S_Ir = S_I[:ndim, :ndim]
     Ur = U[:, :ndim]

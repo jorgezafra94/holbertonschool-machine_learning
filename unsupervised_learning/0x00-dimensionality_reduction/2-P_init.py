@@ -27,14 +27,21 @@ def P_init(X, perplexity):
     """
 
     n, d = X.shape
+    # *************************** (x - y) ** 2 ************************
     # np.newaxis cretes a new dimension of 1
     # X1 => shape(1, n, d)
-    X1 = X[np.newaxis, :, :]
+    # X1 = X[np.newaxis, :, :]
     # X2 => shape(n, 1, d)
-    X2 = X[:, np.newaxis, :]
+    # X2 = X[:, np.newaxis, :]
     # using broadcasting this substract can be made
-    X = np.square(X1 - X2)
-    D = X.sum(axis=2)
+    # X = np.square(X1 - X2)
+    # D = X.sum(axis=2)
+    # ************************** x2 + y2 - 2xy ***********************
+    X_square = np.sum(np.square(X), axis=1)
+    Y_square = np.sum(np.square(X), axis=1)
+    XY = np.dot(X, X.T)
+    D = np.add(np.add((-2 * XY), X_square).T, Y_square)
+
     P = np.zeros((n, n))
 
     betas = np.ones((n, 1))

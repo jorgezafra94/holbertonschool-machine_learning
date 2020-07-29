@@ -25,6 +25,6 @@ def HP(Di, beta):
     Pi = numerator / denominator
 
     # equation of H(i)
-    Hi = -1 * np.sum(Pi * np.log2(Pi))
+    Hi = -np.sum(Pi * np.log2(Pi))
 
     return (Hi, Pi)

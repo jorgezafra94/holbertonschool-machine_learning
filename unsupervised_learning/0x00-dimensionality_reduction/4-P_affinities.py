@@ -34,16 +34,16 @@ def P_affinities(X, tol=1e-5, perplexity=30.0):
             if Hdiff > 0:
                 betamin = betas[i, 0]
                 if betamax is None:
-                    betas[i] = betas[i] * 2
+                    betas[i, 0] = betas[i, 0] * 2
                 else:
-                    betas[i] = (betas[i] + betamax) / 2
+                    betas[i, 0] = (betas[i, 0] + betamax) / 2
 
             else:
                 betamax = betas[i, 0]
                 if betamin is None:
-                    betas[i] = betas[i] / 2
+                    betas[i, 0] = betas[i, 0] / 2
                 else:
-                    betas[i] = (betas[i] + betamin) / 2
+                    betas[i, 0] = (betas[i, 0] + betamin) / 2
 
             Hi, Pi = HP(copy, betas[i])
             Hdiff = Hi - H

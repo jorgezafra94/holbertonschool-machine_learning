@@ -41,7 +41,7 @@ def P_init(X, perplexity):
     Y_square = np.sum(np.square(X), axis=1)
     XY = np.dot(X, X.T)
     D = np.add(np.add((-2 * XY), X_square).T, Y_square)
-
+    np.fill_diagonal(D, 0)
     P = np.zeros((n, n))
 
     betas = np.ones((n, 1))

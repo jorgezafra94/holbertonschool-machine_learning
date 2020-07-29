@@ -36,5 +36,5 @@ def grads(Y, P):
         Y_rest = Y - Y[i]
         result = aux * Y_rest
         dY[i] = result
-    dY = dY.sum(axis=0)
+    dY = 4 * dY.sum(axis=0)
     return (dY, Q)

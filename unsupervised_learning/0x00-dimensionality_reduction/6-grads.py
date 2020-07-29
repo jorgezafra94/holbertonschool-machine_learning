@@ -27,14 +27,15 @@ def grads(Y, P):
     # as they are element wise multy we can change the order
     equation1 = ((P - Q) * num)
     dY = np.zeros((n, n, ndim))
+    # *************************** step by step **************
     for i in range(n):
-        aux = equation1[i]
+        aux = equation1[:, i]
         # we have to reshape aux because it is (2500,) shape
-        aux = np.tile(aux.reshape(-1, 1), 2)
+        aux = np.tile(aux.reshape(1, -1).T, 2)
         # after this process we get a shape (2500, 2) now we can
         # do the multiplication
-        Y_rest = Y - Y[i]
+        Y_rest = Y[i, :] - Y
         result = aux * Y_rest
         dY[i] = result
-    dY = 4 * dY.sum(axis=0)
+    dY = dY.sum(axis=1)
     return (dY, Q)

@@ -19,11 +19,9 @@ def HP(Di, beta):
     * Pi: a numpy.ndarray of shape (n - 1,) containing the P
       affinities of the points
     """
-    Di_aux = Di.copy()
-
     # original equation of P(ij)
-    numerator = np.exp(-Di_aux * beta)
-    denominator = np.sum(np.exp(-Di_aux * beta))
+    numerator = np.exp(-Di.copy() * beta)
+    denominator = np.sum(np.exp(-Di.copy() * beta))
     Pi = numerator / denominator
 
     # equation of H(i)

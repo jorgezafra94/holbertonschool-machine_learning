@@ -25,14 +25,14 @@ def pca(X, ndim):
     U, S, VT = np.linalg.svd(X_mean, full_matrices=False)
     # *************************** T = X*W ********************************
     # getting W and Wr
-    # W = VT.T
-    # Wr = W[:, :ndim]
+    W = VT.T
+    Wr = W[:, :ndim]
     # getting Tr
-    # Tr = np.dot(X_mean, Wr)
+    Tr = np.dot(X_mean, Wr)
     # *************************** T = U*Sigma ***************************
-    Ident = np.identity(U.shape[1])
-    S_I = Ident * S
-    S_Ir = S_I[:ndim, :ndim]
-    Ur = U[:, :ndim]
-    Tr = np.dot(Ur, S_Ir)
+    # Ident = np.identity(U.shape[1])
+    # S_I = Ident * S
+    # S_Ir = S_I[:ndim, :ndim]
+    # Ur = U[:, :ndim]
+    # Tr = np.dot(Ur, S_Ir)
     return Tr

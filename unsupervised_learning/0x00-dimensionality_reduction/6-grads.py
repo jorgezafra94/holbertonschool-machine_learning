@@ -29,11 +29,12 @@ def grads(Y, P):
     dY = np.zeros((n, ndim))
     # *************************** step by step **************
     # for i in range(n):
-        # aux = np.tile(equation1[:, i].reshape(-1, 1), 2)
-        # dY[i] = (aux * (Y[i] - Y)).sum(axis=0)
+    #    aux = np.tile(equation1[:, i].reshape(-1, 1), 2)
+    #    dY[i] = (aux * (Y[i] - Y)).sum(axis=0)
     for i in range(n):
         # we have to reshape aux because it is (2500,) shape
-        aux = np.tile(equation1[:, i], (ndim, 1)).T
+        #aux1 = np.tile(equation1[:, i], (ndim, 1)).T
+        aux = np.tile(equation1[:, i].reshape(-1, 1), 2)
         # after this process we get a shape (2500, 2) now we can
         # do the multiplication
         dY[i] = (aux * (Y[i] - Y)).sum(axis=0)

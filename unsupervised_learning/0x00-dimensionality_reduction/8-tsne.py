@@ -39,7 +39,7 @@ def tsne(X, ndims=2, idims=50, perplexity=30.0,
     PCA = pca(X, idims)
     P = P_affinities(X=PCA, perplexity=perplexity)
     Y = np.random.randn(n, ndims)
-    iY = np.zeros((n, ndims))
+    iY = Y
 
     # P exaggeration
     P = 4 * P
@@ -51,16 +51,17 @@ def tsne(X, ndims=2, idims=50, perplexity=30.0,
         else:
             alpha = 0.8
 
-        # removing exaggeration
-        if (i + 1) == 100:
-            P = P / 4
-
         if (i + 1) % 100 == 0:
             C = cost(P, Q)
             a = 'Cost at iteration {}: {}'.format(i + 1, C)
             print(a)
 
-        temp = Y - (lr * dY) + (alpha * (Y - iY))
-        iY = Y
-        Y = temp
+        temp = Y
+        Y = Y - (lr * dY) + (alpha * (Y - iY))
+        iY = temp
+        # Y =  Y - np.mean(Y, axis=0)
+
+        # removing exaggeration
+        if (i + 1) == 100:
+            P = P / 4
     return Y

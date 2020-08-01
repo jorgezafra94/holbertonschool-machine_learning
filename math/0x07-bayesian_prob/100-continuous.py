@@ -4,7 +4,6 @@ bayesian stadistics in ranges
 """
 
 from scipy import math, special
-import numpy as np
 
 
 def posterior(x, n, p1, p2):

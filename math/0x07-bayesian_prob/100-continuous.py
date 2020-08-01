@@ -49,4 +49,8 @@ def posterior(x, n, p1, p2):
     if p2 <= p1:
         raise ValueError('p2 must be greater than p1')
 
-    return 0.6098093274896035
+    Posterior2 = special.btdtr(x + 1, n - x + 1, p2)
+    Posterior1 = special.btdtr(x + 1, n - x + 1, p1)
+
+    Posterior = Posterior2 - Posterior1
+    return Posterior

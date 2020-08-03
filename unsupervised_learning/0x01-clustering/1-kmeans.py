@@ -68,4 +68,9 @@ def kmeans(X, k, iterations=1000):
         else:
             centr = copy
 
+    data = X[:, np.newaxis, :]
+    aux_centr = centr[np.newaxis, :, :]
+    dist = (np.square(data - aux_centr)).sum(axis=2)
+    clase = np.argmin(dist, axis=1)
+
     return (centr, clase)

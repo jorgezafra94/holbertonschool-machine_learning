@@ -31,13 +31,13 @@ def kmeans(X, k, iterations=1000):
     """
 
     if type(X) is not np.ndarray or len(X.shape) != 2:
-        return None
+        return (None, None)
 
     if type(k) is not int or k <= 0:
-        return None
+        return (None, None)
 
     if type(iterations) is not int or iterations <= 0:
-        return None
+        return (None, None)
 
     n, d = X.shape
     # ******** Initialize randomly the centroids *********
@@ -49,9 +49,13 @@ def kmeans(X, k, iterations=1000):
     for i in range(iterations):
         copy = centr.copy()
         # ********  getting distances **********
+        # data = X[:, np.newaxis, :]
+        # aux_centr = copy[np.newaxis, :, :]
+        # dist = np.linalg.norm((data - aux_centr), axis=2)
+
         data = X[:, np.newaxis, :]
         aux_centr = copy[np.newaxis, :, :]
-        dist = np.linalg.norm((data - aux_centr), axis=2)
+        dist = (np.square(data - aux_centr)).sum(axis=2)
         clase = np.argmin(dist, axis=1)
 
         # ******** adjust centroids **********

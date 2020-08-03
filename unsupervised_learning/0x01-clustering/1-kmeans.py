@@ -68,6 +68,7 @@ def kmeans(X, k, iterations=1000):
         else:
             centr = copy
 
+    # update the values of clase after getting the last centroids
     data = X[:, np.newaxis, :]
     aux_centr = centr[np.newaxis, :, :]
     dist = (np.square(data - aux_centr)).sum(axis=2)

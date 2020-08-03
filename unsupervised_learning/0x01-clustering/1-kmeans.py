@@ -48,10 +48,6 @@ def kmeans(X, k, iterations=1000):
     # *************** runinng iteration times ********************
     for i in range(iterations):
         copy = centr.copy()
-        # ********  getting distances **********
-        # data = X[:, np.newaxis, :]
-        # aux_centr = copy[np.newaxis, :, :]
-        # dist = np.linalg.norm((data - aux_centr), axis=2)
 
         data = X[:, np.newaxis, :]
         aux_centr = copy[np.newaxis, :, :]

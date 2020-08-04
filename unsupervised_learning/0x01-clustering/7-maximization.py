@@ -29,11 +29,6 @@ def maximization(X, g):
     if X.shape[0] != g.shape[1]:
         return (None, None, None)
 
-    mask1 = np.where(g < 0, True, False)
-    mask2 = np.where(g > 1, True, False)
-    if mask1.any() or mask2.any():
-        return (None, None, None)
-
     n, d = X.shape
     k, _ = g.shape
 

@@ -8,7 +8,7 @@ kmeans = __import__('1-kmeans').kmeans
 variance = __import__('2-variance').variance
 
 
-def optimum_k(X, kmin=1, kmax=10, iterations=1000):
+def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     """
     * X is a numpy.ndarray of shape (n, d) containing the data set
     * kmin is a positive integer containing the minimum number of
@@ -27,10 +27,20 @@ def optimum_k(X, kmin=1, kmax=10, iterations=1000):
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return (None, None)
 
-    if type(kmin) is not int or type(kmax) is not int:
+    if type(kmin) is not int:
         return (None, None)
 
+    if type(iterations) is not int:
+        return (None, None)
+
+    n, _ = X.shape
+    if kmax is None:
+        kmax = n
+
     if kmin <= 0 or kmax <= 0 or iterations <= 0:
+        return (None, None)
+
+    if kmin >= kmax:
         return (None, None)
 
     results = []

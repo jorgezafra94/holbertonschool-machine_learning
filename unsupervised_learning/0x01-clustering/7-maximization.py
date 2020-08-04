@@ -29,6 +29,13 @@ def maximization(X, g):
     if X.shape[0] != g.shape[1]:
         return (None, None, None)
 
+    # sum per cluster should be 1
+    # so sum of all these ones should be n
+    sum = np.sum(g, axis=0)
+    sum = np.sum(sum)
+    if (int(sum) != X.shape[0]):
+        return (None, None, None)
+
     n, d = X.shape
     k, _ = g.shape
 

@@ -20,6 +20,21 @@ def pdf(X, m, S):
       values for each data point
     * All values in P should have a minimum value of 1e-300
     """
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None
+
+    if type(m) is not np.ndarray or len(m.shape) != 1:
+        return None
+
+    if type(S) is not np.ndarray or len(S.shape) != 2:
+        return None
+
+    if X.shape[1] != S.shape[1] or S.shape[0] != S.shape[1]:
+        return None
+
+    if X.shape[1] != m.shape[0]:
+        return None
+
     _, d = X.shape
 
     det = np.linalg.det(S)

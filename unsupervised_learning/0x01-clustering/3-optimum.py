@@ -33,6 +33,10 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     if type(iterations) is not int:
         return (None, None)
 
+    if kmax is not None and type(kmax) is not int:
+        return (None, None)
+
+    # taking care about max number of clusters from datapoints
     n, _ = X.shape
     if kmax is None:
         kmax = n

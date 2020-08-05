@@ -83,9 +83,9 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         all_l[count] = log_like
         # number of parameters in GMM
         # I got this equation here: https://www.mdpi.com/2227-7390/8/3/373/htm
-        p = (i) + (i * d) + ((i * d) * (d + 1) / 2)
+        p = (i - 1) + (i * d) + ((i * d) * (d + 1) / 2)
         # I add this part
-        p = p + count
+        p = p + i
         # getting BIC
         BIC = (p) * np.log(n) - 2 * log_like
         all_BIC[count] = BIC

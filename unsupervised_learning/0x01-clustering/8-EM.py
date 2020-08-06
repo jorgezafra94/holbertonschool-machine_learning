@@ -67,6 +67,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         g, log_like = expectation(X, pi, m, S)
 
         if (np.abs(l_init - log_like)) <= tol:
+            count = count - 1
             break
         l_init = log_like
         count += 1

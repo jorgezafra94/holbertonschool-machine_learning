@@ -63,7 +63,7 @@ def expectation(X, pi, m, S):
 
     # g = pi*N(X| mean, cov)
     # total = sum(pi*N(X| mean, cov)) in axis=0
-    total = np.sum(g, axis=0)
+    total = np.sum(g, axis=0, keepdims=True)
 
     # posterior = p / total
     posterior = g / total

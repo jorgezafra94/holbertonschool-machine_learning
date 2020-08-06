@@ -59,10 +59,10 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         return (None, None, None, None)
 
     if type(tol) is not float or tol < 0:
-        return (None, None, None, None, None)
+        return (None, None, None, None)
 
     if type(verbose) is not bool:
-        return (None, None, None, None, None)
+        return (None, None, None, None)
 
     n, d = X.shape
 

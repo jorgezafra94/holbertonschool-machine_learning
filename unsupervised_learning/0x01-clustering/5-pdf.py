@@ -39,7 +39,7 @@ def pdf(X, m, S):
 
     det = np.linalg.det(S)
 
-    first = np.dot((X - m), np.linalg.inv(S))
+    first = np.matmul((X - m), np.linalg.inv(S))
     # here instead of realize a dot multi we have to do
     # a element wise to get a (n, d) matrix and then sum
     # over axis 1 to get a (n,) vector

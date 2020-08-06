@@ -58,23 +58,22 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     count = 0
     g, log_like = expectation(X, pi, m, S)
     while(count < iterations):
+        if (np.abs(l_init - log_like)) <= tol:
+            break
+
         if verbose is True and count % 10 == 0:
             m1 = 'Log Likelihood after {}'.format(count)
             m2 = ' iterations: {}'.format(log_like.round(5))
             print(m1 + m2)
 
+        l_init = log_like
         pi, m, S = maximization(X, g)
         g, log_like = expectation(X, pi, m, S)
 
-        if (np.abs(l_init - log_like)) <= tol:
-            count = count - 1
-            break
-        l_init = log_like
         count += 1
 
     if verbose is True:
-        g, log_like = expectation(X, pi, m, S)
-        m1 = 'Log Likelihood after {}'.format(count + 1)
+        m1 = 'Log Likelihood after {}'.format(count)
         m2 = ' iterations: {}'.format(log_like.round(5))
         print(m1 + m2)
 

@@ -64,7 +64,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
 
         if verbose is True and count % 10 == 0:
             m1 = 'Log Likelihood after {}'.format(count)
-            m2 = ' iterations: {}'.format(log_like)
+            m2 = ' iterations: {}'.format(log_like.round(5))
             print(m1 + m2)
 
         pi, m, S = maximization(X, g)
@@ -73,7 +73,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
 
     if verbose is True:
         m1 = 'Log Likelihood after {}'.format(count)
-        m2 = ' iterations: {}'.format(log_like)
+        m2 = ' iterations: {}'.format(log_like.round(5))
         print(m1 + m2)
 
     return (pi, m, S, g, log_like)

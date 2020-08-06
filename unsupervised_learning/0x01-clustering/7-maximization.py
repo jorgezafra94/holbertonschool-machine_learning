@@ -48,11 +48,11 @@ def maximization(X, g):
         rik = g[clus].reshape(1, -1)
         denomin = N_soft[clus]
         # mean
-        mean[clus] = np.dot(rik, X) / denomin
+        mean[clus] = np.matmul(rik, X) / denomin
         # cov
         # we have to use element wise first to keep (d, n) by broadcasting
         # then we can use the matrix multiplication to get (d, d) dims
         first = rik * (X - mean[clus]).T
-        cov[clus] = np.dot(first, (X - mean[clus])) / denomin
+        cov[clus] = np.matmul(first, (X - mean[clus])) / denomin
 
     return (pi, mean, cov)

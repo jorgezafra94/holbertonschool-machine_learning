@@ -66,34 +66,32 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
 
     n, d = X.shape
 
-    all_l = np.zeros(kmax - kmin + 1)
-    all_BIC = np.zeros(kmax - kmin + 1)
-    count = 0
-    # lists to save all the results per k
-    all_pi = []
-    all_S = []
-    all_m = []
+    b = []
+    results = []
+    ks = []
+    l_ = []
 
-    for i in range(kmin, kmax + 1):
-        pi, m, S, _, log_like = expectation_maximization(X, i, iterations,
-                                                         tol, verbose)
-        all_pi.append(pi)
-        all_m.append(m)
-        all_S.append(S)
-        all_l[count] = log_like
-        # number of parameters in GMM
-        # I got this equation here: https://www.mdpi.com/2227-7390/8/3/373/htm
-        p = (i - 1) + (i * d) + ((i * d) * (d + 1) / 2)
-        # getting BIC
-        BIC = (p) * np.log(n) - 2 * log_like
-        all_BIC[count] = BIC
-        count = count + 1
+    for k in range(kmin, kmax + 1):
+        ks.append(k)
 
-    # the min BIC is the best model
-    min_BIC = np.argmin(all_BIC)
-    best_pi = all_pi[min_BIC]
-    best_m = all_m[min_BIC]
-    best_S = all_S[min_BIC]
-    best_k = kmin + min_BIC
+        pi, m, S, g, l_k = expectation_maximization(X,
+                                                    k,
+                                                    iterations=iterations,
+                                                    tol=tol,
+                                                    verbose=verbose)
+        results.append((pi, m, S))
 
-    return [best_k, (best_pi, best_m, best_S), all_l, all_BIC]
+        l_.append(l_k)
+        p = k - 1 + k * d + k * d * (d + 1) / 2
+
+        bic = p * np.log(n) - 2 * l_k
+        b.append(bic)
+
+    l_ = np.array(l_)
+    b = np.array(b)
+
+    index = np.argmin(b)
+    best_k = ks[index]
+    best_result = results[index]
+
+    return best_k, best_result, l_, b

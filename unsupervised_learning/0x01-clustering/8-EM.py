@@ -59,6 +59,8 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
 
     for count in range(iterations):
         if (np.abs(l_init - log_like)) <= tol:
+            pi, m, S = maximization(X, g)
+            g, log_like = expectation(X, pi, m, S)
             break
 
         if verbose is True and count % 10 == 0:

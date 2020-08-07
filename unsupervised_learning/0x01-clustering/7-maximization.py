@@ -45,7 +45,7 @@ def maximization(X, g):
     mean = np.zeros((k, d))
     cov = np.zeros((k, d, d))
     for clus in range(k):
-        rik = g[clus].reshape(1, -1)
+        rik = g[clus]
         denomin = N_soft[clus]
         # mean
         mean[clus] = np.matmul(rik, X) / denomin

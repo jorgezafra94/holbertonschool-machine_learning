@@ -72,7 +72,6 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
 
         l_init = log_like
 
-
     if verbose is True:
         m1 = 'Log Likelihood after {}'.format(count + 1)
         m2 = ' iterations: {}'.format(log_like.round(5))

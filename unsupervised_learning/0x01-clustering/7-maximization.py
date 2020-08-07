@@ -36,23 +36,16 @@ def maximization(X, g):
     if (int(sum) != X.shape[0]):
         return (None, None, None)
 
-    n, d = X.shape
-    k, _ = g.shape
+    pi = np.zeros((k,))
+    m = np.zeros((k, d))
+    S = np.zeros((k, d, d))
 
-    N_soft = np.sum(g, axis=1)
-    pi = N_soft / n
+    for i in range(k):
+        pi[i] = np.sum(g[i]) / n
 
-    mean = np.zeros((k, d))
-    cov = np.zeros((k, d, d))
-    for clus in range(k):
-        rik = g[clus]
-        denomin = N_soft[clus]
-        # mean
-        mean[clus] = np.matmul(rik, X) / denomin
-        # cov
-        # we have to use element wise first to keep (d, n) by broadcasting
-        # then we can use the matrix multiplication to get (d, d) dims
-        first = rik * (X - mean[clus]).T
-        cov[clus] = np.matmul(first, (X - mean[clus])) / denomin
+        m[i] = np.matmul(g[i], X) / np.sum(g[i])
 
-    return (pi, mean, cov)
+        diff = X - m[i]
+        S[i] = np.matmul(g[i] * diff.T, diff) / np.sum(g[i])
+
+    return pi, m, S

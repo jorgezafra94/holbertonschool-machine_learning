@@ -35,7 +35,8 @@ def maximization(X, g):
     sum = np.sum(sum)
     if (int(sum) != X.shape[0]):
         return (None, None, None)
-
+    n, d = X.shape
+    k = g.shape[0]
     pi = np.zeros((k,))
     m = np.zeros((k, d))
     S = np.zeros((k, d, d))

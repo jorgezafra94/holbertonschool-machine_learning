@@ -52,23 +52,28 @@ def expectation(X, pi, m, S):
     if pi.shape[0] != m.shape[0]:
         return (None, None)
 
-    n, _ = X.shape
-    k, d, _ = S.shape
+    n, d = X.shape
+    k = pi.shape[0]
 
-    g = np.zeros((k, n))
-    for clus in range(k):
-        prob = pdf(X, m[clus], S[clus])
-        prior = pi[clus]
-        g[clus] = prior * prob
+    # adequate dimensions
+    if m.shape[1] != d or S.shape[1] != d or S.shape[2] != d:
+        return None, None
+    if S.shape[0] != k:
+        return None, None
 
-    # g = pi*N(X| mean, cov)
-    # total = sum(pi*N(X| mean, cov)) in axis=0
-    total = np.sum(g, axis=0, keepdims=True)
+    # sum of pi equal to 1
+    if not np.isclose([np.sum(pi)], [1])[0]:
+        return None, None
 
-    # posterior = p / total
-    posterior = g / total
+    sum_i = 0
+    num = np.zeros((k, n))
+    for i in range(k):
+        num[i] = pi[i] * pdf(X, m[i], S[i])
+        sum_i += num[i]
 
-    # probability = sum(np.log(sum(pi*N(X| mean, cov))))
-    prob_gmm = np.sum(np.log(total))
+    sum_i = np.sum(num, axis=0, keepdims=True)
 
-    return (posterior, prob_gmm)
+    g = num / sum_i
+
+    log_likelihood = np.sum(np.log(sum_i))
+    return g, log_likelihood

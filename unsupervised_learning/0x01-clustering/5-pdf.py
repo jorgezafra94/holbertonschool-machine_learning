@@ -37,19 +37,17 @@ def pdf(X, m, S):
 
     _, d = X.shape
 
-    Q = np.linalg.inv(S)
     det = np.linalg.det(S)
 
-    den = np.sqrt(((2 * np.pi) ** d) * det)
+    first = np.matmul((X - m), np.linalg.inv(S))
+    # here instead of realize a dot multi we have to do
+    # a element wise to get a (n, d) matrix and then sum
+    # over axis 1 to get a (n,) vector
+    second = np.sum(first * (X - m), axis=1)
+    num = np.exp(second / -2)
 
-    diff = X.T - m[:, np.newaxis]
+    den = np.sqrt(det) * ((2 * np.pi) ** (d/2))
+    pdf = num / den
 
-    M1 = np.matmul(Q, diff)
-    M2 = np.sum(diff * M1, axis=0)
-    M3 = - M2 / 2
-
-    density = np.exp(M3) / den
-
-    density = np.where(density < 1e-300, 1e-300, density)
-
-    return density
+    pdf = np.where(pdf < 1e-300, 1e-300, pdf)
+    return pdf

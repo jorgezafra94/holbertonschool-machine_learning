@@ -42,6 +42,10 @@ def markov_chain(P, s, t=1):
         if not np.isclose(elem, 1):
             return None
 
+    sum_test = np.sum(s)
+    if not np.isclose(sum_test, 1):
+        return None
+
     prob = s.copy()
     for i in range(t):
         # the prob change per iteration

@@ -23,6 +23,11 @@ def regular(P):
     if P.shape[0] != P.shape[1]:
         return None
 
+    sum_test = np.sum(P, axis=1)
+    for elem in sum_test:
+        if not np.isclose(elem, 1):
+            return None
+
     _, eig_vec = np.linalg.eig(P.T)
 
     normalization = (eig_vec/eig_vec.sum()).real

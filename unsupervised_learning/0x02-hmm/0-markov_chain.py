@@ -37,6 +37,11 @@ def markov_chain(P, s, t=1):
     if type(t) is not int or t <= 0:
         return None
 
+    sum_test = np.sum(P, axis=1)
+    for elem in sum_test:
+        if not np.isclose(elem, 1):
+            return None
+
     prob = s.copy()
     for i in range(t):
         # the prob change per iteration

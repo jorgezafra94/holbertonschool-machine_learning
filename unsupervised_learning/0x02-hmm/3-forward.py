@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Forward Markov Chain
+Read:
+http://www.adeveloperdiary.com/data-science/machine-learning->
+->forward-and-backward-algorithm-in-hidden-markov-model/
 """
 
 import numpy as np

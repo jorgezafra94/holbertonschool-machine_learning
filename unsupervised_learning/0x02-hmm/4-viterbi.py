@@ -72,7 +72,7 @@ def viterbi(Observation, Emission, Transition, Initial):
     viterbi = np.zeros((N, T))
     backpointer = np.zeros((N, T))
 
-    aux = (Initial * Emission[:, Observation[0]].reshape(-1, 1))
+    aux = (Initial.T * Emission[:, Observation[0]])
     viterbi[:, 0] = aux.reshape(-1)
 
     backpointer[:, 0] = 0

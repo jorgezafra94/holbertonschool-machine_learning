@@ -72,7 +72,7 @@ def forward(Observation, Emission, Transition, Initial):
     N, M = Emission.shape
     T = Observation.shape[0]
     alpha = np.zeros((N, T))
-    aux = (Initial * Emission[:, Observation[0]].reshape(-1, 1))
+    aux = (Initial.T * Emission[:, Observation[0]])
     alpha[:, 0] = aux.reshape(-1)
     for t in range(1, T):
         for n in range(N):

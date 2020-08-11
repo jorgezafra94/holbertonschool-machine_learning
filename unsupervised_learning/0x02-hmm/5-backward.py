@@ -72,9 +72,12 @@ def backward(Observation, Emission, Transition, Initial):
     N, M = Emission.shape
     T = Observation.shape[0]
 
+    # we should initialize the last prob as 1
     beta = np.zeros((N, T))
     beta[:, T - 1] = 1
 
+    # this should be start in T-2 and should stop in 0
+    # that is why the range has this form and step
     for t in range(T - 2, -1, -1):
         for n in range(N):
             trans = Transition[n]

@@ -34,6 +34,37 @@ def viterbi(Observation, Emission, Transition, Initial):
       of hidden states
     * P is the probability of obtaining the path sequence
     """
+    if type(Observation) is not np.ndarray or len(Observation.shape) != 1:
+        return None, None
+    for elem in Observation:
+        if elem < 0:
+            return None, None
+    # ******************* emission conditionals *******************
+    if type(Emission) is not np.ndarray or len(Emission.shape) != 2:
+        return None, None
+    sum1 = np.sum(Emission, axis=1)
+    if not (sum1 == 1.).all():
+        return None, None
+    # ******************* transition conditionals *******************
+    if type(Transition) is not np.ndarray or len(Transition.shape) != 2:
+        return None, None
+    if Transition.shape[0] != Transition.shape[1]:
+        return None, None
+    sum2 = np.sum(Transition, axis=1)
+    if not (sum2 == 1.).all():
+        return None, None
+    # ******************* initial conditionals *******************
+    if type(Initial) is not np.ndarray or len(Initial.shape) != 2:
+        return None, None
+    sum3 = np.sum(Initial)
+    if sum3 != 1.:
+        return None, None
+    # ******************* shape conditionals *******************
+    if Initial.shape[0] != Transition.shape[0]:
+        return None, None
+
+    if Emission.shape[0] != Transition.shape[0]:
+        return None, None
 
     N, M = Emission.shape
     T = Observation.shape[0]

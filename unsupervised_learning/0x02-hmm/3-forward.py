@@ -4,6 +4,8 @@ Forward Markov Chain
 Read:
 http://www.adeveloperdiary.com/data-science/machine-learning->
 ->forward-and-backward-algorithm-in-hidden-markov-model/
+and
+https://web.stanford.edu/~jurafsky/slp3/A.pdf
 """
 
 import numpy as np

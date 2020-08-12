@@ -19,14 +19,13 @@ def forward(Observation, Emission, Transition, Initial):
     aux = (Initial.T * Emission[:, Observation[0]])
     alpha[:, 0] = aux.reshape(-1)
     for t in range(1, T):
-        for n in range(N):
-            prev = alpha[:, t - 1]
-            trans = Transition[:, n]
-            em = Emission[n, Observation[t]]
-            alpha[n, t] = np.sum(prev * trans * em)
+        prev = alpha[:, t - 1]
+        trans = Transition
+        em = Emission[:, Observation[t]]
+        first = np.matmul(prev, trans)
+        alpha[:, t] = first * em
 
-    prop = np.sum(alpha[:, -1])
-    return (prop, alpha)
+    return (alpha)
 
 
 def backward(Observation, Emission, Transition, Initial):
@@ -43,15 +42,13 @@ def backward(Observation, Emission, Transition, Initial):
     # this should be start in T-2 and should stop in 0
     # that is why the range has this form and step
     for t in range(T - 2, -1, -1):
-        for n in range(N):
-            trans = Transition[n]
-            em = Emission[:, Observation[t + 1]]
-            post = beta[:, t + 1]
-            first = post * em
-            beta[n, t] = np.dot(first.T, trans)
+        trans = Transition
+        em = Emission[:, Observation[t + 1]]
+        post = beta[:, t + 1]
+        first = post * em
+        beta[:, t] = np.dot(trans, first)
 
-    prob = np.sum(Initial.T * Emission[:, Observation[0]] * beta[:, 0])
-    return (prob, beta)
+    return (beta)
 
 
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
@@ -113,8 +110,8 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
 
     for n in range(iterations):
 
-        _, alpha = forward(Obs, Emi, Trans, Init)
-        _, beta = backward(Obs, Emi, Trans, Init)
+        alpha = forward(Obs, Emi, Trans, Init)
+        beta = backward(Obs, Emi, Trans, Init)
 
         xi = np.zeros((N, N, T - 1))
         for t in range(T - 1):

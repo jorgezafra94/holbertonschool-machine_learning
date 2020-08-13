@@ -43,16 +43,9 @@ def absorbing(P):
     for i in range(n):
         idx = np.where(absorb == 1)
 
-        pos = []
         for ind in idx[0]:
             elem = P[:, ind]
             mask = np.where(elem > 0)[0]
-            pos.extend(mask)
-        pos = list(set(pos))
-
-        aux = P[pos]
-        for elem in aux:
-            mask = np.where(elem > 0)
             absorb[mask] = True
             if absorb.all():
                 return True

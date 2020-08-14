@@ -83,8 +83,7 @@ def backward(Observation, Emission, Transition, Initial):
             trans = Transition[n]
             em = Emission[:, Observation[t + 1]]
             post = beta[:, t + 1]
-            first = post * em
-            beta[n, t] = np.dot(first.T, trans)
+            beta[n, t] = np.sum(trans * post * em)
 
     prob = np.sum(Initial[:, 0] * Emission[:, Observation[0]] * beta[:, 0])
     return (prob, beta)

@@ -1,5 +1,5 @@
 # Hyperparameter Tuning
-## Task0 -nitialize Gaussian Process 
+## Task0 - Initialize Gaussian Process 
 Create the class `GaussianProcess` that represents a noiseless 1D Gaussian process:<br>
 <br>
 Class constructor: `def __init__(self, X_init, Y_init, l=1, sigma_f=1):`<br>

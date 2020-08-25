@@ -1,5 +1,7 @@
-#!/usr/bin/env python
-"""Noiseless 1D Gaussian process"""
+#!/usr/bin/env python3
+"""
+Noiseless 1D Gaussian process
+"""
 import numpy as np
 from scipy.stats import norm
 GP = __import__('2-gp').GaussianProcess

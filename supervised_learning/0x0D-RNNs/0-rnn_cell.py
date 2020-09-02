@@ -41,6 +41,6 @@ class RNNCell():
         """
         xh = np.concatenate((h_prev, x_t), axis=1)
         a_next = np.tanh(np.dot(xh, self.Wh) + self.bh)
-        y_pred = np.matmul(a_next, self.Wy) + self.by
+        y_pred = np.dot(a_next, self.Wy) + self.by
         y_pred = np.exp(y_pred) / np.sum(np.exp(y_pred), axis=1, keepdims=True)
         return (a_next, y_pred)

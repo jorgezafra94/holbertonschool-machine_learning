@@ -64,11 +64,8 @@ class GRUCell():
         h_hat = np.tanh(np.dot(r_hx, self.Wh) + self.bh)
 
         # h_next
-        # original
-        # h_next = ((1 - zt) * h_hat) + (zt * h_prev)
-
-        # alexa equation
         h_next = zt * h_hat + (1 - zt) * h_prev
+
         # output GRU cell
         y_pred = np.dot(h_next, self.Wy) + self.by
         y_pred = np.exp(y_pred) / np.sum(np.exp(y_pred), axis=1, keepdims=True)

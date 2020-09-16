@@ -18,7 +18,8 @@ Given the coinbase and bitstamp datasets, write a script, forecast_btc.py, that 
 * Your model should use mean-squared error (MSE) as its cost function
 * You should use a tf.data.Dataset to feed data to your model
 * Because the dataset is raw, you will need to create a script, preprocess_data.py to preprocess this data. Here are some things to consider:<br>
-<br>
+
+
 * Are all of the data points useful?
 * Are all of the data features useful?
 * Should you rescale the data?

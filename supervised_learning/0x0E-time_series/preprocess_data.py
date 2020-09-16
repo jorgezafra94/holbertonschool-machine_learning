@@ -2,7 +2,8 @@
 """
 data preprocessing
 """
-import pandas as pd
+# remember uncomment pandas
+# import pandas as pd
 
 
 def preprocess():

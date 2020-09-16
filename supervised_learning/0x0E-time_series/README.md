@@ -1,4 +1,5 @@
 # TIME SERIES FORECASTING
+get the DBS here https://www.kaggle.com/mczielinski/bitcoin-historical-data/version/10 the bitstampUSD and CoinBaseUSD<br>
 to learn the logic go to this blog [link](https://www.kaggle.com/nicapotato/keras-timeseries-multi-step-multi-output)<br>
 Bitcoin (BTC) became a trending topic after its price peaked in 2018. Many have sought to predict its value in order to accrue wealth. Let’s attempt to use our knowledge of RNNs to attempt just that.<br>
 <br>

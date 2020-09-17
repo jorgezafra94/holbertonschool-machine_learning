@@ -68,7 +68,7 @@ def ngram_bleu(references, sentence, n):
     best_match = sort_tuples[0][1]
 
     # Brevity penalty
-    if len_cand > best_match:
+    if len(sentence) > best_match:
         bp = 1
     else:
         bp = np.exp(1 - (best_match / len(sentence)))

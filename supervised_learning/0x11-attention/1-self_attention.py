@@ -28,9 +28,9 @@ class SelfAttention(tf.keras.layers.Layer):
           tanh of the sum of the outputs of W and U
         """
         super().__init__()
-        self.W = tf.layers.Dense(units=units)
-        self.U = tf.layers.Dense(units=units)
-        self.V = tf.layers.Dense(units=1)
+        self.W = tf.keras.layers.Dense(units=units)
+        self.U = tf.keras.layers.Dense(units=units)
+        self.V = tf.keras.layers.Dense(units=1)
 
     def call(self, s_prev, hidden_states):
         """

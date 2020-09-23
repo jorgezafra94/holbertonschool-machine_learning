@@ -29,7 +29,7 @@ class RNNEncoder(tf.keras.layers.Layer):
           last hidden state
         * Recurrent weights should be initialized with glorot_uniform
         """
-        super(RNNEncoder, self).__init__()
+        super().__init__()
         self.batch = batch
         self.units = units
         self.embedding = tf.keras.layers.Embedding(input_dim=vocab,

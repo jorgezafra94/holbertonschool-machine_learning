@@ -11,7 +11,7 @@ positional_encoding = __import__('4-positional_encoding').positional_encoding
 EncoderBlock = __import__('7-transformer_encoder_block').EncoderBlock
 
 
-class Encoder():
+class Encoder(tf.keras.layers.Layer):
     """
     Encoder class
     """
@@ -66,7 +66,8 @@ class Encoder():
         # adding embedding and position encoding.
         embedding = self.embedding(x)  # (batch_size, input_seq_len, d_model)
         embedding *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
-        embedding += self.positional_encoding[:, :seq_len, :]
+        print(self.positional_encoding.shape)
+        embedding += self.positional_encoding[:seq_len]
 
         encoder_out = self.dropout(embedding, training=training)
 

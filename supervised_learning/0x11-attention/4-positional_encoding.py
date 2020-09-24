@@ -7,6 +7,7 @@ Positional Encoding
 """
 
 import numpy as np
+import tensorflow as tf
 
 
 def positional_encoding(max_seq_len, dm):
@@ -25,4 +26,4 @@ def positional_encoding(max_seq_len, dm):
             result[i, j] = np.sin(i * div_term)
             result[i, j + 1] = np.cos(i * div_term)
 
-    return result
+    return tf.cast(result, dtype=tf.float32)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 based on Encoder part not in EncoderLayer of:
-https://www.tensorflow.org/tutorials/text/transformer#encoder_layer
+https://www.tensorflow.org/tutorials/text/transformer#encoder
 Decoder Block
 remember to use tensorflow 1.15 or higher
 """

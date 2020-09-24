@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 get it form:
-https://www.tensorflow.org/tutorials/text/transformer
+https://www.tensorflow.org/tutorials/text/transformer#scaled_dot_product_attention
 scaled dot product
 """
 

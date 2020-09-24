@@ -33,3 +33,8 @@
 - covariance matrix
 - correlation matrix
 - ecuation of multivariate gauss prop
+## Bayesian Probability
+- Intersection probability
+- Marginal Probability
+- Posterior Probability
+- Coninuos Posterior

@@ -62,7 +62,7 @@ class Encoder(tf.keras.layers.Layer):
         the encoder output
         """
         seq_len = tf.shape(x)[1]
-        positional_new= tf.cast(self.positional_encoding,
+        positional_new = tf.cast(self.positional_encoding,
                                 dtype=tf.float32)
         # adding embedding and position encoding.
         embedding = self.embedding(x)  # (batch_size, input_seq_len, d_model)

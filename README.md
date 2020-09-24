@@ -10,6 +10,7 @@ here are the bases of ML, things like
 - Convolution and pooling
 - advanced linear algebra
 - multivariate probability
+- Bayesian Probability
 
 ## Supervised-Learning
 - Neurons, Neural Networks, Deep Neural Networks
@@ -23,3 +24,15 @@ here are the bases of ML, things like
 - Transfer Learning
 - Object Detection (Yolo3 and DarkNet)
 - Face detection
+- Recurrent Neural Networks
+- Time Series
+- Word Embeddings
+- Bleu Score
+- Transformers and Attention Method
+
+## Unsupervised-Learning
+- Dimensionality Reduction PCA
+- Clustering, k_means
+- Markov chains
+- Bayesian Optimization
+- Autoencoders

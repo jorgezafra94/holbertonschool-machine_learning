@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 based on decoderlayer of:
-https://www.tensorflow.org/tutorials/text/transformer#encoder_layer
+https://www.tensorflow.org/tutorials/text/transformer#decoder_layer
 Decoder Block
 remember to use tensorflow 1.15 or higher
 """

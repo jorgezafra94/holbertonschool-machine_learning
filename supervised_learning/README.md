@@ -75,3 +75,29 @@ Here we are going to create ou own Yolo3 using darknet to process the images
 * creating a model including layers in keras
 * evaluate distance between pictures after embeding
 * use opencv cv2
+## RNN
+* Simple RNN
+* Forward propagation Simple RNN
+* GRU RNN
+* LSTM RNN
+* Forward propagation deep RNN
+* Bidirectional RNN
+* Forward and backward prop Bidirectional RNN
+## Time Series
+* prediction of BITCOIN value
+* LSTM RNN
+* Time windows
+* Time steps in future
+## Word Embedding
+* Word2Vec
+* embedding of words
+* Fasttext
+## NLP Metrics
+* calculate Bleu Score unigram
+* calculate Bleu Score n-gram
+* calculate Bleu Score cumulative
+## Attention
+* Transformers
+* Encoder, Decoder
+* EncoderBLock, DecoderBlock
+* positional Encoding

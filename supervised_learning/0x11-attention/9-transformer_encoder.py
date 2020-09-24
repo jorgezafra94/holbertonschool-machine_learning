@@ -66,7 +66,6 @@ class Encoder(tf.keras.layers.Layer):
         # adding embedding and position encoding.
         embedding = self.embedding(x)  # (batch_size, input_seq_len, d_model)
         embedding *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
-        print(self.positional_encoding.shape)
         embedding += self.positional_encoding[:seq_len]
 
         encoder_out = self.dropout(embedding, training=training)

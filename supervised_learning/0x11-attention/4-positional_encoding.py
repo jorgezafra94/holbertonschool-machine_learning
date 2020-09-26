@@ -32,4 +32,4 @@ def positional_encoding(position, d_model):
 
     pos_encoding = angle_rads[np.newaxis, ...]
 
-    return pos_encoding
+    return pos_encoding[0]

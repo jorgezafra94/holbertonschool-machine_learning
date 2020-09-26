@@ -1,28 +1,29 @@
 #!/usr/bin/env python3
 """
 get it from:
-https://datascience.stackexchange.com/questions
-/51065/what-is-the-positional-encoding-in-the-transformer-model
+https://www.tensorflow.org/tutorials/text/transformer#positional_encoding
 Positional Encoding
 """
 
 import numpy as np
 
 
-def positional_encoding(max_seq_len, dm):
-    """
-    max_seq_len is an integer representing the maximum sequence length
-    dm is the model depth
+def get_angles(pos, i, d_model):
+    angle_rates = 1 / np.power(10000, (2 * (i//2)) / np.float32(d_model))
+    return pos * angle_rates
 
-    Returns: a numpy.ndarray of shape (max_seq_len, dm) containing the
-    positional encoding vectors
-    """
-    result = np.zeros((max_seq_len, dm))
 
-    for i in range(max_seq_len):
-        for j in range(0, dm, 2):
-            div_term = np.exp(j * -np.log(10000.0) / dm)
-            result[i, j] = np.sin(i * div_term)
-            result[i, j + 1] = np.cos(i * div_term)
+def positional_encoding(position, d_model):
+    angle_rads = get_angles(np.arange(position)[:, np.newaxis],
+                            np.arange(d_model)[np.newaxis, :],
+                            d_model)
 
-    return result
+    # apply sin to even indices in the array; 2i
+    angle_rads[:, 0::2] = np.sin(angle_rads[:, 0::2])
+
+    # apply cos to odd indices in the array; 2i+1
+    angle_rads[:, 1::2] = np.cos(angle_rads[:, 1::2])
+
+    pos_encoding = angle_rads[np.newaxis, ...]
+
+    return pos_encoding

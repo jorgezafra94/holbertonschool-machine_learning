@@ -43,11 +43,11 @@ class Encoder(tf.keras.layers.Layer):
         self.N = N
         self.dm = dm
 
-        self.embedding = tf.keras.layers.Embedding(input_vocab, self.dm)
+        self.embedding = tf.keras.layers.Embedding(input_vocab, dm)
         self.positional_encoding = positional_encoding(max_seq_len, self.dm)
 
         self.blocks = [EncoderBlock(dm, h, hidden, drop_rate)
-                       for i in range(N)]
+                       for _ in range(N)]
 
         self.dropout = tf.keras.layers.Dropout(drop_rate)
 
@@ -61,7 +61,7 @@ class Encoder(tf.keras.layers.Layer):
         Returns: a tensor of shape (batch, input_seq_len, dm) containing
         the encoder output
         """
-        seq_len = tf.shape(x)[1]
+        seq_len = x.shape[1]
         # adding embedding and position encoding.
         embedding = self.embedding(x)  # (batch_size, input_seq_len, d_model)
         embedding *= tf.math.sqrt(tf.cast(self.dm, tf.float32))

@@ -235,6 +235,5 @@ SFF
 FHH
 FF'G'
 1.0
-None
 
 ```

@@ -27,8 +27,7 @@ def play(env, Q, max_steps=100):
         new_state, reward, done, info = env.step(action)
         if done is True:
             env.render()
-            print(reward)
-            break
+            return reward
         else:
             env.render()
             state = new_state

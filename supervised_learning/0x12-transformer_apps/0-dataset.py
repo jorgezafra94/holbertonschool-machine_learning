@@ -31,7 +31,7 @@ class Dataset():
         self.data_train = examples['train']
         self.data_valid = examples['validation']
         PT, EN = self.tokenize_dataset(self.data_train)
-        self.tokenizer_pt, self.tokenizer_en = PT, EN
+        self.tokenizer_en, self.tokenizer_pt = PT, EN
 
     def tokenize_dataset(self, data):
         """

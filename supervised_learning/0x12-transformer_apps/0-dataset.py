@@ -46,10 +46,10 @@ class Dataset():
         * tokenizer_pt is the Portuguese tokenizer
         * tokenizer_en is the English tokenizer
         """
-        tokenizer_en = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
+        tokenizer_en = tfds.features.text.SubwordTextEncoder.build_from_corpus(
             (en.numpy() for pt, en in data), target_vocab_size=2 ** 15)
 
-        tokenizer_pt = tfds.deprecated.text.SubwordTextEncoder.build_from_corpus(
+        tokenizer_pt = tfds.features.text.SubwordTextEncoder.build_from_corpus(
             (pt.numpy() for pt, en in data), target_vocab_size=2 ** 15)
 
         return (tokenizer_pt, tokenizer_en)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert a Numpy to a Pandas
+Convert a dictionary to Pandas
 """
 
 import pandas as pd

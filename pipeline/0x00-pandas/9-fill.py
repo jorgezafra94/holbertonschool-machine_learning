@@ -16,9 +16,9 @@ df = df[cols]
 
 df['Close'].fillna(method='ffill', inplace=True)
 
-df = df.fillna({'Open': df['Close'],
-                'High': df['Close'],
-                'Low': df['Close']})
+df = df.fillna({'Open': df['Close'].shift(1, fill_value=0),
+                'High': df['Close'].shift(1, fill_value=0),
+                'Low': df['Close'].shift(1, fill_value=0)})
 
 df = df.fillna({'Volume_(BTC)': 0,
                 'Volume_(Currency)': 0})

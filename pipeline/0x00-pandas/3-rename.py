@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+rename the column on a Dataframe
+"""
 
 import pandas as pd
 from_file = __import__('2-from_file').from_file

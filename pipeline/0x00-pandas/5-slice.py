@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+getting each 60th row and some cols
+"""
 import pandas as pd
 from_file = __import__('2-from_file').from_file
 

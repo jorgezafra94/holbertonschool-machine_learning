@@ -13,4 +13,4 @@ pd.set_option('display.max_columns', 6)
 
 df = df.sort_values(by=['Timestamp'], ascending=False).transpose()
 
-print(df.tail())
+print(df.tail(8))

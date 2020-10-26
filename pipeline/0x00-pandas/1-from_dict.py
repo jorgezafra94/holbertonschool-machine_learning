@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Convert a dictionary to Pandas
+using DS4A knowledge
 """
 
 import pandas as pd

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+convert a dataframe into a numpy array
+"""
 
 import pandas as pd
 

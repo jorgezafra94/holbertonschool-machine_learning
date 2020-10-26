@@ -12,9 +12,11 @@ def from_numpy(array):
     """
     pd.set_option('display.max_columns', None)
     my_pandas = pd.DataFrame(array)
+
     # control more than 26 columns we restrict
     if my_pandas.shape[1] > 26:
-        my_pandas = my_pandas[:26]
+        my_pandas = my_pandas.iloc[:, 0:26]
+
     # giving column names alphabetical order and capitalized
     cols_name = []
     for i in range(len(my_pandas.columns.tolist())):

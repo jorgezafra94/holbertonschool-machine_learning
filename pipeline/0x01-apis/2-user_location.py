@@ -15,10 +15,9 @@ if __name__ == '__main__':
         data = requests.get(url, params=header)
 
         if data.status_code == 403:
-            ratelimit = data.headers['X-Ratelimit-Reset']
-            now = time.time()
-            result = int((int(ratelimit) - now) / 60)
-            print('Reset in {} min'.format(result))
+            reset = data.headers['X-Ratelimit-Reset']
+            X = int((int(reset) - int(time.time())) / 60)
+            print("Reset in {} min".format(X))
 
         elif data.status_code == 200:
             response = data.json()

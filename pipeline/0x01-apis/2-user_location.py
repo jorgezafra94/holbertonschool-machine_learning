@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-rate github api
-"""
+""" script that prints the location of a specific github user"""
 
 import sys
 import requests

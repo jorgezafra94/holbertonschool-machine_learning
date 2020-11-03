@@ -1,0 +1,3 @@
+// with this command we will be able to create if not exists or use a database
+// this database will no appear in dbs because it doesnt have at least one element inside
+use my_db

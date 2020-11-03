@@ -1,0 +1,4 @@
+// update documents that match name='Holberton school'
+// and add the field 'addres'='972 Mission street'
+// and it has to be applied to all the match
+db.school.update({'name': 'Holberton school'}, {'$set': {'address': '972 Mission street'}}, {multi:true})

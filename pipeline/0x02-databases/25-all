@@ -1,0 +1,4 @@
+// this is how we can list all documents in a collection
+// in this case the collection is school and again we are gonna pass
+// the database in the bash command
+db.school.find()

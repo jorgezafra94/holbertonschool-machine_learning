@@ -1,0 +1,3 @@
+// here we are going to add a new document in our database inside a new collection
+// as we are going to use  cat 24-insert | mongo my_db so we just need to add the collection
+db.school.insert({'name': 'Holberton school'})

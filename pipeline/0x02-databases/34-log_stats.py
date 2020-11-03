@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods:
-        num_met = logs_collection.count_documents({"method": method})
+        num_met = collection_logs.count_documents({"method": method})
         print("\tmethod {}: {}".format(method, num_met))
 
     my_dicti = {"method": "GET", "path": "/status"}

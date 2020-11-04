@@ -831,3 +831,780 @@ id  name    average_score
 2   Jeanne  82
 ubuntu:~$ 
 ```
+
+## Task21. Safe divide
+Write a SQL script that creates a function SafeDiv that divides (and returns) the first by the second number or returns 0 if the second number is equal to 0.<br>
+<br>
+Requirements:
+* You must create a function
+* The function SafeDiv takes 2 arguments:
+* * a, INT
+* * b, INT
+* And returns a / b or 0 if b == 0
+
+```
+ubuntu:~$ cat 21-init.sql
+-- Initial
+DROP TABLE IF EXISTS numbers;
+
+CREATE TABLE IF NOT EXISTS numbers (
+    a int default 0,
+    b int default 0
+);
+
+INSERT INTO numbers (a, b) VALUES (10, 2);
+INSERT INTO numbers (a, b) VALUES (4, 5);
+INSERT INTO numbers (a, b) VALUES (2, 3);
+INSERT INTO numbers (a, b) VALUES (6, 3);
+INSERT INTO numbers (a, b) VALUES (7, 0);
+INSERT INTO numbers (a, b) VALUES (6, 8);
+
+ubuntu:~$ cat 21-init.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ cat 21-div.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ echo "SELECT (a / b) FROM numbers;" | mysql -uroot -p holberton
+Enter password: 
+(a / b)
+5.0000
+0.8000
+0.6667
+2.0000
+NULL
+0.7500
+ubuntu:~$ 
+ubuntu:~$ echo "SELECT SafeDiv(a, b) FROM numbers;" | mysql -uroot -p holberton
+Enter password: 
+SafeDiv(a, b)
+5
+0.800000011920929
+0.6666666865348816
+2
+0
+0.75
+ubuntu:~$ 
+```
+
+## Task22 - List all databases
+Write a script that lists all databases in MongoDB.
+
+```
+ubuntu:~/$ cat 22-list_databases | mongo
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.3
+admin        0.000GB
+config       0.000GB
+local        0.000GB
+logs         0.005GB
+bye
+ubuntu:~/$
+```
+
+## Task23 - Create a database
+Write a script that creates or uses the database my_db
+
+```
+ubuntu:~/$ cat 22-list_databases | mongo
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.3
+admin        0.000GB
+config       0.000GB
+local        0.000GB
+logs         0.005GB
+bye
+ubuntu:~/$
+ubuntu:~/$ cat 23-use_or_create_database | mongo
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.3
+switched to db my_db
+bye
+ubuntu:~/$
+```
+
+## Task24. Insert document
+Write a script that inserts a document in the collection school:<br>
+<br>
+* The document must have one attribute name with value “Holberton school”
+* The database name will be passed as option of mongo command
+
+```
+ubuntu:~/$ cat 24-insert | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+WriteResult({ "nInserted" : 1 })
+bye
+ubuntu:~/$
+```
+
+## Task25 - All documents
+Write a script that lists all documents in the collection school:<br>
+The database name will be passed as option of mongo command<br>
+
+```
+ubuntu:~/$ cat 25-all | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+{ "_id" : ObjectId("5a8fad532b69437b63252406"), "name" : "Holberton school" }
+bye
+ubuntu:~/$
+```
+
+## Task26 - All matches
+Write a script that lists all documents with name="Holberton school" in the collection school:<br>
+The database name will be passed as option of mongo command<br>
+
+```
+ubuntu:~/$ cat 26-match | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+{ "_id" : ObjectId("5a8fad532b69437b63252406"), "name" : "Holberton school" }
+bye
+ubuntu:~/$
+```
+
+## Task27 - Count
+Write a script that displays the number of documents in the collection school:<br>
+The database name will be passed as option of mongo command<br>
+
+```
+ubuntu:~/$ cat 27-count | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+1
+bye
+ubuntu:~/$
+```
+
+## Task28 - Update
+Write a script that adds a new attribute to a document in the collection school:<br>
+<br>
+* The script should update only document with name="Holberton school" (all of them)
+* The update should add the attribute address with the value “972 Mission street”
+* The database name will be passed as option of mongo command
+
+```
+ubuntu:~/$ cat 28-update | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+bye
+ubuntu:~/$ 
+ubuntu:~/$ cat 26-match | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+{ "_id" : ObjectId("5a8fad532b69437b63252406"), "name" : "Holberton school", "address" : "972 Mission street" }
+bye
+ubuntu:~/$
+```
+
+## Task29 - Delete by match
+Write a script that deletes all documents with name="Holberton school" in the collection school:<br>
+The database name will be passed as option of mongo command<br>
+
+```
+ubuntu:~/$ cat 29-delete | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+{ "acknowledged" : true, "deletedCount" : 1 }
+bye
+ubuntu:~/$ 
+ubuntu:~/$ cat 26-match | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+bye
+ubuntu:~/$ 
+```
+
+## Task30 - List all documents in Python
+Write a Python function that lists all documents in a collection:<br>
+* Prototype: def list_all(mongo_collection):
+* Return an empty list if no document in the collection
+* mongo_collection will be the pymongo collection object
+
+```
+ubuntu:~/$ cat 30-main.py
+#!/usr/bin/env python3
+""" 30-main """
+from pymongo import MongoClient
+list_all = __import__('30-all').list_all
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {}".format(school.get('_id'), school.get('name')))
+
+ubuntu:~/$ 
+ubuntu:~/$ ./30-main.py
+[5a8f60cfd4321e1403ba7ab9] Holberton school
+[5a8f60cfd4321e1403ba7aba] UCSD
+ubuntu:~/$ 
+```
+
+## Task31 - Insert a document in Python
+Write a Python function that inserts a new document in a collection based on kwargs:<br>
+* Prototype: def insert_school(mongo_collection, **kwargs):
+* mongo_collection will be the pymongo collection object
+* Returns the new _id
+
+```
+ubuntu:~/$ cat 31-main.py
+#!/usr/bin/env python3
+""" 31-main """
+from pymongo import MongoClient
+list_all = __import__('30-all').list_all
+insert_school = __import__('31-insert_school').insert_school
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    new_school_id = insert_school(school_collection, name="UCSF", address="505 Parnassus Ave")
+    print("New school created: {}".format(new_school_id))
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('address', "")))
+
+ubuntu:~/$ 
+ubuntu:~/$ ./31-main.py
+New school created: 5a8f60cfd4321e1403ba7abb
+[5a8f60cfd4321e1403ba7ab9] Holberton school
+[5a8f60cfd4321e1403ba7aba] UCSD
+[5a8f60cfd4321e1403ba7abb] UCSF 505 Parnassus Ave
+ubuntu:~/$ 
+```
+
+## Task32 - Change school topics
+Write a Python function that changes all topics of a school document based on the name:<br>
+* Prototype: def update_topics(mongo_collection, name, topics):
+* mongo_collection will be the pymongo collection object
+* name (string) will be the school name to update
+* topics (list of strings) will be the list of topics approached in the school
+
+```
+ubuntu:~/$ cat 32-main.py
+#!/usr/bin/env python3
+""" 32-main """
+from pymongo import MongoClient
+list_all = __import__('30-all').list_all
+update_topics = __import__('32-update_topics').update_topics
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+    update_topics(school_collection, "Holberton school", ["Sys admin", "AI", "Algorithm"])
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+
+    update_topics(school_collection, "Holberton school", ["iOS"])
+
+    schools = list_all(school_collection)
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+
+ubuntu:~/$ 
+ubuntu:~/$ ./32-main.py
+[5a8f60cfd4321e1403ba7abb] UCSF 
+[5a8f60cfd4321e1403ba7aba] UCSD 
+[5a8f60cfd4321e1403ba7ab9] Holberton school ['Sys admin', 'AI', 'Algorithm']
+[5a8f60cfd4321e1403ba7abb] UCSF 
+[5a8f60cfd4321e1403ba7aba] UCSD 
+[5a8f60cfd4321e1403ba7ab9] Holberton school ['iOS']
+ubuntu:~/$ 
+```
+
+## Task33 - Where can I learn Python?
+Write a Python function that returns the list of school having a specific topic:<br>
+* Prototype: def schools_by_topic(mongo_collection, topic):
+* mongo_collection will be the pymongo collection object
+* topic (string) will be topic searched
+
+```
+ubuntu:~/$ cat 33-main.py
+#!/usr/bin/env python3
+""" 33-main """
+from pymongo import MongoClient
+list_all = __import__('30-all').list_all
+insert_school = __import__('31-insert_school').insert_school
+schools_by_topic = __import__('33-schools_by_topic').schools_by_topic
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    school_collection = client.my_db.school
+
+    j_schools = [
+        { 'name': "Holberton school", 'topics': ["Algo", "C", "Python", "React"]},
+        { 'name': "UCSF", 'topics': ["Algo", "MongoDB"]},
+        { 'name': "UCLA", 'topics': ["C", "Python"]},
+        { 'name': "UCSD", 'topics': ["Cassandra"]},
+        { 'name': "Stanford", 'topics': ["C", "React", "Javascript"]}
+    ]
+    for j_school in j_schools:
+        insert_school(school_collection, **j_school)
+
+    schools = schools_by_topic(school_collection, "Python")
+    for school in schools:
+        print("[{}] {} {}".format(school.get('_id'), school.get('name'), school.get('topics', "")))
+
+ubuntu:~/$ 
+ubuntu:~/$ ./33-main.py
+[5a90731fd4321e1e5a3f53e3] Holberton school ['Algo', 'C', 'Python', 'React']
+[5a90731fd4321e1e5a3f53e5] UCLA ['C', 'Python']
+ubuntu:~/$ 
+```
+
+## Task34 - Log stats
+Write a Python script that provides some stats about Nginx logs stored in MongoDB:<br>
+* Database: logs
+* Collection: nginx
+* Display (same as the example):
+* first line: x logs where x is the number of documents in this collection
+* second line: Methods:
+* 5 lines with the number of documents with the method = ["GET", "POST", "PUT", "PATCH", "DELETE"] in this order (see example below - warning: it’s a tabulation before each line)
+* one line with the number of documents with:
+* method=GET
+* path=/status
+* You can use this dump as data sample: [dump.zip](https://intranet.hbtn.io/rltoken/ABbXLSMgl9rdlOWf-26A9A)
+
+```
+ubuntu:~/$ curl -o dump.zip -s "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-webstack/411/dump.zip"
+ubuntu:~/$ 
+ubuntu:~/$ unzip dump.zip
+Archive:  dump.zip
+   creating: dump/
+   creating: dump/logs/
+  inflating: dump/logs/nginx.metadata.json  
+  inflating: dump/logs/nginx.bson    
+ubuntu:~/$ 
+ubuntu:~/$ mongorestore dump
+2018-02-23T20:12:37.807+0000    preparing collections to restore from
+2018-02-23T20:12:37.816+0000    reading metadata for logs.nginx from dump/logs/nginx.metadata.json
+2018-02-23T20:12:37.825+0000    restoring logs.nginx from dump/logs/nginx.bson
+2018-02-23T20:13:06.230+0000    no indexes to restore
+2018-02-23T20:13:06.231+0000    finished restoring logs.nginx (94778 documents)
+2018-02-23T20:13:06.232+0000    done
+ubuntu:~/$ 
+ubuntu:~/$ ./34-log_stats.py 
+94778 logs
+Methods:
+    method GET: 93842
+    method POST: 229
+    method PUT: 0
+    method PATCH: 0
+    method DELETE: 0
+47415 status check
+ubuntu:~/$ 
+```
+
+## Task100 - Optimize simple search
+Write a SQL script that creates an index idx_name_first on the table names and the first letter of name.<br>
+<br>
+Requirements:<br>
+* Import this table dump: names.sql.zip
+* Only the first letter of name must be indexed
+
+```
+ubuntu:~$ cat names.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ mysql -uroot -p holberton
+Enter password: 
+mysql> SELECT COUNT(name) FROM names WHERE name LIKE 'a%';
++-------------+
+| COUNT(name) |
++-------------+
+|      302936 |
++-------------+
+1 row in set (2.19 sec)
+mysql> 
+mysql> exit
+bye
+ubuntu:~$ 
+ubuntu:~$ cat 100-index_my_names.sql | mysql -uroot -p holberton 
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ mysql -uroot -p holberton
+Enter password: 
+mysql> SHOW index FROM names;
++-------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name       | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| names |          1 | idx_name_first |            1 | name        | A         |          25 |        1 | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.00 sec)
+mysql> 
+mysql> SELECT COUNT(name) FROM names WHERE name LIKE 'a%';
++-------------+
+| COUNT(name) |
++-------------+
+|      302936 |
++-------------+
+1 row in set (0.82 sec)
+mysql> 
+mysql> exit
+bye
+ubuntu:~$ 
+```
+
+## Task101 - Optimize search and score
+Write a SQL script that creates an index idx_name_first_score on the table names and the first letter of name and the score.<br>
+<br>
+Requirements:<br>
+* Import this table dump: names.sql.zip
+* Only the first letter of name AND score must be indexed
+
+```
+ubuntu:~$ cat names.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ mysql -uroot -p holberton
+Enter password: 
+mysql> SELECT COUNT(name) FROM names WHERE name LIKE 'a%' AND score < 80;
++-------------+
+| count(name) |
++-------------+
+|       60717 |
++-------------+
+1 row in set (2.40 sec)
+mysql> 
+mysql> exit
+bye
+ubuntu:~$ 
+ubuntu:~$ cat 101-index_name_score.sql | mysql -uroot -p holberton 
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ mysql -uroot -p holberton
+Enter password: 
+mysql> SHOW index FROM names;
++-------+------------+----------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name             | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| names |          1 | idx_name_first_score |            1 | name        | A         |          25 |        1 | NULL   | YES  | BTREE      |         |               |
+| names |          1 | idx_name_first_score |            2 | score       | A         |        3901 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------------------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+2 rows in set (0.00 sec)
+mysql> 
+mysql> SELECT COUNT(name) FROM names WHERE name LIKE 'a%' AND score < 80;
++-------------+
+| COUNT(name) |
++-------------+
+|       60717 |
++-------------+
+1 row in set (0.48 sec)
+mysql> 
+mysql> exit
+bye
+ubuntu:~$ 
+```
+
+## Task102 - No table for a meeting
+Write a SQL script that creates a view need_meeting that lists all students that have a score under 80 (strict) and no last_meeting or more than 1 month.<br>
+<br>
+Requirements:
+* The view need_meeting should return all students name when:
+* They score are under (strict) to 80
+* AND no last_meeting date OR more than a month
+
+```
+ubuntu:~$ cat 102-init.sql
+-- Initial
+DROP TABLE IF EXISTS students;
+
+CREATE TABLE IF NOT EXISTS students (
+    name VARCHAR(255) NOT NULL,
+    score INT default 0,
+    last_meeting DATE NULL 
+);
+
+INSERT INTO students (name, score) VALUES ("Bob", 80);
+INSERT INTO students (name, score) VALUES ("Sylvia", 120);
+INSERT INTO students (name, score) VALUES ("Jean", 60);
+INSERT INTO students (name, score) VALUES ("Steeve", 50);
+INSERT INTO students (name, score) VALUES ("Camilia", 80);
+INSERT INTO students (name, score) VALUES ("Alexa", 130);
+
+ubuntu:~$ cat 102-init.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ cat 102-need_meeting.sql | mysql -uroot -p holberton
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ cat 102-main.sql
+-- Test view
+SELECT * FROM need_meeting;
+
+SELECT "--";
+
+UPDATE students SET score = 40 WHERE name = 'Bob';
+SELECT * FROM need_meeting;
+
+SELECT "--";
+
+UPDATE students SET score = 80 WHERE name = 'Steeve';
+SELECT * FROM need_meeting;
+
+SELECT "--";
+
+UPDATE students SET last_meeting = CURDATE() WHERE name = 'Jean';
+SELECT * FROM need_meeting;
+
+SELECT "--";
+
+UPDATE students SET last_meeting = ADDDATE(CURDATE(), INTERVAL -2 MONTH) WHERE name = 'Jean';
+SELECT * FROM need_meeting;
+
+SELECT "--";
+
+SHOW CREATE TABLE need_meeting;
+
+SELECT "--";
+
+SHOW CREATE TABLE students;
+
+ubuntu:~$ 
+ubuntu:~$ cat 102-main.sql | mysql -uroot -p holberton
+Enter password: 
+name
+Jean
+Steeve
+--
+--
+name
+Bob
+Jean
+Steeve
+--
+--
+name
+Bob
+Jean
+--
+--
+name
+Bob
+--
+--
+name
+Bob
+Jean
+--
+--
+View    Create View character_set_client    collation_connection
+XXXXXX<yes, here it will display the View SQL statement :-) >XXXXXX
+--
+--
+Table   Create Table
+students    CREATE TABLE `students` (\n  `name` varchar(255) NOT NULL,\n  `score` int(11) DEFAULT '0',\n  `last_meeting` date DEFAULT NULL\n) ENGINE=InnoDB DEFAULT CHARSET=latin1
+ubuntu:~$ 
+```
+
+## Task103 - Average weighted score 
+Write a SQL script that creates a stored procedure ComputeAverageWeightedScoreForUser that computes and store the average weighted score for a student.<br>
+<br>
+Requirements:<br>
+* Procedure ComputeAverageScoreForUser is taking 1 input:
+* user_id, a users.id value (you can assume user_id is linked to an existing users)
+
+```
+ubuntu:~$ cat 103-init.sql
+-- Initial
+DROP TABLE IF EXISTS corrections;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS projects;
+
+CREATE TABLE IF NOT EXISTS users (
+    id int not null AUTO_INCREMENT,
+    name varchar(255) not null,
+    average_score float default 0,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+    id int not null AUTO_INCREMENT,
+    name varchar(255) not null,
+    weight int default 1,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS corrections (
+    user_id int not null,
+    project_id int not null,
+    score float default 0,
+    KEY `user_id` (`user_id`),
+    KEY `project_id` (`project_id`),
+    CONSTRAINT fk_user_id FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+    CONSTRAINT fk_project_id FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
+);
+
+INSERT INTO users (name) VALUES ("Bob");
+SET @user_bob = LAST_INSERT_ID();
+
+INSERT INTO users (name) VALUES ("Jeanne");
+SET @user_jeanne = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("C is fun", 1);
+SET @project_c = LAST_INSERT_ID();
+
+INSERT INTO projects (name, weight) VALUES ("Python is cool", 2);
+SET @project_py = LAST_INSERT_ID();
+
+
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_c, 80);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_bob, @project_py, 96);
+
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_c, 91);
+INSERT INTO corrections (user_id, project_id, score) VALUES (@user_jeanne, @project_py, 73);
+
+ubuntu:~$ 
+ubuntu:~$ cat 103-init.sql | mysql -uroot -p holberton 
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ cat 103-average_weighted_score.sql | mysql -uroot -p holberton 
+Enter password: 
+ubuntu:~$ 
+ubuntu:~$ cat 103-main.sql
+-- Show and compute average weighted score
+SELECT * FROM users;
+SELECT * FROM projects;
+SELECT * FROM corrections;
+
+CALL ComputeAverageWeightedScoreForUser((SELECT id FROM users WHERE name = "Jeanne"));
+
+SELECT "--";
+SELECT * FROM users;
+
+ubuntu:~$ 
+ubuntu:~$ cat 103-main.sql | mysql -uroot -p holberton 
+Enter password: 
+id  name    average_score
+1   Bob 0
+2   Jeanne  82
+id  name    weight
+1   C is fun    1
+2   Python is cool  2
+user_id project_id  score
+1   1   80
+1   2   96
+2   1   91
+2   2   73
+--
+--
+id  name    average_score
+1   Bob 0
+2   Jeanne  79
+ubuntu:~$ 
+```
+
+## Task104 - Regex filter
+Write a script that lists all documents with name starting by Holberton in the collection school:<br>
+The database name will be passed as option of mongo command<br>
+
+```
+ubuntu:~/$ cat 104-find | mongo my_db
+MongoDB shell version v3.6.3
+connecting to: mongodb://127.0.0.1:27017/my_db
+MongoDB server version: 3.6.3
+{ "_id" : ObjectId("5a90731fd4321e1e5a3f53e3"), "name" : "Holberton school" }
+{ "_id" : ObjectId("5a90731fd4321e1e5a3f53e3"), "name" : "Holberton School" }
+{ "_id" : ObjectId("5a90731fd4321e1e5a3f53e3"), "name" : "Holberton-school" }
+bye
+ubuntu:~/$
+```
+
+## Task105 - Top students
+Write a Python function that returns all students sorted by average score:<br>
+<br>
+* Prototype: def top_students(mongo_collection):
+* mongo_collection will be the pymongo collection object
+* The top must be ordered
+* The average score must be part of each item returns with key = averageScore
+
+```
+ubuntu:~/0x0D$ cat 105-main.py
+#!/usr/bin/env python3
+""" 105-main """
+from pymongo import MongoClient
+list_all = __import__('30-all').list_all
+insert_school = __import__('31-insert_school').insert_school
+top_students = __import__('105-students').top_students
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    students_collection = client.my_db.students
+
+    j_students = [
+        { 'name': "John", 'topics': [{ 'title': "Algo", 'score': 10.3 },{ 'title': "C", 'score': 6.2 }, { 'title': "Python", 'score': 12.1 }]},
+        { 'name': "Bob", 'topics': [{ 'title': "Algo", 'score': 5.4 },{ 'title': "C", 'score': 4.9 }, { 'title': "Python", 'score': 7.9 }]},
+        { 'name': "Sonia", 'topics': [{ 'title': "Algo", 'score': 14.8 },{ 'title': "C", 'score': 8.8 }, { 'title': "Python", 'score': 15.7 }]},
+        { 'name': "Amy", 'topics': [{ 'title': "Algo", 'score': 9.1 },{ 'title': "C", 'score': 14.2 }, { 'title': "Python", 'score': 4.8 }]},
+        { 'name': "Julia", 'topics': [{ 'title': "Algo", 'score': 10.5 },{ 'title': "C", 'score': 10.2 }, { 'title': "Python", 'score': 10.1 }]}
+    ]
+    for j_student in j_students:
+        insert_school(students_collection, **j_student)
+
+    students = list_all(students_collection)
+    for student in students:
+        print("[{}] {} - {}".format(student.get('_id'), student.get('name'), student.get('topics')))
+
+    top_students = top_students(students_collection)
+    for student in top_students:
+        print("[{}] {} => {}".format(student.get('_id'), student.get('name'), student.get('averageScore')))
+
+ubuntu:~/0x0D$ 
+ubuntu:~/0x0D$ ./105-main.py
+[5a90776bd4321e1ec94fc408] John - [{'title': 'Algo', 'score': 10.3}, {'title': 'C', 'score': 6.2}, {'title': 'Python', 'score': 12.1}]
+[5a90776bd4321e1ec94fc409] Bob - [{'title': 'Algo', 'score': 5.4}, {'title': 'C', 'score': 4.9}, {'title': 'Python', 'score': 7.9}]
+[5a90776bd4321e1ec94fc40a] Sonia - [{'title': 'Algo', 'score': 14.8}, {'title': 'C', 'score': 8.8}, {'title': 'Python', 'score': 15.7}]
+[5a90776bd4321e1ec94fc40b] Amy - [{'title': 'Algo', 'score': 9.1}, {'title': 'C', 'score': 14.2}, {'title': 'Python', 'score': 4.8}]
+[5a90776bd4321e1ec94fc40c] Julia - [{'title': 'Algo', 'score': 10.5}, {'title': 'C', 'score': 10.2}, {'title': 'Python', 'score': 10.1}]
+[5a90776bd4321e1ec94fc40a] Sonia => 13.1
+[5a90776bd4321e1ec94fc40c] Julia => 10.266666666666666
+[5a90776bd4321e1ec94fc408] John => 9.533333333333333
+[5a90776bd4321e1ec94fc40b] Amy => 9.366666666666665
+[5a90776bd4321e1ec94fc409] Bob => 6.066666666666667
+ubuntu:~/0x0D$ 
+```
+
+## Task106 - Log stats - new version
+Improve 34-log_stats.py by adding the top 10 of the most present IPs in the collection nginx of the database logs:<br>
+The IPs top must be sorted (like the example below)<br>
+
+```
+ubuntu:~/$ ./106-log_stats.py 
+94778 logs
+Methods:
+    method GET: 93842
+    method POST: 229
+    method PUT: 0
+    method PATCH: 0
+    method DELETE: 0
+47415 status check
+IPs:
+    172.31.63.67: 15805
+    172.31.2.14: 15805
+    172.31.29.194: 15805
+    69.162.124.230: 529
+    64.124.26.109: 408
+    64.62.224.29: 217
+    34.207.121.61: 183
+    47.88.100.4: 166
+    45.249.84.250: 160
+    216.244.66.228: 150
+ubuntu:~/$ 
+```

@@ -1,40 +1,38 @@
 #!/usr/bin/env python3
 """
-nginx logs
+Log stats using pymongo
+https://docs.mongodb.com/manual/core/aggregation-pipeline-optimization/
 """
+
 from pymongo import MongoClient
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  
     client = MongoClient()
-    collection = client.logs.nginx
+    collection_logs = client.logs.nginx
+    num_logs = collection_logs.count_documents({})
 
-    # cursor = collection.find({})
-    # print(cursor[0])
-
-    number_logs = collection.count_documents({})
-    print("{} logs".format(number_logs))
-
+    print("{} logs".format(num_logs))
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
-    for method in methods:
-        query = {"method": method}
-        count_methods = collection.count_documents(query)
-        print("\tmethod {}: {}".format(method, count_methods))
 
-    query2 = {"method": "GET", "path": "/status"}
-    count2 = collection.count_documents(query2)
-    print("{} status check".format(count2))
+    for elem in methods:
+        docs_method = collection_logs.count_documents({'method': elem})
+        print("\tmethod {}: {}".format(elem, docs_method))
 
-    print("IPs:")
+    my_query= {"method": "GET", "path": "/status"}
+    status_check = collection_logs.count_documents(my_query)
+
+    print("{} status check".format(status_check))
+
+    print('IPs:')
 
     pipeline = [
         {"$sortByCount": '$ip'},
         {"$limit": 10},
         {"$sort": {"ip": -1}},
-
     ]
-    ips = collection.aggregate(pipeline)
+    ips = collection_logs.aggregate(pipeline)
 
     for ip in ips:
         print("\t{}: {}".format(ip['_id'], ip['count']))
-        

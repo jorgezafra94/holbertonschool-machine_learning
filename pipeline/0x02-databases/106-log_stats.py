@@ -42,7 +42,6 @@ if __name__ == "__main__":
         {"$sortByCount": '$ip'},
         {"$limit": 10},
         {"$sort": {"ip": -1}},
-
     ]
     ips = collection.aggregate(pipeline)
 

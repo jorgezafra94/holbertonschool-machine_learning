@@ -7,10 +7,7 @@ https://docs.mongodb.com/manual/core/aggregation-pipeline-optimization/
 from pymongo import MongoClient
 
 
-if __name__ == "__main__":
-    """
-    again printing some information from logs mongo db
-    """    
+if __name__ == "__main__":  
     client = MongoClient()
 
     collection_logs = client.logs.nginx

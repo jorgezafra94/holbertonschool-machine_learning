@@ -36,3 +36,12 @@ here are the bases of ML, things like
 - Markov chains
 - Bayesian Optimization
 - Autoencoders
+
+## Reinforcementlearning
+- Q-learning
+- Deep Q-learning
+
+## Pipelines
+- Pandas
+- API's
+- Databases

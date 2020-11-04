@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Log stats using pymongo
+https://docs.mongodb.com/manual/core/aggregation-pipeline-optimization/
 """
 
 from pymongo import MongoClient
@@ -28,30 +29,22 @@ if __name__ == "__main__":
     
     for elem in methods:
         docs_method = collection_logs.count_documents({'method': elem})
-        print('    method {}: {}'.format(elem, docs_method))
+        print("\tmethod {}: {}".format(elem, docs_method))
 
-    my_filter = {"method": "GET", "path": "/status"}
-    status_check = collection_logs.count_documents(my_filter)
+    my_query= {"method": "GET", "path": "/status"}
+    status_check = collection_logs.count_documents(my_query)
 
     print('{} status check'.format(status_check))
 
     print('IPs:')
 
-    for elem in collection_logs.find():
-        unique_ip.append(elem['ip'])
+    pipeline = [
+        {"$sortByCount": '$ip'},
+        {"$limit": 10},
+        {"$sort": {"ip": -1}},
 
-    unique_ip = list(set(unique_ip))
+    ]
+    ips = collection.aggregate(pipeline)
 
-    for elem in unique_ip:
-        num_ip = collection_logs.count_documents({'ip': elem})
-        ip_count.append((elem, num_ip))
-
-    result = sorted(ip_count, key=lambda x: x[1], reverse=True)
-    limit = 10
-    if len(result) < limit:
-        limit = len(result)
-    result = result[:limit]
-    result[0], result[1] = result[1], result[0]
-
-    for elem in result:
-        print('    {}: {}'.format(elem[0], elem[1]))
+    for ip in ips:
+        print("\t{}: {}".format(ip['_id'], ip['count']))

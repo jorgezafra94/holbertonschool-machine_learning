@@ -10,22 +10,18 @@ from pymongo import MongoClient
 if __name__ == "__main__":
     """
     again printing some information from logs mongo db
-    """
-
-    unique_ip = []
-    ip_count = []
-    
-    client = MongoClient('mongodb://127.0.0.1:27017')
+    """    
+    client = MongoClient()
 
     collection_logs = client.logs.nginx
 
     num_logs = collection_logs.count_documents({})
     
-    print('{} logs'.format(num_logs))
+    print("{} logs".format(num_logs))
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
-    print('Methods:')
+    print("Methods:")
     
     for elem in methods:
         docs_method = collection_logs.count_documents({'method': elem})
@@ -34,7 +30,7 @@ if __name__ == "__main__":
     my_query= {"method": "GET", "path": "/status"}
     status_check = collection_logs.count_documents(my_query)
 
-    print('{} status check'.format(status_check))
+    print("{} status check".format(status_check))
 
     print('IPs:')
 

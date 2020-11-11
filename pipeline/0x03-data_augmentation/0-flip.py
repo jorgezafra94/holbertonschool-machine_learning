@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-How to Flip an image with tensorflow
+How to Flip an 3D image with tensorflow
 """
 import tensorflow as tf
 

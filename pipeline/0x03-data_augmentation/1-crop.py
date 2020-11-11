@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Crop an image with tensorflow
+Crop a 3D image with tensorflow
 """
 import tensorflow as tf
 

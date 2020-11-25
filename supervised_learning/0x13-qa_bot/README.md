@@ -101,7 +101,7 @@ $
 ```
 
 ## Task4 - QA_bot
-Based on the previous tasks, write a function `def qa_bot(coprus_path):` that answers questions from multiple reference texts:<br>
+Based on the previous tasks, write a function `def qa_bot(corpus_path):` that answers questions from multiple reference texts:<br>
 <br>
 corpus_path is the path to the corpus of reference documents
 

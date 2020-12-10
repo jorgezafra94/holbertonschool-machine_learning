@@ -25,8 +25,8 @@ def td_lambtha(env, V, policy, lambtha, episodes=5000,
     * gamma is the discount rate
     Returns: V, the updated value estimate
     """
-    eligibility = np.zeros(env.observation_space.n)
     for i in range(episodes):
+        eligibility = np.zeros(env.observation_space.n)
         state = env.reset()
         for j in range(max_steps):
             action = policy(state)

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-* https://livebook.manning.com/book/grokking-deep-reinforcement-/
+* https://livebook.manning.com/book/grokking-deep-reinforcement-
   learning/chapter-3/v-4/74
-* https://medium.com/deep-math-machine-learning-ai/ch-12-1-model/
-  -free-reinforcement-learning-algorithms-monte-carlo-sarsa-q-/
+* https://medium.com/deep-math-machine-learning-ai/ch-12-1-model
+  -free-reinforcement-learning-algorithms-monte-carlo-sarsa-q-
   learning-65267cb8d1b4
 Monte Carlo Eveluate Policy
 """

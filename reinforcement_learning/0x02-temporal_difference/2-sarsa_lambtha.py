@@ -56,7 +56,8 @@ def sarsa_lambtha(env, Q, lambtha, episodes=5000, max_steps=100, alpha=0.1,
             f = reward + gamma * Q[new_state, new_action] - Q[state, action]
             e[state, action] += 1
 
-            Q[state, action] = Q[state, action] + alpha * f * e[state, action]
+            Q = Q + alpha * f * e
+            e = e * lambtha * gamma
             state = new_state
             action = new_action
 

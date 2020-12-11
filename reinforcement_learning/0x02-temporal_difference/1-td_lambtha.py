@@ -32,10 +32,10 @@ def td_lambtha(env, V, policy, lambtha, episodes=5000,
             action = policy(state)
             new_state, reward, done, _ = env.step(action)
 
-            td_error = reward + gamma * V[new_state] - V[state]
+            f = reward + gamma * V[new_state] - V[state]
             eligibility[state] += 1.0
 
-            V = V + alpha * td_error * eligibility
+            V = V + alpha * f * eligibility
             eligibility *= lambtha * gamma
 
             if done:

@@ -13,6 +13,7 @@ weight = np.random.rand(4, 2)
 state = env.reset()[None,:]
 # state = [[0.04228739, -0.04522399,  0.01190918, -0.03496226]]
 # state = np.array(state)
+
 print(weight)
 print(state)
 
